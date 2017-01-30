@@ -95,7 +95,7 @@ class ProcedimientosMedicosController extends \Phalcon\Mvc\Controller
 
         $status = 200;
         $msnStatus = 'OK';
-        $this->_data = $montoBaremos->monto;
+        $this->_data = $montoBaremos ? $montoBaremos->monto : 555;
         $this->_mensajes = [
             "msnConsult" => 'Consulta relizada con exito',
         ];

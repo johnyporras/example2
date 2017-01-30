@@ -66,7 +66,7 @@ class AcClavesDetalle extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("altocentroTest");
+        $this->setSchema("altocentro");
     }
 
     /**
