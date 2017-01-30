@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="PostgreSQL - rabricen_altocentro@localhost" uuid="610bd748-9d49-4822-a8cf-888a4d7b83f8">
+      <secret-storage>master_key</secret-storage>
+      <user-name>postgres</user-name>
+      <schema-pattern>rabricen_altocentro.altocentro</schema-pattern>
+      <default-schemas>rabricen_altocentro.altocentro</default-schemas>
+    </data-source>
+  </component>
+</project>

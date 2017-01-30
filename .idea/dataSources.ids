@@ -1,0 +1,2733 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="PostgreSQL - rabricen_altocentro@localhost" uuid="610bd748-9d49-4822-a8cf-888a4d7b83f8">
+    <database-info product="PostgreSQL" version="9.5.4" jdbc-version="4.0" driver-name="PostgreSQL Native Driver" driver-version="PostgreSQL 9.4.1208">
+      <identifier-quote-string>&quot;</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact"/>
+    <database-model serializer="dbm" rdbms="POSTGRES" format-version="2.4">
+      <database id="1" name="rabricen_altocentro"/>
+      <schema id="2" parent="1" name="altocentro">
+        <object-id>18922</object-id>
+        <introspection-state-number>1365362</introspection-state-number>
+        <introspection-timestamp>2016-12-07.16:59:50.869</introspection-timestamp>
+      </schema>
+      <sequence id="3" parent="2" name="ac_afiliados_id_seq">
+        <object-id>18932</object-id>
+        <state-number>2595</state-number>
+      </sequence>
+      <sequence id="4" parent="2" name="ac_afiliados_temporales_id_seq">
+        <object-id>18942</object-id>
+        <state-number>2598</state-number>
+      </sequence>
+      <sequence id="5" parent="2" name="ac_aseguradora_id_seq">
+        <object-id>18947</object-id>
+        <state-number>2601</state-number>
+      </sequence>
+      <sequence id="6" parent="2" name="ac_baremos_id_seq">
+        <object-id>18955</object-id>
+        <state-number>2604</state-number>
+      </sequence>
+      <sequence id="7" parent="2" name="ac_carta_aval_detalle_id_seq">
+        <object-id>18966</object-id>
+        <state-number>2608</state-number>
+      </sequence>
+      <sequence id="8" parent="2" name="ac_carta_aval_id_seq">
+        <object-id>18968</object-id>
+        <state-number>2610</state-number>
+      </sequence>
+      <sequence id="9" parent="2" name="ac_citas_acc_id_seq">
+        <object-id>18977</object-id>
+        <state-number>2613</state-number>
+      </sequence>
+      <sequence id="10" parent="2" name="ac_citas_odontologicas_id_seq">
+        <object-id>18985</object-id>
+        <state-number>2616</state-number>
+      </sequence>
+      <sequence id="11" parent="2" name="ac_clave_odontologica_id_seq">
+        <object-id>18993</object-id>
+        <state-number>2620</state-number>
+      </sequence>
+      <sequence id="12" parent="2" name="ac_claves_detalle_id_seq">
+        <object-id>19004</object-id>
+        <state-number>2624</state-number>
+      </sequence>
+      <sequence id="13" parent="2" name="ac_claves_id_seq">
+        <object-id>19006</object-id>
+        <state-number>2626</state-number>
+      </sequence>
+      <sequence id="14" parent="2" name="ac_cobertura_extranet_id_seq">
+        <object-id>19011</object-id>
+        <state-number>2629</state-number>
+      </sequence>
+      <sequence id="15" parent="2" name="ac_colectivos_id_seq">
+        <object-id>19016</object-id>
+        <state-number>2632</state-number>
+      </sequence>
+      <sequence id="16" parent="2" name="ac_contratos_id_seq">
+        <object-id>19021</object-id>
+        <state-number>2635</state-number>
+      </sequence>
+      <sequence id="17" parent="2" name="ac_documentos_id_seq">
+        <object-id>19032</object-id>
+        <state-number>2639</state-number>
+      </sequence>
+      <sequence id="18" parent="2" name="ac_especialidades_extranet_id_seq">
+        <object-id>19037</object-id>
+        <state-number>2642</state-number>
+      </sequence>
+      <sequence id="19" parent="2" name="ac_estados_es_id_seq">
+        <object-id>19042</object-id>
+        <state-number>2645</state-number>
+      </sequence>
+      <sequence id="20" parent="2" name="ac_estatus_detalle_id_seq">
+        <object-id>19050</object-id>
+        <state-number>2649</state-number>
+      </sequence>
+      <sequence id="21" parent="2" name="ac_estatus_id_seq">
+        <object-id>19052</object-id>
+        <state-number>2651</state-number>
+      </sequence>
+      <sequence id="22" parent="2" name="ac_facturas_id_seq">
+        <object-id>19060</object-id>
+        <state-number>2655</state-number>
+      </sequence>
+      <sequence id="23" parent="2" name="ac_feriados_id_seq">
+        <object-id>19065</object-id>
+        <state-number>2658</state-number>
+      </sequence>
+      <sequence id="24" parent="2" name="ac_notificaciones_id_seq">
+        <object-id>19073</object-id>
+        <state-number>2661</state-number>
+      </sequence>
+      <sequence id="25" parent="2" name="ac_pacientes_atendidos_id_seq">
+        <object-id>19081</object-id>
+        <state-number>2664</state-number>
+      </sequence>
+      <sequence id="26" parent="2" name="ac_planes_extranet_id_seq">
+        <object-id>19086</object-id>
+        <state-number>2667</state-number>
+      </sequence>
+      <sequence id="27" parent="2" name="ac_procedimientos_medicos_id_seq">
+        <object-id>19091</object-id>
+        <state-number>2670</state-number>
+      </sequence>
+      <sequence id="28" parent="2" name="ac_proveedores_extranet_id_seq">
+        <object-id>19099</object-id>
+        <state-number>2673</state-number>
+      </sequence>
+      <sequence id="29" parent="2" name="ac_ramo_acr_id_seq">
+        <object-id>19104</object-id>
+        <state-number>2676</state-number>
+      </sequence>
+      <sequence id="30" parent="2" name="ac_servicios_extranet_id_seq">
+        <object-id>19109</object-id>
+        <state-number>2679</state-number>
+      </sequence>
+      <sequence id="31" parent="2" name="ac_soporte_id_seq">
+        <object-id>19117</object-id>
+        <state-number>2682</state-number>
+      </sequence>
+      <sequence id="32" parent="2" name="ac_tipo_afiliado_id_seq">
+        <object-id>19122</object-id>
+        <state-number>2685</state-number>
+      </sequence>
+      <sequence id="33" parent="2" name="ac_tipo_autorizaciones_id_seq">
+        <object-id>19130</object-id>
+        <state-number>2688</state-number>
+      </sequence>
+      <sequence id="34" parent="2" name="ac_tipo_control_id_seq">
+        <object-id>19138</object-id>
+        <state-number>2691</state-number>
+      </sequence>
+      <sequence id="35" parent="2" name="ac_tipo_documentos_id_seq">
+        <object-id>19146</object-id>
+        <state-number>2694</state-number>
+      </sequence>
+      <sequence id="36" parent="2" name="ac_tipo_proveedor_id_seq">
+        <object-id>19154</object-id>
+        <state-number>2697</state-number>
+      </sequence>
+      <sequence id="37" parent="2" name="ac_tratamiento_id_seq">
+        <object-id>19162</object-id>
+        <state-number>2700</state-number>
+      </sequence>
+      <sequence id="38" parent="2" name="ac_tratamiento_odontologico_id_seq">
+        <object-id>19170</object-id>
+        <state-number>2703</state-number>
+      </sequence>
+      <sequence id="39" parent="2" name="ac_tratamientos_odontologicos_id_seq">
+        <object-id>19178</object-id>
+        <state-number>2706</state-number>
+      </sequence>
+      <sequence id="40" parent="2" name="ac_ubicacion_tratamiento_id_seq">
+        <object-id>19183</object-id>
+        <state-number>2709</state-number>
+      </sequence>
+      <sequence id="41" parent="2" name="modules_id_seq">
+        <object-id>19191</object-id>
+        <state-number>2713</state-number>
+      </sequence>
+      <sequence id="42" parent="2" name="pagos_id_seq">
+        <object-id>19199</object-id>
+        <state-number>2716</state-number>
+      </sequence>
+      <sequence id="43" parent="2" name="status_pago_id_seq">
+        <object-id>19210</object-id>
+        <state-number>2720</state-number>
+      </sequence>
+      <sequence id="44" parent="2" name="submodules_id_seq">
+        <object-id>19218</object-id>
+        <state-number>2723</state-number>
+      </sequence>
+      <sequence id="45" parent="2" name="types_profile_id_seq">
+        <object-id>19223</object-id>
+        <state-number>2726</state-number>
+      </sequence>
+      <sequence id="46" parent="2" name="user_types_id_seq">
+        <object-id>19232</object-id>
+        <state-number>2729</state-number>
+      </sequence>
+      <sequence id="47" parent="2" name="users_id_seq">
+        <object-id>19241</object-id>
+        <state-number>2732</state-number>
+      </sequence>
+      <table id="48" parent="2" name="ac_afiliados">
+        <object-id>18925</object-id>
+        <state-number>2594</state-number>
+      </table>
+      <table id="49" parent="2" name="ac_afiliados_temporales">
+        <object-id>18934</object-id>
+        <state-number>2597</state-number>
+      </table>
+      <table id="50" parent="2" name="ac_aseguradora">
+        <object-id>18944</object-id>
+        <state-number>1365362</state-number>
+      </table>
+      <table id="51" parent="2" name="ac_baremos">
+        <object-id>18949</object-id>
+        <state-number>2603</state-number>
+      </table>
+      <table id="52" parent="2" name="ac_carta_aval">
+        <object-id>18957</object-id>
+        <state-number>2606</state-number>
+      </table>
+      <table id="53" parent="2" name="ac_carta_aval_detalle">
+        <object-id>18963</object-id>
+        <state-number>2607</state-number>
+      </table>
+      <table id="54" parent="2" name="ac_citas">
+        <object-id>18970</object-id>
+        <state-number>2612</state-number>
+      </table>
+      <table id="55" parent="2" name="ac_citas_odontologicas">
+        <object-id>18979</object-id>
+        <state-number>2615</state-number>
+      </table>
+      <table id="56" parent="2" name="ac_clave_odontologica">
+        <object-id>18987</object-id>
+        <state-number>2618</state-number>
+      </table>
+      <table id="57" parent="2" name="ac_claves">
+        <object-id>18995</object-id>
+        <state-number>2622</state-number>
+      </table>
+      <table id="58" parent="2" name="ac_claves_detalle">
+        <object-id>19001</object-id>
+        <state-number>2623</state-number>
+      </table>
+      <table id="59" parent="2" name="ac_cobertura_extranet">
+        <object-id>19008</object-id>
+        <state-number>2628</state-number>
+      </table>
+      <table id="60" parent="2" name="ac_colectivos">
+        <object-id>19013</object-id>
+        <state-number>1365362</state-number>
+      </table>
+      <table id="61" parent="2" name="ac_contratos">
+        <object-id>19018</object-id>
+        <state-number>2634</state-number>
+      </table>
+      <table id="62" parent="2" name="ac_diente">
+        <object-id>19023</object-id>
+        <state-number>2637</state-number>
+      </table>
+      <table id="63" parent="2" name="ac_documentos">
+        <object-id>19026</object-id>
+        <state-number>2638</state-number>
+      </table>
+      <table id="64" parent="2" name="ac_especialidades_extranet">
+        <object-id>19034</object-id>
+        <state-number>2641</state-number>
+      </table>
+      <table id="65" parent="2" name="ac_estados">
+        <object-id>19039</object-id>
+        <state-number>2644</state-number>
+      </table>
+      <table id="66" parent="2" name="ac_estatus">
+        <object-id>19044</object-id>
+        <state-number>2647</state-number>
+      </table>
+      <table id="67" parent="2" name="ac_estatus_detalle">
+        <object-id>19047</object-id>
+        <state-number>2648</state-number>
+      </table>
+      <table id="68" parent="2" name="ac_facturas">
+        <object-id>19054</object-id>
+        <state-number>2653</state-number>
+      </table>
+      <table id="69" parent="2" name="ac_feriados">
+        <object-id>19062</object-id>
+        <state-number>2657</state-number>
+      </table>
+      <table id="70" parent="2" name="ac_notificaciones">
+        <object-id>19067</object-id>
+        <state-number>2660</state-number>
+      </table>
+      <table id="71" parent="2" name="ac_pacientes_atendidos">
+        <object-id>19075</object-id>
+        <state-number>2663</state-number>
+      </table>
+      <table id="72" parent="2" name="ac_planes_extranet">
+        <object-id>19083</object-id>
+        <state-number>2666</state-number>
+      </table>
+      <table id="73" parent="2" name="ac_procedimientos_medicos">
+        <object-id>19088</object-id>
+        <state-number>2669</state-number>
+      </table>
+      <table id="74" parent="2" name="ac_proveedores_extranet">
+        <object-id>19093</object-id>
+        <state-number>2672</state-number>
+      </table>
+      <table id="75" parent="2" name="ac_ramo">
+        <object-id>19101</object-id>
+        <state-number>2675</state-number>
+      </table>
+      <table id="76" parent="2" name="ac_servicios_extranet">
+        <object-id>19106</object-id>
+        <state-number>2678</state-number>
+      </table>
+      <table id="77" parent="2" name="ac_soporte">
+        <object-id>19111</object-id>
+        <state-number>2681</state-number>
+      </table>
+      <table id="78" parent="2" name="ac_tipo_afiliado">
+        <object-id>19119</object-id>
+        <state-number>2684</state-number>
+      </table>
+      <table id="79" parent="2" name="ac_tipo_autorizacion">
+        <object-id>19124</object-id>
+        <state-number>2687</state-number>
+      </table>
+      <table id="80" parent="2" name="ac_tipo_control">
+        <object-id>19132</object-id>
+        <state-number>2690</state-number>
+      </table>
+      <table id="81" parent="2" name="ac_tipo_documentos">
+        <object-id>19140</object-id>
+        <state-number>2693</state-number>
+      </table>
+      <table id="82" parent="2" name="ac_tipo_proveedor">
+        <object-id>19148</object-id>
+        <state-number>2696</state-number>
+      </table>
+      <table id="83" parent="2" name="ac_tratamiento">
+        <object-id>19156</object-id>
+        <state-number>2699</state-number>
+      </table>
+      <table id="84" parent="2" name="ac_tratamiento_odontologico">
+        <object-id>19164</object-id>
+        <state-number>2702</state-number>
+      </table>
+      <table id="85" parent="2" name="ac_tratamientos_odontologicos">
+        <object-id>19172</object-id>
+        <state-number>2705</state-number>
+      </table>
+      <table id="86" parent="2" name="ac_ubicacion_tratamiento">
+        <object-id>19180</object-id>
+        <state-number>2708</state-number>
+      </table>
+      <table id="87" parent="2" name="migrations">
+        <object-id>19185</object-id>
+        <state-number>2711</state-number>
+      </table>
+      <table id="88" parent="2" name="modules">
+        <object-id>19188</object-id>
+        <state-number>2712</state-number>
+      </table>
+      <table id="89" parent="2" name="pagos">
+        <object-id>19193</object-id>
+        <state-number>2715</state-number>
+      </table>
+      <table id="90" parent="2" name="password_resets">
+        <object-id>19201</object-id>
+        <state-number>2718</state-number>
+      </table>
+      <table id="91" parent="2" name="status_pago">
+        <object-id>19207</object-id>
+        <state-number>2719</state-number>
+      </table>
+      <table id="92" parent="2" name="submodules">
+        <object-id>19212</object-id>
+        <state-number>2722</state-number>
+      </table>
+      <table id="93" parent="2" name="types_profile">
+        <object-id>19220</object-id>
+        <state-number>2725</state-number>
+      </table>
+      <table id="94" parent="2" name="user_types">
+        <object-id>19225</object-id>
+        <state-number>2728</state-number>
+      </table>
+      <table id="95" parent="2" name="users">
+        <object-id>19234</object-id>
+        <state-number>2731</state-number>
+      </table>
+      <routine id="96" parent="2" name="crea_data_baremo">
+        <object-id>18923</object-id>
+        <state-number>2592</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="97" parent="2" name="llenar_product">
+        <object-id>18924</object-id>
+        <state-number>2593</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <column id="98" parent="48" name="id">
+        <state-number>2735</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_afiliados_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="99" parent="48" name="cedula">
+        <state-number>2594</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="100" parent="48" name="nombre">
+        <state-number>2594</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="101" parent="48" name="apellido">
+        <state-number>2594</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="102" parent="48" name="fecha_nacimiento">
+        <state-number>2594</state-number>
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="103" parent="48" name="email">
+        <state-number>2594</state-number>
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="104" parent="48" name="sexo">
+        <state-number>2594</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(10)</data-type>
+      </column>
+      <column id="105" parent="48" name="val_user">
+        <state-number>2594</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(10)</data-type>
+        <default-expression>&apos;N&apos;::character varying</default-expression>
+      </column>
+      <column id="106" parent="48" name="tipo_afiliado">
+        <state-number>2594</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="107" parent="48" name="telefono">
+        <state-number>2594</state-number>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="108" parent="48" name="cedula_titular">
+        <state-number>2594</state-number>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="109" parent="48" name="created_at">
+        <state-number>2594</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="110" parent="48" name="updated_at">
+        <state-number>2594</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="111" parent="48" name="deleted_at">
+        <state-number>2594</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="112" parent="49" name="id">
+        <state-number>2736</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_afiliados_temporales_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="113" parent="49" name="cedula">
+        <state-number>2597</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="114" parent="49" name="nombre">
+        <state-number>2597</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="115" parent="49" name="apellido">
+        <state-number>2597</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="116" parent="49" name="fecha_nacimiento">
+        <state-number>2597</state-number>
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="117" parent="49" name="email">
+        <state-number>2597</state-number>
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="118" parent="49" name="sexo">
+        <state-number>2597</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar</data-type>
+      </column>
+      <column id="119" parent="49" name="val_user">
+        <state-number>2597</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar</data-type>
+        <default-expression>&apos;N&apos;::character varying</default-expression>
+      </column>
+      <column id="120" parent="49" name="tipo_afiliado">
+        <state-number>2597</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="121" parent="49" name="telefono">
+        <state-number>2597</state-number>
+        <data-type>varchar(25)</data-type>
+      </column>
+      <column id="122" parent="49" name="nombre_titular">
+        <state-number>2597</state-number>
+        <data-type>varchar(250)</data-type>
+      </column>
+      <column id="123" parent="49" name="apellido_titular">
+        <state-number>2597</state-number>
+        <data-type>varchar(250)</data-type>
+      </column>
+      <column id="124" parent="49" name="cedula_titular">
+        <state-number>2597</state-number>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="125" parent="49" name="codigo_aseguradora">
+        <state-number>2597</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="126" parent="49" name="codigo_colectivo">
+        <state-number>2597</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="127" parent="49" name="estado">
+        <state-number>2597</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="128" parent="49" name="ciudad">
+        <state-number>2597</state-number>
+        <data-type>varchar(100)</data-type>
+        <default-expression>NULL::character varying</default-expression>
+      </column>
+      <column id="129" parent="49" name="tipo_creador">
+        <state-number>2597</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="130" parent="49" name="created_at">
+        <state-number>2597</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="131" parent="49" name="updated_at">
+        <state-number>2597</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="132" parent="49" name="deleted_at">
+        <state-number>2597</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="133" parent="50" name="id">
+        <state-number>2737</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_aseguradora_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="134" parent="50" name="codigo_aseguradora">
+        <state-number>2600</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="135" parent="50" name="nombre">
+        <state-number>2600</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="136" parent="50" name="rif">
+        <state-number>2600</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(10)</data-type>
+      </column>
+      <column id="137" parent="50" name="created_at">
+        <state-number>2600</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="138" parent="50" name="updated_at">
+        <state-number>2600</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="139" parent="50" name="deleted_at">
+        <state-number>2600</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <index id="140" parent="50" name="ac_aseguradora_key">
+        <object-id>19319</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="141" parent="50" name="ac_aseguradora_key">
+        <columns>id</columns>
+        <underlying-index>ac_aseguradora_key</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="142" parent="51" name="id">
+        <state-number>2738</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_baremos_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="143" parent="51" name="id_procedimiento">
+        <state-number>2603</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="144" parent="51" name="id_proveedor">
+        <state-number>2603</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="145" parent="51" name="monto">
+        <state-number>2603</state-number>
+        <mandatory>1</mandatory>
+        <data-type>double precision</data-type>
+      </column>
+      <column id="146" parent="51" name="observaciones">
+        <state-number>2603</state-number>
+        <data-type>varchar</data-type>
+      </column>
+      <column id="147" parent="51" name="created_at">
+        <state-number>2603</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="148" parent="51" name="updated_at">
+        <state-number>2603</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="149" parent="51" name="deleted_at">
+        <state-number>2603</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <index id="150" parent="51" name="ac_baremos_key">
+        <object-id>19317</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="151" parent="51" name="ac_baremos_key">
+        <columns>id</columns>
+        <underlying-index>ac_baremos_key</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="152" parent="52" name="id">
+        <state-number>2739</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_carta_aval_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="153" parent="52" name="clave">
+        <state-number>2606</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="154" parent="52" name="cedula_afiliado">
+        <state-number>2606</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="155" parent="52" name="codigo_contrato">
+        <state-number>2606</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="156" parent="52" name="fecha_solicitud">
+        <state-number>2606</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="157" parent="52" name="fecha_emision">
+        <state-number>2606</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="158" parent="52" name="motivo">
+        <state-number>2606</state-number>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="159" parent="52" name="diagnostico">
+        <state-number>2606</state-number>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="160" parent="52" name="costo_total">
+        <state-number>2606</state-number>
+        <data-type>numeric(12)</data-type>
+      </column>
+      <column id="161" parent="52" name="documentos">
+        <state-number>2606</state-number>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="162" parent="52" name="estatus">
+        <state-number>2606</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="163" parent="52" name="codigo_proveedor_creador">
+        <state-number>2606</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="164" parent="52" name="creador">
+        <state-number>2606</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="165" parent="52" name="telefono">
+        <state-number>2606</state-number>
+        <data-type>varchar(75)</data-type>
+      </column>
+      <column id="166" parent="52" name="rechazo">
+        <state-number>2606</state-number>
+        <data-type>text</data-type>
+      </column>
+      <column id="167" parent="52" name="cantidad_servicios">
+        <state-number>2606</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="168" parent="52" name="tipo_afiliado">
+        <state-number>2606</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="169" parent="52" name="fecha_autorizacion">
+        <state-number>2606</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="170" parent="52" name="created_at">
+        <state-number>2606</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="171" parent="52" name="updated_at">
+        <state-number>2606</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="172" parent="52" name="deleted_at">
+        <state-number>2606</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="173" parent="52" name="id_factura">
+        <state-number>2606</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="174" parent="53" name="id">
+        <state-number>2740</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_carta_aval_detalle_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="175" parent="53" name="id_carta">
+        <state-number>2607</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="176" parent="53" name="codigo_servicio">
+        <state-number>2607</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="177" parent="53" name="codigo_especialidad">
+        <state-number>2607</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="178" parent="53" name="id_procedimiento">
+        <state-number>2607</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="179" parent="53" name="codigo_proveedor">
+        <state-number>2607</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="180" parent="53" name="costo">
+        <state-number>2607</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(10,2)</data-type>
+      </column>
+      <column id="181" parent="53" name="detalle">
+        <state-number>2607</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="182" parent="53" name="created_at">
+        <state-number>2607</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="183" parent="53" name="updated_at">
+        <state-number>2607</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="184" parent="53" name="deleted_at">
+        <state-number>2607</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="185" parent="53" name="estatus">
+        <state-number>2607</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="186" parent="54" name="acc_id">
+        <state-number>2741</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_citas_acc_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="187" parent="54" name="acc_cita">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="188" parent="54" name="acc_titular">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="189" parent="54" name="acc_cedula_tit">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="190" parent="54" name="acc_beneficiario">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="191" parent="54" name="acc_cedula_ben">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="192" parent="54" name="acc_email">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="193" parent="54" name="acc_estado">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="194" parent="54" name="acc_ciudad">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="195" parent="54" name="acc_direccion">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="196" parent="54" name="acc_telefono">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="197" parent="54" name="acc_movil">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="198" parent="54" name="acc_fecha_sol">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="199" parent="54" name="acc_especialidad">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="200" parent="54" name="acc_horario">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(11)</data-type>
+      </column>
+      <column id="201" parent="54" name="acc_tipo_cita">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="202" parent="54" name="acc_status">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar</data-type>
+        <default-expression>&apos;N&apos;::character varying</default-expression>
+      </column>
+      <column id="203" parent="54" name="acc_aseguradora">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="204" parent="54" name="acc_trabajo">
+        <state-number>2612</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="205" parent="54" name="created_at">
+        <state-number>2612</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="206" parent="54" name="updated_at">
+        <state-number>2612</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="207" parent="54" name="deleted_at">
+        <state-number>2612</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="208" parent="55" name="id">
+        <state-number>2742</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_citas_odontologicas_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="209" parent="55" name="id_paciente">
+        <state-number>2615</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="210" parent="55" name="clave">
+        <state-number>2615</state-number>
+        <data-type>text</data-type>
+      </column>
+      <column id="211" parent="55" name="fecha1">
+        <state-number>2615</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="212" parent="55" name="fecha2">
+        <state-number>2615</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="213" parent="55" name="fecha3">
+        <state-number>2615</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="214" parent="55" name="estatus">
+        <state-number>2615</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="215" parent="55" name="fecha_creacion">
+        <state-number>2615</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="216" parent="55" name="fecha_modifico">
+        <state-number>2615</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="217" parent="55" name="usuario_creador">
+        <state-number>2615</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="218" parent="55" name="usuario_modifico">
+        <state-number>2615</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="219" parent="55" name="created_at">
+        <state-number>2615</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="220" parent="55" name="updated_at">
+        <state-number>2615</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="221" parent="55" name="deleted_at">
+        <state-number>2615</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="222" parent="56" name="id">
+        <state-number>2743</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_clave_odontologica_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="223" parent="56" name="clave">
+        <state-number>2618</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="224" parent="56" name="tipo_control">
+        <state-number>2618</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="225" parent="56" name="cedula_afiliado">
+        <state-number>2618</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="226" parent="56" name="codigo_contrato">
+        <state-number>2618</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="227" parent="56" name="fecha_atencion1">
+        <state-number>2618</state-number>
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="228" parent="56" name="fecha_atencion2">
+        <state-number>2618</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="229" parent="56" name="fecha_atencion3">
+        <state-number>2618</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="230" parent="56" name="clave_primaria">
+        <state-number>2618</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="231" parent="56" name="motivo">
+        <state-number>2618</state-number>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="232" parent="56" name="codigo_proveedor_creador">
+        <state-number>2618</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="233" parent="56" name="estatus">
+        <state-number>2618</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="234" parent="56" name="creador">
+        <state-number>2618</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="235" parent="56" name="telefono">
+        <state-number>2618</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="236" parent="56" name="created_at">
+        <state-number>2618</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="237" parent="56" name="updated_at">
+        <state-number>2618</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="238" parent="56" name="deleted_at">
+        <state-number>2618</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="239" parent="56" name="numero_control">
+        <comment>control de claves asociadas</comment>
+        <state-number>2618</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="240" parent="57" name="id">
+        <state-number>2744</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_claves_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="241" parent="57" name="clave">
+        <state-number>2622</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="242" parent="57" name="cedula_afiliado">
+        <state-number>2622</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="243" parent="57" name="codigo_contrato">
+        <state-number>2622</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="244" parent="57" name="fecha_cita">
+        <state-number>2622</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="245" parent="57" name="motivo">
+        <state-number>2622</state-number>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="246" parent="57" name="observaciones">
+        <state-number>2622</state-number>
+        <data-type>text</data-type>
+      </column>
+      <column id="247" parent="57" name="costo_total">
+        <state-number>2622</state-number>
+        <data-type>numeric(10,2)</data-type>
+      </column>
+      <column id="248" parent="57" name="codigo_proveedor_creador">
+        <state-number>2622</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="249" parent="57" name="correo">
+        <state-number>2622</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="250" parent="57" name="examen">
+        <state-number>2622</state-number>
+        <data-type>text</data-type>
+      </column>
+      <column id="251" parent="57" name="estatus_clave">
+        <state-number>2622</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="252" parent="57" name="creador">
+        <state-number>2622</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="253" parent="57" name="telefono">
+        <state-number>2622</state-number>
+        <data-type>varchar(25)</data-type>
+      </column>
+      <column id="254" parent="57" name="rechazo">
+        <state-number>2622</state-number>
+        <data-type>text</data-type>
+      </column>
+      <column id="255" parent="57" name="tipo_afiliado">
+        <state-number>2622</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="256" parent="57" name="cantidad_servicios">
+        <state-number>2622</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="257" parent="57" name="hora_autorizado">
+        <state-number>2622</state-number>
+        <data-type>time(0)</data-type>
+      </column>
+      <column id="258" parent="57" name="created_at">
+        <state-number>2622</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="259" parent="57" name="updated_at">
+        <state-number>2622</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="260" parent="57" name="deleted_at">
+        <state-number>2622</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="261" parent="57" name="id_factura">
+        <state-number>2622</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="262" parent="58" name="id">
+        <state-number>2745</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_claves_detalle_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="263" parent="58" name="id_clave">
+        <state-number>2623</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="264" parent="58" name="codigo_servicio">
+        <state-number>2623</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="265" parent="58" name="codigo_especialidad">
+        <state-number>2623</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="266" parent="58" name="id_procedimiento">
+        <state-number>2623</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="267" parent="58" name="codigo_proveedor">
+        <state-number>2623</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="268" parent="58" name="costo">
+        <state-number>2623</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(10,2)</data-type>
+      </column>
+      <column id="269" parent="58" name="detalle">
+        <state-number>2623</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="270" parent="58" name="created_at">
+        <state-number>2623</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="271" parent="58" name="updated_at">
+        <state-number>2623</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="272" parent="58" name="deleted_at">
+        <state-number>2623</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="273" parent="58" name="estatus">
+        <state-number>2623</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="274" parent="59" name="id">
+        <state-number>2746</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_cobertura_extranet_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="275" parent="59" name="id_plan">
+        <state-number>2628</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="276" parent="59" name="id_aseguradora">
+        <state-number>2628</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="277" parent="59" name="id_servicio">
+        <state-number>2628</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="278" parent="59" name="id_especialidad">
+        <state-number>2628</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="279" parent="59" name="id_procedimiento">
+        <state-number>2628</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="280" parent="59" name="created_at">
+        <state-number>2628</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="281" parent="59" name="updated_at">
+        <state-number>2628</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="282" parent="59" name="deleted_at">
+        <state-number>2628</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <index id="283" parent="59" name="ac_cobertura_extranet_key">
+        <object-id>19321</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="284" parent="59" name="ac_cobertura_extranet_key">
+        <columns>id</columns>
+        <underlying-index>ac_cobertura_extranet_key</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="285" parent="60" name="id">
+        <state-number>2747</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_colectivos_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="286" parent="60" name="codigo_colectivo">
+        <state-number>2631</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="287" parent="60" name="nombre">
+        <state-number>2631</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="288" parent="60" name="codigo_aseguradora">
+        <state-number>2631</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="289" parent="60" name="created_at">
+        <state-number>2631</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="290" parent="60" name="updated_at">
+        <state-number>2631</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="291" parent="60" name="deleted_at">
+        <state-number>2631</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <index id="292" parent="60" name="ac_colectivos_primary_key">
+        <object-id>19323</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="293" parent="60" name="ac_colectivos_primary_key">
+        <columns>id</columns>
+        <underlying-index>ac_colectivos_primary_key</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="294" parent="60" name="fk_aseguradora">
+        <columns>codigo_aseguradora</columns>
+        <ref-key>~.ac_aseguradora.ac_aseguradora_key</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="295" parent="61" name="id">
+        <state-number>2748</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_contratos_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="296" parent="61" name="codigo_contrato">
+        <state-number>2634</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="297" parent="61" name="cedula_afiliado">
+        <state-number>2634</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="298" parent="61" name="fecha_inicio">
+        <state-number>2634</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="299" parent="61" name="fecha_fin">
+        <state-number>2634</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="300" parent="61" name="codigo_colectivo">
+        <state-number>2634</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="301" parent="61" name="codigo_plan">
+        <state-number>2634</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="302" parent="61" name="created_at">
+        <state-number>2634</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="303" parent="61" name="updated_at">
+        <state-number>2634</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="304" parent="61" name="deleted_at">
+        <state-number>2634</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="305" parent="62" name="id">
+        <state-number>2637</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="306" parent="62" name="descripcion">
+        <state-number>2637</state-number>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="307" parent="62" name="orden">
+        <state-number>2637</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="308" parent="62" name="cuadrante">
+        <state-number>2637</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="309" parent="62" name="created_at">
+        <state-number>2637</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="310" parent="62" name="updated_at">
+        <state-number>2637</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="311" parent="62" name="deleted_at">
+        <state-number>2637</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="312" parent="63" name="id">
+        <state-number>2749</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_documentos_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="313" parent="63" name="id_paciente">
+        <state-number>2638</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="314" parent="63" name="id_tipo_documento">
+        <state-number>2638</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="315" parent="63" name="file">
+        <state-number>2638</state-number>
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="316" parent="63" name="created_at">
+        <state-number>2638</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="317" parent="63" name="updated_at">
+        <state-number>2638</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="318" parent="63" name="deleted_at">
+        <state-number>2638</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="319" parent="64" name="id">
+        <state-number>2750</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_especialidades_extranet_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="320" parent="64" name="codigo_especialidad">
+        <state-number>2641</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="321" parent="64" name="rama">
+        <state-number>2641</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="322" parent="64" name="descripcion">
+        <state-number>2641</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="323" parent="64" name="created_at">
+        <state-number>2641</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="324" parent="64" name="updated_at">
+        <state-number>2641</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="325" parent="64" name="deleted_at">
+        <state-number>2641</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <index id="326" parent="64" name="ac_especialidades_extranet_key">
+        <object-id>19313</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="327" parent="64" name="ac_especialidades_extranet_key">
+        <columns>id</columns>
+        <underlying-index>ac_especialidades_extranet_key</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="328" parent="65" name="es_id">
+        <state-number>2751</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_estados_es_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="329" parent="65" name="es_desc">
+        <state-number>2644</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="330" parent="65" name="created_at">
+        <state-number>2644</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="331" parent="65" name="updated_at">
+        <state-number>2644</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="332" parent="65" name="deleted_at">
+        <state-number>2644</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <index id="333" parent="65" name="estados_primary_key">
+        <object-id>19302</object-id>
+        <columns>es_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="334" parent="65" name="estados_primary_key">
+        <columns>es_id</columns>
+        <underlying-index>estados_primary_key</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="335" parent="66" name="id">
+        <state-number>2752</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_estatus_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="336" parent="66" name="nombre">
+        <state-number>2647</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="337" parent="66" name="created_at">
+        <state-number>2647</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="338" parent="66" name="updated_at">
+        <state-number>2647</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="339" parent="66" name="deleted_at">
+        <state-number>2647</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="340" parent="66" name="referencia">
+        <state-number>2647</state-number>
+        <data-type>varchar(150)</data-type>
+      </column>
+      <index id="341" parent="66" name="ac_estatus_key">
+        <object-id>19304</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="342" parent="66" name="ac_estatus_key">
+        <columns>id</columns>
+        <underlying-index>ac_estatus_key</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="343" parent="67" name="id">
+        <state-number>2753</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_estatus_detalle_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="344" parent="67" name="nombre">
+        <state-number>2648</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="345" parent="67" name="created_at">
+        <state-number>2648</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="346" parent="67" name="updated_at">
+        <state-number>2648</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="347" parent="67" name="deleted_at">
+        <state-number>2648</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="348" parent="68" name="id">
+        <state-number>2754</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_facturas_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="349" parent="68" name="numero_factura">
+        <state-number>2653</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="350" parent="68" name="numero_control">
+        <state-number>2653</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="351" parent="68" name="fecha_factura">
+        <state-number>2653</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="352" parent="68" name="monto">
+        <state-number>2653</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(10,2)</data-type>
+      </column>
+      <column id="353" parent="68" name="observaciones">
+        <state-number>2653</state-number>
+        <data-type>text</data-type>
+      </column>
+      <column id="354" parent="68" name="fecha_creacion">
+        <state-number>2653</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="355" parent="68" name="usuario_creador">
+        <state-number>2653</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="356" parent="68" name="codigo_estatus">
+        <state-number>2653</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="357" parent="68" name="created_at">
+        <state-number>2653</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="358" parent="68" name="updated_at">
+        <state-number>2653</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="359" parent="68" name="deleted_at">
+        <state-number>2653</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="360" parent="68" name="documento">
+        <state-number>2653</state-number>
+        <data-type>varchar(400)</data-type>
+      </column>
+      <column id="361" parent="68" name="codigo_proveedor_creador">
+        <comment>Cada proveedor carga su factura</comment>
+        <state-number>2653</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="362" parent="69" name="id">
+        <state-number>2755</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_feriados_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="363" parent="69" name="dia">
+        <state-number>2657</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="364" parent="69" name="mes">
+        <state-number>2657</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="365" parent="69" name="periodo">
+        <state-number>2657</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="366" parent="69" name="fecha">
+        <state-number>2657</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="367" parent="69" name="descripcion">
+        <state-number>2657</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="368" parent="69" name="created_at">
+        <state-number>2657</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="369" parent="69" name="updated_at">
+        <state-number>2657</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="370" parent="69" name="deleted_at">
+        <state-number>2657</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="371" parent="70" name="id">
+        <state-number>2756</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_notificaciones_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="372" parent="70" name="notificacion">
+        <state-number>2660</state-number>
+        <data-type>text</data-type>
+      </column>
+      <column id="373" parent="70" name="enviado_a">
+        <state-number>2660</state-number>
+        <data-type>text</data-type>
+      </column>
+      <column id="374" parent="70" name="enviado_por">
+        <state-number>2660</state-number>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="375" parent="70" name="respuesta">
+        <state-number>2660</state-number>
+        <data-type>text</data-type>
+      </column>
+      <column id="376" parent="70" name="id_notificacion">
+        <state-number>2660</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="377" parent="70" name="created_at">
+        <state-number>2660</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="378" parent="70" name="updated_at">
+        <state-number>2660</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="379" parent="70" name="deleted_at">
+        <state-number>2660</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="380" parent="71" name="id">
+        <state-number>2757</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_pacientes_atendidos_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="381" parent="71" name="tipo_autorizacion">
+        <state-number>2663</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="382" parent="71" name="cedula_afiliado">
+        <state-number>2663</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="383" parent="71" name="clave">
+        <state-number>2663</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar</data-type>
+      </column>
+      <column id="384" parent="71" name="id_clave_detalle">
+        <state-number>2663</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="385" parent="71" name="fecha_atencion">
+        <state-number>2663</state-number>
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="386" parent="71" name="patologia">
+        <state-number>2663</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar</data-type>
+      </column>
+      <column id="387" parent="71" name="observaciones">
+        <state-number>2663</state-number>
+        <data-type>varchar</data-type>
+      </column>
+      <column id="388" parent="71" name="created_at">
+        <state-number>2663</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="389" parent="71" name="updated_at">
+        <state-number>2663</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="390" parent="71" name="deleted_at">
+        <state-number>2663</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="391" parent="72" name="id">
+        <state-number>2758</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_planes_extranet_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="392" parent="72" name="codigo_plan">
+        <state-number>2666</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="393" parent="72" name="nombre">
+        <state-number>2666</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(200)</data-type>
+      </column>
+      <column id="394" parent="72" name="cobertura">
+        <state-number>2666</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="395" parent="72" name="orden">
+        <state-number>2666</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="396" parent="72" name="created_at">
+        <state-number>2666</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="397" parent="72" name="updated_at">
+        <state-number>2666</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="398" parent="72" name="deleted_at">
+        <state-number>2666</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="399" parent="73" name="id">
+        <state-number>2759</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_procedimientos_medicos_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="400" parent="73" name="codigo_examen">
+        <state-number>2669</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="401" parent="73" name="codigo_especialidad">
+        <state-number>2669</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="402" parent="73" name="codigo_servicio">
+        <state-number>2669</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="403" parent="73" name="tipo_examen">
+        <state-number>2669</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="404" parent="73" name="created_at">
+        <state-number>2669</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="405" parent="73" name="updated_at">
+        <state-number>2669</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="406" parent="73" name="deleted_at">
+        <state-number>2669</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <index id="407" parent="73" name="ac_procedimientos_medicos_key">
+        <object-id>19310</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="408" parent="73" name="ac_procedimientos_medicos_key">
+        <columns>id</columns>
+        <underlying-index>ac_procedimientos_medicos_key</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="409" parent="74" name="id">
+        <state-number>2760</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_proveedores_extranet_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="410" parent="74" name="codigo_proveedor">
+        <state-number>2672</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="411" parent="74" name="cedula">
+        <state-number>2672</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="412" parent="74" name="nombre">
+        <state-number>2672</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="413" parent="74" name="fecha_nacimiento">
+        <state-number>2672</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="414" parent="74" name="codigo_especialidad">
+        <state-number>2672</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="415" parent="74" name="direccion">
+        <state-number>2672</state-number>
+        <data-type>text</data-type>
+      </column>
+      <column id="416" parent="74" name="telefono_casa">
+        <state-number>2672</state-number>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="417" parent="74" name="telefono_movil">
+        <state-number>2672</state-number>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="418" parent="74" name="urbanizacion">
+        <state-number>2672</state-number>
+        <data-type>text</data-type>
+      </column>
+      <column id="419" parent="74" name="codigo_estado">
+        <state-number>2672</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="420" parent="74" name="ciudad">
+        <state-number>2672</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="421" parent="74" name="email">
+        <state-number>2672</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="422" parent="74" name="colegiatura">
+        <state-number>2672</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="423" parent="74" name="msas">
+        <state-number>2672</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="424" parent="74" name="created_at">
+        <state-number>2672</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="425" parent="74" name="updated_at">
+        <state-number>2672</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="426" parent="74" name="deleted_at">
+        <state-number>2672</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="427" parent="74" name="tipo_cuenta">
+        <state-number>2672</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="428" parent="74" name="numero_cuenta">
+        <state-number>2672</state-number>
+        <data-type>numeric</data-type>
+      </column>
+      <column id="429" parent="75" name="acr_id">
+        <state-number>2761</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_ramo_acr_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="430" parent="75" name="acr_desc">
+        <state-number>2675</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="431" parent="75" name="created_at">
+        <state-number>2675</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="432" parent="75" name="updated_at">
+        <state-number>2675</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="433" parent="75" name="deleted_at">
+        <state-number>2675</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <index id="434" parent="75" name="ac_ramo_key">
+        <object-id>19306</object-id>
+        <columns>acr_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="435" parent="75" name="ac_ramo_key">
+        <columns>acr_id</columns>
+        <underlying-index>ac_ramo_key</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="436" parent="76" name="id">
+        <state-number>2762</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_servicios_extranet_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="437" parent="76" name="codigo_servicio">
+        <state-number>2678</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="438" parent="76" name="descripcion">
+        <state-number>2678</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="439" parent="76" name="created_at">
+        <state-number>2678</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="440" parent="76" name="updated_at">
+        <state-number>2678</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="441" parent="76" name="deleted_at">
+        <state-number>2678</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <index id="442" parent="76" name="ac_servicios_extranet_key">
+        <object-id>19308</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="443" parent="76" name="ac_servicios_extranet_key">
+        <columns>id</columns>
+        <underlying-index>ac_servicios_extranet_key</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="444" parent="77" name="id">
+        <state-number>2763</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_soporte_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="445" parent="77" name="codigo_user">
+        <state-number>2681</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="446" parent="77" name="solicitud">
+        <state-number>2681</state-number>
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="447" parent="77" name="respuesta">
+        <state-number>2681</state-number>
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="448" parent="77" name="fecha_creacion">
+        <state-number>2681</state-number>
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="449" parent="77" name="fecha_respuesta">
+        <state-number>2681</state-number>
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="450" parent="77" name="created_at">
+        <state-number>2681</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="451" parent="77" name="updated_at">
+        <state-number>2681</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="452" parent="77" name="deleted_at">
+        <state-number>2681</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="453" parent="78" name="id">
+        <state-number>2764</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_tipo_afiliado_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="454" parent="78" name="nombre">
+        <state-number>2684</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="455" parent="78" name="orden">
+        <state-number>2684</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="456" parent="78" name="created_at">
+        <state-number>2684</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="457" parent="78" name="updated_at">
+        <state-number>2684</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="458" parent="78" name="deleted_at">
+        <state-number>2684</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="459" parent="79" name="id">
+        <state-number>2765</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_tipo_autorizaciones_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="460" parent="79" name="descripcion">
+        <state-number>2687</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar</data-type>
+      </column>
+      <column id="461" parent="79" name="created_at">
+        <state-number>2687</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="462" parent="79" name="updated_at">
+        <state-number>2687</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="463" parent="79" name="deleted_at">
+        <state-number>2687</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="464" parent="80" name="id">
+        <state-number>2766</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_tipo_control_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="465" parent="80" name="descripcion">
+        <state-number>2690</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar</data-type>
+      </column>
+      <column id="466" parent="80" name="created_at">
+        <state-number>2690</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="467" parent="80" name="updated_at">
+        <state-number>2690</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="468" parent="80" name="deleted_at">
+        <state-number>2690</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="469" parent="81" name="id">
+        <state-number>2767</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_tipo_documentos_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="470" parent="81" name="descripcion">
+        <state-number>2693</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar</data-type>
+      </column>
+      <column id="471" parent="81" name="created_at">
+        <state-number>2693</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="472" parent="81" name="updated_at">
+        <state-number>2693</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="473" parent="81" name="deleted_at">
+        <state-number>2693</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="474" parent="82" name="id">
+        <state-number>2768</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_tipo_proveedor_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="475" parent="82" name="descripcion">
+        <state-number>2696</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar</data-type>
+      </column>
+      <column id="476" parent="82" name="created_at">
+        <state-number>2696</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="477" parent="82" name="updated_at">
+        <state-number>2696</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="478" parent="82" name="deleted_at">
+        <state-number>2696</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="479" parent="83" name="id">
+        <state-number>2769</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_tratamiento_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="480" parent="83" name="codigo_tratamiento">
+        <state-number>2699</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="481" parent="83" name="descripcion">
+        <state-number>2699</state-number>
+        <data-type>text</data-type>
+      </column>
+      <column id="482" parent="83" name="created_at">
+        <state-number>2699</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="483" parent="83" name="updated_at">
+        <state-number>2699</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="484" parent="83" name="deleted_at">
+        <state-number>2699</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="485" parent="84" name="id">
+        <state-number>2770</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_tratamiento_odontologico_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="486" parent="84" name="id_clave">
+        <state-number>2702</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="487" parent="84" name="id_procedimiento">
+        <state-number>2702</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="488" parent="84" name="id_diente">
+        <state-number>2702</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="489" parent="84" name="id_ubicacion">
+        <state-number>2702</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="490" parent="84" name="fecha_atencion">
+        <state-number>2702</state-number>
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="491" parent="84" name="observaciones">
+        <state-number>2702</state-number>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="492" parent="84" name="estatus">
+        <state-number>2702</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="493" parent="84" name="creador">
+        <state-number>2702</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="494" parent="84" name="telefono">
+        <state-number>2702</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="495" parent="84" name="doc1">
+        <state-number>2702</state-number>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="496" parent="84" name="doc2">
+        <state-number>2702</state-number>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="497" parent="84" name="created_at">
+        <state-number>2702</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="498" parent="84" name="updated_at">
+        <state-number>2702</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="499" parent="84" name="deleted_at">
+        <state-number>2702</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="500" parent="85" name="id">
+        <state-number>2771</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_tratamientos_odontologicos_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="501" parent="85" name="clave">
+        <state-number>2705</state-number>
+        <data-type>text</data-type>
+      </column>
+      <column id="502" parent="85" name="tratamiento_realizado">
+        <state-number>2705</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="503" parent="85" name="fecha_tratamiento">
+        <state-number>2705</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="504" parent="85" name="dientes">
+        <state-number>2705</state-number>
+        <data-type>text</data-type>
+      </column>
+      <column id="505" parent="85" name="estatus">
+        <state-number>2705</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="506" parent="85" name="fecha_creacion">
+        <state-number>2705</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="507" parent="85" name="fecha_modifico">
+        <state-number>2705</state-number>
+        <data-type>date</data-type>
+      </column>
+      <column id="508" parent="85" name="usuario_creador">
+        <state-number>2705</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="509" parent="85" name="usuario_modifico">
+        <state-number>2705</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="510" parent="85" name="rechazo">
+        <state-number>2705</state-number>
+        <data-type>text</data-type>
+      </column>
+      <column id="511" parent="85" name="doc1">
+        <state-number>2705</state-number>
+        <data-type>text</data-type>
+      </column>
+      <column id="512" parent="85" name="doc2">
+        <state-number>2705</state-number>
+        <data-type>text</data-type>
+      </column>
+      <column id="513" parent="85" name="created_at">
+        <state-number>2705</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="514" parent="85" name="updated_at">
+        <state-number>2705</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="515" parent="85" name="deleted_at">
+        <state-number>2705</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="516" parent="86" name="id">
+        <state-number>2772</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;ac_ubicacion_tratamiento_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="517" parent="86" name="descripcion">
+        <state-number>2708</state-number>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="518" parent="86" name="created_at">
+        <state-number>2708</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="519" parent="86" name="updated_at">
+        <state-number>2708</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="520" parent="86" name="deleted_at">
+        <state-number>2708</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="521" parent="87" name="migration">
+        <state-number>2711</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="522" parent="87" name="batch">
+        <state-number>2711</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="523" parent="88" name="id">
+        <state-number>2773</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;modules_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="524" parent="88" name="description">
+        <state-number>2712</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="525" parent="88" name="url">
+        <state-number>2712</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="526" parent="88" name="order">
+        <state-number>2712</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="527" parent="88" name="icon">
+        <state-number>2712</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="528" parent="88" name="created_at">
+        <state-number>2712</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="529" parent="88" name="updated_at">
+        <state-number>2712</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="530" parent="88" name="deleted_at">
+        <state-number>2712</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <index id="531" parent="88" name="primary_key">
+        <object-id>19292</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="532" parent="88" name="primary_key">
+        <columns>id</columns>
+        <underlying-index>primary_key</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="533" parent="89" name="id">
+        <state-number>2774</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;pagos_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="534" parent="89" name="user_id">
+        <state-number>2715</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="535" parent="89" name="mes">
+        <state-number>2715</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="536" parent="89" name="ano">
+        <state-number>2715</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="537" parent="89" name="monto">
+        <state-number>2715</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="538" parent="89" name="fecha_corte">
+        <state-number>2715</state-number>
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="539" parent="89" name="numero_factura">
+        <state-number>2715</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="540" parent="89" name="fecha_factura">
+        <state-number>2715</state-number>
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="541" parent="89" name="fecha_recibo_factura">
+        <state-number>2715</state-number>
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="542" parent="89" name="fecha_pago">
+        <state-number>2715</state-number>
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="543" parent="89" name="numero_deposito">
+        <state-number>2715</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="544" parent="89" name="status">
+        <state-number>2715</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="545" parent="89" name="fecha_creacion">
+        <state-number>2715</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="546" parent="89" name="retencion">
+        <state-number>2715</state-number>
+        <data-type>double precision</data-type>
+      </column>
+      <column id="547" parent="89" name="created_at">
+        <state-number>2715</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="548" parent="89" name="updated_at">
+        <state-number>2715</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="549" parent="89" name="deleted_at">
+        <state-number>2715</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="550" parent="90" name="email">
+        <state-number>2718</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="551" parent="90" name="token">
+        <state-number>2718</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="552" parent="90" name="created_at">
+        <state-number>2718</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="553" parent="91" name="id">
+        <state-number>2775</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;status_pago_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="554" parent="91" name="desc">
+        <state-number>2719</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="555" parent="91" name="created_at">
+        <state-number>2719</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="556" parent="91" name="updated_at">
+        <state-number>2719</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="557" parent="91" name="deleted_at">
+        <state-number>2719</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <index id="558" parent="91" name="status_pago_key">
+        <object-id>19315</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="559" parent="91" name="status_pago_key">
+        <columns>id</columns>
+        <underlying-index>status_pago_key</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="560" parent="92" name="id">
+        <state-number>2776</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;submodules_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="561" parent="92" name="description">
+        <state-number>2722</state-number>
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="562" parent="92" name="modules_id">
+        <state-number>2722</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="563" parent="92" name="url">
+        <state-number>2722</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="564" parent="92" name="order">
+        <state-number>2722</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="565" parent="92" name="created_at">
+        <state-number>2722</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="566" parent="92" name="updated_at">
+        <state-number>2722</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="567" parent="92" name="deleted_at">
+        <state-number>2722</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <index id="568" parent="92" name="key">
+        <object-id>19294</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="569" parent="92" name="key">
+        <columns>id</columns>
+        <underlying-index>key</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="570" parent="93" name="id">
+        <state-number>2777</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;types_profile_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="571" parent="93" name="id_type">
+        <state-number>2725</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="572" parent="93" name="id_module">
+        <state-number>2725</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="573" parent="93" name="created_at">
+        <state-number>2725</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="574" parent="93" name="updated_at">
+        <state-number>2725</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="575" parent="93" name="deleted_at">
+        <state-number>2725</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <index id="576" parent="93" name="primary">
+        <object-id>19298</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="577" parent="93" name="primary">
+        <columns>id</columns>
+        <underlying-index>primary</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="578" parent="94" name="id">
+        <state-number>2778</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;user_types_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="579" parent="94" name="name">
+        <state-number>2728</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(200)</data-type>
+      </column>
+      <column id="580" parent="94" name="modules">
+        <state-number>2728</state-number>
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="581" parent="94" name="active">
+        <state-number>2728</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar</data-type>
+        <default-expression>&apos;Y&apos;::character varying</default-expression>
+      </column>
+      <column id="582" parent="94" name="created_at">
+        <state-number>2728</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="583" parent="94" name="updated_at">
+        <state-number>2728</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="584" parent="94" name="deleted_at">
+        <state-number>2728</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <index id="585" parent="94" name="primary_id">
+        <object-id>19296</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="586" parent="94" name="primary_id">
+        <columns>id</columns>
+        <underlying-index>primary_id</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="587" parent="95" name="id">
+        <state-number>2779</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;users_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="588" parent="95" name="name">
+        <state-number>2731</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="589" parent="95" name="email">
+        <state-number>2731</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="590" parent="95" name="password">
+        <state-number>2731</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="591" parent="95" name="department">
+        <state-number>2731</state-number>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="592" parent="95" name="type">
+        <state-number>2731</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="593" parent="95" name="user">
+        <state-number>2731</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="594" parent="95" name="active">
+        <state-number>2731</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar</data-type>
+        <default-expression>&apos;S&apos;::character varying</default-expression>
+      </column>
+      <column id="595" parent="95" name="proveedor">
+        <state-number>2731</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="596" parent="95" name="remember_token">
+        <state-number>2731</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="597" parent="95" name="created_at">
+        <state-number>2731</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="598" parent="95" name="updated_at">
+        <state-number>2731</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="599" parent="95" name="deleted_at">
+        <state-number>2731</state-number>
+        <data-type>timestamp(0)</data-type>
+      </column>
+      <column id="600" parent="95" name="salt">
+        <state-number>2731</state-number>
+        <data-type>text</data-type>
+      </column>
+      <index id="601" parent="95" name="user_key">
+        <object-id>19300</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="602" parent="95" name="user_key">
+        <columns>id</columns>
+        <underlying-index>user_key</underlying-index>
+        <primary>1</primary>
+      </key>
+      <argument id="603" parent="96">
+        <direction>RETURN</direction>
+        <data-type>void</data-type>
+      </argument>
+      <argument id="604" parent="97">
+        <direction>RETURN</direction>
+        <data-type>void</data-type>
+      </argument>
+    </database-model>
+  </data-source>
+</component>
