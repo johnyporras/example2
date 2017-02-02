@@ -102,14 +102,14 @@ class CitasController extends \Phalcon\Mvc\Controller
         $clave->fecha_cita = $objDatos->fecha_cita;
         $clave->motivo = $objDatos->motivo;
         $clave->observaciones = $objDatos->observaciones;
-        $clave->costo_total = $objDatos->montoTotal; //preguntar si esta bien subir de una vez el monto total
-        $clave->codigo_proveedor_creador = $objDatos->proveedor->codigo_proveedor; //preguntar si basta simplemente con el codigo del proveedor
+        $clave->costo_total = $objDatos->montoTotal;
+        $clave->codigo_proveedor_creador = 0;
         $clave->correo = $objDatos->email;
-        $clave->examen = '??'; //preguntar los examenes van en detail claves como colocare examen aqui en caso de que sean varios?
-        $clave->estatus_clave = 1; //preguntar si 1 para activarlo de una vez
-        $clave->creador = 1; //preguntar que fucking es esto y si con mandar 1 basta
+        $clave->examen = null;
+        $clave->estatus_clave = 5;
+        $clave->creador = $this->session->get("id");
         $clave->telefono = $objDatos->telefono;
-        $clave->rechazo = '???'; //preguntar si mandar vacio o que?
+        $clave->rechazo = null;
         $clave->tipo_afiliado = $objDatos->tipoAfiliado;
         $clave->cantidad_servicios = $objDatos->cantServ;
         $clave->save();
