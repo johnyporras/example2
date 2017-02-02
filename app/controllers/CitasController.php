@@ -7,6 +7,47 @@ class CitasController extends \Phalcon\Mvc\Controller
     private $_mensajes = '';
     private $_data = '';
 
+    public function listAllAction()
+    {
+
+        $response = $this->response;
+        $request = $this->request;
+
+        $lista = AcClaves::find();
+
+        foreach ( $lista as $item ){
+
+            $this->_list[] = [
+
+                    'nombre' => $item->AcAfiliados->nombre,
+                    'fecha' => $item->fecha_cita,
+                    'clave' => $item->clave,
+                    'proveedor' => $item->AcProveedoresExtranet->nombre,
+                    'especialidad' => AcEspecialidadesExtranet::findFirstByCodigoEspecialidad($item->acproveedoresextranet->codigo_especialidad)->descripcion
+
+                ];
+
+        }
+
+        $status = 200;
+        $msnStatus = 'OK';
+        $this->_data = $this->_list;
+        $this->_mensajes = [
+            "msnConsult" => 'Consulta relizada con exito',
+        ];
+
+        $response->setJsonContent([
+            "status" => $status,
+            "mensajes" => $this->_mensajes,
+            "data" => $this->_data,
+        ]);
+        $response->setStatusCode($status, $msnStatus);
+        $response->send();
+
+        $this->view->disable();
+
+    }
+
     public function buscarAction()
     {
 
@@ -50,11 +91,12 @@ class CitasController extends \Phalcon\Mvc\Controller
 
         $response = $this->response;
         $request = $this->request;
+        $random = new \Phalcon\Security\Random();
 
         $objDatos =  json_decode( $request->getPost('obj') );
 
         $clave = new AcClaves();
-        $clave->clave = 'ODHEYCL';
+        $clave->clave = AcClaves::claveRandom();
         $clave->cedula_afiliado = $objDatos->cedula_afiliado;
         $clave->codigo_contrato = $objDatos->codContra;
         $clave->fecha_cita = $objDatos->fecha_cita;
@@ -68,7 +110,7 @@ class CitasController extends \Phalcon\Mvc\Controller
         $clave->creador = 1; //preguntar que fucking es esto y si con mandar 1 basta
         $clave->telefono = $objDatos->telefono;
         $clave->rechazo = '???'; //preguntar si mandar vacio o que?
-        $clave->tipo_afiliado = $objDatos->tipoContra == 'B' ? 0 : 1; //preguntar tipo de contrato es igual a tipo de afiliado?
+        $clave->tipo_afiliado = $objDatos->tipoAfiliado;
         $clave->cantidad_servicios = $objDatos->cantServ;
         $clave->save();
 

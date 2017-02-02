@@ -171,6 +171,14 @@ $apiUrl->addGet(
 *********************rutas citas********************
 ***************************************************/
 
+$apiUrl->addGet(
+    "/citas-list",
+    [
+        "controller" => "citas",
+        "action" => "listAll",
+    ]
+)->setName('listAllCitas');
+
 $apiUrl->addPost(
     "/generar-claves",
     [
@@ -228,7 +236,7 @@ $apiUrl->addPost(
 )->setName('monto');
 
 
-// Cerra sesion
+// Cerrar sesion
 
 $apiUrl->addGet(
     "/user-logaout",

@@ -97,7 +97,7 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                                     $status = 200;
                                     $msnStatus = 'OK';
-                                    $this->_data = ['user' => $user, 'titular' => $titular, 'afiliados' => $this->_afiliados,'contrato' => $contrato, 'aseguradora' => $aseguradora, 'colectivo' => $colectivo];
+                                    $this->_data = ['user' => $user, 'afiliados' => $this->_afiliados,'contrato' => $contrato, 'aseguradora' => $aseguradora, 'colectivo' => $colectivo];
                                     $this->_mensajes = [
                                         "msnConsult" => 'Datos correctos',
                                     ];

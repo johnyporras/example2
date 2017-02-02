@@ -31,7 +31,7 @@ class AcClaves extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", length=100, nullable=true)
      */
-    public $codigo_proveedor;
+    public $codigo_proveedor_creador;
 
     /**
      *
@@ -209,7 +209,7 @@ class AcClaves extends \Phalcon\Mvc\Model
         $this->setSchema("altocentro");
         $this->belongsTo('cedula_afiliado', 'AcAfiliados', 'cedula', ['alias' => 'AcAfiliados']);
         $this->belongsTo('codigo_especialidad', 'AcEspecialidadesExtranet', 'codigo_especialidad', ['alias' => 'AcEspecialidadesExtranet']);
-        $this->belongsTo('codigo_proveedor', 'AcProveedoresExtranet', 'codigo_proveedor', ['alias' => 'AcProveedoresExtranet']);
+        $this->belongsTo('codigo_proveedor_creador', 'AcProveedoresExtranet', 'codigo_proveedor', ['alias' => 'AcProveedoresExtranet']);
         $this->belongsTo('codigo_servicio', 'AcServiciosExtranet', 'codigo_servicio', ['alias' => 'AcServiciosExtranet']);
     }
 
@@ -222,6 +222,28 @@ class AcClaves extends \Phalcon\Mvc\Model
     {
         return 'ac_claves';
     }
+
+
+    /**
+     * Genera de forma aleatoria la clave para la cita
+     *
+     * @param mixed $length
+     * @return clave
+     */
+    
+    public static function claveRandom($length = 7)
+    {
+        $characteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $characteresLength = strlen($characteres);
+        $randomString = '';
+        for ($i=0; $i < $length; $i++) { 
+            
+            $randomString .= $characteres[rand(0, $characteresLength - 1)];
+
+        }
+        return $randomString;
+    }    
+
 
     /**
      * Allows to query a set of records that match the specified conditions
