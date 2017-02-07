@@ -1,7 +1,7 @@
 <?php
 
 class AcClavesDetalle extends \Phalcon\Mvc\Model
-{
+{ 
 
     /**
      *
@@ -38,6 +38,13 @@ class AcClavesDetalle extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=32, nullable=true)
      */
+    public $id_procedimiento;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
     public $codigo_examen;
 
     /**
@@ -67,6 +74,7 @@ class AcClavesDetalle extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("altocentro");
+        $this->belongsTo('id', 'AcProcedimientosMedicos', 'id_procedimiento', ['alias' => 'AcProcedimientosMedicos']);
     }
 
     /**
@@ -88,6 +96,25 @@ class AcClavesDetalle extends \Phalcon\Mvc\Model
     public static function find($parameters = null)
     {
         return parent::find($parameters);
+    }
+
+    /**
+     * Lista de detalles de clave por el id de la clave
+     *
+     * @param mixed $parameters
+     * @return AcClavesDetalle
+     */
+    public static function detailCLave($parameters = null)
+    {
+
+        $dc = self::find([
+            'conditions' => 'id_clave = :idClave:',
+            'bind' => [
+                'idClave' => $parameters
+            ]
+        ]);
+
+        return $dc;
     }
 
     /**

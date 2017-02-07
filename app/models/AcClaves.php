@@ -208,6 +208,7 @@ class AcClaves extends \Phalcon\Mvc\Model
     {
         $this->setSchema("altocentro");
         $this->belongsTo('cedula_afiliado', 'AcAfiliados', 'cedula', ['alias' => 'AcAfiliados']);
+        $this->hasMany('id', 'AcClavesDetalle', 'id_clave', ['alias' => 'AcClavesDetalle']);
         $this->belongsTo('codigo_especialidad', 'AcEspecialidadesExtranet', 'codigo_especialidad', ['alias' => 'AcEspecialidadesExtranet']);
         $this->belongsTo('codigo_proveedor_creador', 'AcProveedoresExtranet', 'codigo_proveedor', ['alias' => 'AcProveedoresExtranet']);
         $this->belongsTo('codigo_servicio', 'AcServiciosExtranet', 'codigo_servicio', ['alias' => 'AcServiciosExtranet']);

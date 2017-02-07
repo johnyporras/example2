@@ -6,6 +6,7 @@ class CitasController extends \Phalcon\Mvc\Controller
 	private $_list = [];
     private $_mensajes = '';
     private $_data = '';
+    private $_detailClaves = [];
 
     public function listAllAction()
     {
@@ -17,15 +18,36 @@ class CitasController extends \Phalcon\Mvc\Controller
 
         foreach ( $lista as $item ){
 
+            foreach ($item->AcClavesDetalle as $itemDetail) {
+                
+                $this->_detailClaves[] = [
+
+                    'tipoServ' => AcServiciosExtranet::findFirstByCodigoServicio($itemDetail->codigo_servicio),
+
+                    'proMedico' => AcProcedimientosMedicos::findFirst([
+                        'conditions' => 'codigo_especialidad = :idCodEspc: AND codigo_servicio = :idCodServ:',
+                        'bind' => [
+                            'idCodServ' => $itemDetail->codigo_servicio,
+                            'idCodEspc' => $itemDetail->codigo_especialidad
+                        ]
+                    ])
+                ];
+
+            }
+
             $this->_list[] = [
 
-                    'nombre' => $item->AcAfiliados->nombre,
-                    'fecha' => $item->fecha_cita,
-                    'clave' => $item->clave,
-                    'proveedor' => $item->AcProveedoresExtranet->nombre,
-                    'especialidad' => AcEspecialidadesExtranet::findFirstByCodigoEspecialidad($item->acproveedoresextranet->codigo_especialidad)->descripcion
+                'nombre' => $item->AcAfiliados->nombre,
+                'fecha' => $item->fecha_cita,
+                'clave' => $item->clave,
+                'aja' => $item->AcClavesDetalle->toArray(),
+                'detallesClave' => $this->_detailClaves,
+                'proveedor' => $item->AcProveedoresExtranet->nombre,
+                'especialidad' => AcEspecialidadesExtranet::findFirstByCodigoEspecialidad($item->acproveedoresextranet->codigo_especialidad)->descripcion
 
-                ];
+            ];
+
+            $this->_detailClaves = [];
 
         }
 
