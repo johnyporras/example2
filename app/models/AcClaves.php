@@ -224,6 +224,15 @@ class AcClaves extends \Phalcon\Mvc\Model
         return 'ac_claves';
     }
 
+    public function beforeCreate()
+    {
+        $this->created_at = date('Y-m-d H:i:s');
+    }
+
+    public function beforeUpdate()
+    {
+        $this->updated_at = date("Y-m-d H:i:s");
+    }
 
     /**
      * Genera de forma aleatoria la clave para la cita

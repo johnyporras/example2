@@ -67,6 +67,11 @@ class PasswordResets extends \Phalcon\Mvc\Model
         return 'password_resets';
     }
 
+    public function beforeCreate()
+    {
+        $this->created_at = date('Y-m-d H:i:s');
+    }
+
     /**
      * Allows to query a set of records that match the specified conditions
      *

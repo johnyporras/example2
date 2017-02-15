@@ -136,6 +136,16 @@ class AcAfiliados extends \Phalcon\Mvc\Model
         $this->setSchema("altocentro");
         $this->belongsTo('tipo_afiliado', 'AcTipoAfiliado', 'id', ['alias' => 'AcTipoAfiliado']);
     }
+    
+    public function beforeCreate()
+    {
+        $this->created_at = date('Y-m-d H:i:s');
+    }
+
+    public function beforeUpdate()
+    {
+        $this->updated_at = date("Y-m-d H:i:s");
+    }
 
     /**
      * Returns table name mapped in the model.

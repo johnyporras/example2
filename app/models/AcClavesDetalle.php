@@ -87,6 +87,16 @@ class AcClavesDetalle extends \Phalcon\Mvc\Model
         return 'ac_claves_detalle';
     }
 
+    public function beforeCreate()
+    {
+        $this->created_at = date('Y-m-d H:i:s');
+    }
+
+    public function beforeUpdate()
+    {
+        $this->updated_at = date("Y-m-d H:i:s");
+    }
+
     /**
      * Allows to query a set of records that match the specified conditions
      *
