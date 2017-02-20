@@ -61,7 +61,7 @@ class Users extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", length=1, nullable=false)
      */
-    public $act;
+    public $active;
 
     /**
      *
@@ -104,30 +104,6 @@ class Users extends \Phalcon\Mvc\Model
      * @Column(type="string", nullable=false)
      */
     public $salt;
-
-    /**
-     * Validations and business logic
-     *
-     * @return boolean
-     */
-    public function validation()
-    {
-        $this->validate(
-            new Email(
-                [
-                    'field'    => 'email',
-                    'required' => true,
-                ]
-            )
-        );
-
-        if ($this->validationHasFailed() == true) {
-            return false;
-        }
-
-        return true;
-    }
-
     /**
      * Initialize method for model.
      */
