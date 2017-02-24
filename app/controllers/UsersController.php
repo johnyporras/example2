@@ -30,6 +30,67 @@ class UsersController extends \Phalcon\Mvc\Controller
 
     }
 
+    public function verifAction()
+    {
+
+        $response = $this->response;
+        $request = $this->request;
+
+        $afiliado = AcAfiliados::findFirst([
+            'conditions' => 'cedula = :cedula: AND fecha_nacimiento = :fecha:',
+            'bind' => [
+                'cedula' => $request->getPost('cedula'),
+                'fecha' => $request->getPost('fecha')
+            ]
+        ]);
+
+        if( isset($afiliado->email) ){
+
+            $user = Users::findFirstByEmail($afiliado->email);
+
+        }
+
+        if(!$afiliado){
+
+            $status = 200;
+            $msnStatus = 'OK';
+            $this->_data = ['msn' => 'Usted no se encuentra afiliado en el sistema', 'status' => false];
+            $this->_mensajes = [
+                "msnConsult" => 'Consulta relizada con exito',
+            ];
+
+        }else if($afiliado && $user){
+
+            $status = 200;
+            $msnStatus = 'OK';
+            $this->_data = ['msn' => 'Usted ya posee un usuario en el sistema', 'status' => false];
+            $this->_mensajes = [
+                "msnConsult" => 'Consulta relizada con exito',
+            ];
+
+        }else if( $afiliado && !$user ){
+
+            $status = 200;
+            $msnStatus = 'OK';
+            $this->_data = ['msn' => '', 'status' => true, 'afiliado' => $afiliado];
+            $this->_mensajes = [
+                "msnConsult" => 'Consulta relizada con exito',
+            ];
+
+        }
+
+        $response->setJsonContent([
+            "status" => $status,
+            "mensajes" => $this->_mensajes,
+            "data" => $this->_data,
+        ]);
+        $response->setStatusCode($status, $msnStatus);
+        $response->send();
+
+        $this->view->disable();
+
+    }
+
     public function addAction()
     {
 

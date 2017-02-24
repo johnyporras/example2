@@ -36,6 +36,14 @@ $apiUrl->addPost(
 )->setName('login');
 
 $apiUrl->addPost(
+    "/user-verificar",
+    [
+        "controller" => "users",
+        "action" => "verif",
+    ]
+)->setName('addUser');
+
+$apiUrl->addPost(
     "/user-add",
     [
         "controller" => "users",
