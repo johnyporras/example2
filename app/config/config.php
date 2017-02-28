@@ -12,8 +12,8 @@ return new \Phalcon\Config([
         'host'        => '35.164.247.216',
         'username'    => 'postgres',
         'password'    => '17401182',
-        'dbname'      => 'rabricen_altocentro',
-        'schema'      => 'altocentro'
+        'dbname'      => 'brizer_atiempo',
+        'schema'      => 'atiempo'
         //'charset'     => 'utf8',
     ],
     'application' => [
