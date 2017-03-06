@@ -55,5 +55,22 @@ class IndexController extends ControllerBase
 
     }
 
+    public function pruebaAction()
+    {
+        $this->getDI()->getMail()->send(
+            array(
+                "javier.alberto.lugo@gmail.com" => "Javier"
+            ),
+            "Haciendo pruebas de emails",//subject
+            'test',//templatename
+            array(
+                'saludo' => 'Hola javier'
+            )
+        );
+
+        $this->view->disable();
+
+    }
+
 }
 
