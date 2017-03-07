@@ -255,6 +255,37 @@ $apiUrl->addPost(
     ]
 )->setName('monto');
 
+/***************************************************
+******************rutas viajes**********************
+***************************************************/
+
+$apiUrl->addPost(
+    "/viajes-list",
+    [
+        "controller" => "viajes",
+        "action" => "listAll",
+    ]
+)->setName('listAllViajes');
+
+$apiUrl->addPost(
+    "/generar-viaje",
+    [
+        "controller" => "viajes",
+        "action" => "genViaje",
+    ]
+)->setName('genViaje');
+
+/***************************************************
+******************rutas Paises**********************
+***************************************************/
+
+$apiUrl->addGet(
+    "/pais-list",
+    [
+        "controller" => "pais",
+        "action" => "listAll",
+    ]
+)->setName('listAllPaises');
 
 // Cerrar sesion
 

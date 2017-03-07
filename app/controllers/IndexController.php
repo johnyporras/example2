@@ -58,14 +58,14 @@ class IndexController extends ControllerBase
     public function pruebaAction()
     {
         $this->getDI()->getMail()->send(
-            array(
+            [
                 "javier.alberto.lugo@gmail.com" => "Javier"
-            ),
-            "Haciendo pruebas de emails",//subject
+            ],
+            "Activar Cuenta A Tiempo Api",//subject
             'test',//templatename
-            array(
-                'saludo' => 'Hola javier'
-            )
+            [
+                'mensaje' => 'Hola javier, gracias por usar a tiempo api ahora deberas activar tu cuenta haciendo click en el link..'
+            ]
         );
 
         $this->view->disable();

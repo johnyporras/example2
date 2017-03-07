@@ -16,6 +16,11 @@ $di->setShared('config', function () {
     return include APP_PATH . "/config/config.php";
 });
 
+$di->setShared('mail', function()
+{
+    return new Mail();
+});
+
 /**
  * The URL component is used to generate all kind of urls in the application
  */
