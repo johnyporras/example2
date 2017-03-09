@@ -12,8 +12,8 @@ return new \Phalcon\Config([
         'host'        => '35.164.247.216',
         'username'    => 'postgres',
         'password'    => '17401182',
-        'dbname'      => 'brizer_atiempo',
-        'schema'      => 'atiempo'
+        'dbname'      => 'brizer_atiempo_dev',
+        'schema'      => 'atiempo_dev'
         //'charset'     => 'utf8',
     ],
     'application' => [
