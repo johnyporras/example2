@@ -73,7 +73,7 @@ class AcClavesDetalle extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("altocentro");
+        $this->setSchema("atiempo_dev");
         $this->belongsTo('id', 'AcProcedimientosMedicos', 'id_procedimiento', ['alias' => 'AcProcedimientosMedicos']);
     }
 

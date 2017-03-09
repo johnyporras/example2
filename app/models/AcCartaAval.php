@@ -210,7 +210,7 @@ class AcCartaAval extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("altocentroTest");
+        $this->setSchema("atiempo_dev");
         $this->belongsTo('cedula_afiliado', 'AcAfiliados', 'cedula', ['alias' => 'AcAfiliados']);
         $this->belongsTo('codigo_contrato', 'AcContratos', 'codigo_contrato', ['alias' => 'AcContratos']);
         $this->belongsTo('codigo_especialidad', 'AcEspecialidadesExtranet', 'codigo_especialidad', ['alias' => 'AcEspecialidadesExtranet']);

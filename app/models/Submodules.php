@@ -66,7 +66,7 @@ class Submodules extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("altocentroTest");
+        $this->setSchema("atiempo_dev");
     }
 
     /**

@@ -56,7 +56,7 @@ class AviDestino extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("altocentro");
+        $this->setSchema("atiempo_dev");
     }
 
     /**

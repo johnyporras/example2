@@ -46,6 +46,14 @@ class AcDiente extends \Phalcon\Mvc\Model
     public $deleted_at;
 
     /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->setSchema("atiempo_dev");
+    }
+
+    /**
      * Returns table name mapped in the model.
      *
      * @return string

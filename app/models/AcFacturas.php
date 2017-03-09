@@ -101,7 +101,7 @@ class AcFacturas extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("altocentroTest");
+        $this->setSchema("atiempo_dev");
         $this->belongsTo('clave', 'AcClaves', 'clave', ['alias' => 'AcClaves']);
     }
 

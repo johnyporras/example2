@@ -133,7 +133,7 @@ class AcAfiliados extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("altocentro");
+        $this->setSchema("atiempo_dev");
         $this->belongsTo('tipo_afiliado', 'AcTipoAfiliado', 'id', ['alias' => 'AcTipoAfiliado']);
     }
     

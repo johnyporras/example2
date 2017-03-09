@@ -73,7 +73,7 @@ class AcProcedimientosMedicos extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("altocentro");
+        $this->setSchema("atiempo_dev");
         $this->belongsTo('codigo_especialidad', 'AcEspecialidadesExtranet', 'codigo_especialidad', ['alias' => 'AcEspecialidadesExtranet']);
         $this->belongsTo('codigo_servicio', 'AcServiciosExtranet', 'codigo_servicio', ['alias' => 'AcServiciosExtranet']);
     }

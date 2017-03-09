@@ -206,7 +206,7 @@ class AcClaves extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("altocentro");
+        $this->setSchema("atiempo_dev");
         $this->belongsTo('cedula_afiliado', 'AcAfiliados', 'cedula', ['alias' => 'AcAfiliados']);
         $this->hasMany('id', 'AcClavesDetalle', 'id_clave', ['alias' => 'AcClavesDetalle']);
         $this->belongsTo('codigo_especialidad', 'AcEspecialidadesExtranet', 'codigo_especialidad', ['alias' => 'AcEspecialidadesExtranet']);
