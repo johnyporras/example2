@@ -90,6 +90,8 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                                     }
 
+                                    $this->_afiliados[] = $titular;
+
                                     $contrato = AcContratos::findFirstByCedulaAfiliado($titular->cedula);
                                     $colectivo = AcColectivos::findFirstByCodigoColectivo($contrato->codigo_colectivo);
                                     $aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
