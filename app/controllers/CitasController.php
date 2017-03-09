@@ -14,7 +14,12 @@ class CitasController extends \Phalcon\Mvc\Controller
         $response = $this->response;
         $request = $this->request;
 
-        $lista = AcClaves::find();
+        $lista = AcClaves::find([
+            'conditions' => 'cedula_afiliado = :cedula:',
+            'bind' => [
+                'cedula' => $request->getPost('cedula')
+            ]
+        ]);
 
         foreach ( $lista as $item ){
 

@@ -179,7 +179,7 @@ $apiUrl->addGet(
 *********************rutas citas********************
 ***************************************************/
 
-$apiUrl->addGet(
+$apiUrl->addPost(
     "/citas-list",
     [
         "controller" => "citas",
