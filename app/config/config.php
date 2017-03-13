@@ -16,6 +16,17 @@ return new \Phalcon\Config([
         'schema'      => 'atiempo_dev'
         //'charset'     => 'utf8',
     ],
+    'mail' => [
+        'fromName' => 'A Tiempo Api',
+        'fromEmail' => 'no-reply@grupoatiempo.com.ve',
+        'smtp' => [
+            'server'	=> 'cloud1013.hostgator.com',
+            'port' 		=> 465,
+            'security' => 'ssl',
+            'username' => 'no-reply@grupoatiempo.com.ve',
+            'password' => 'Atiempo2017**',
+        ]
+    ],
     'application' => [
         'appDir'         => APP_PATH . '/',
         'controllersDir' => APP_PATH . '/controllers/',
@@ -26,6 +37,7 @@ return new \Phalcon\Config([
         'libraryDir'     => APP_PATH . '/library/',
         'validationsDir' => APP_PATH . '/validations/',
         'cacheDir'       => BASE_PATH . '/cache/',
-        'baseUri'        => '/Atiempo-api/',
+        'baseUri'        => '/Atiempo-API/',
+        'publicUrl'      => '127.0.0.1/Atiempo-API',
     ]
 ]);

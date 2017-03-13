@@ -24,6 +24,14 @@ $router->addGet("/prueba", [
 
 ])->setName('prueba');
 
+$router->addGet("/f5wwluJTnRDBiEZjwasajeJXjuyNs9{id}i6ecJwL9cunuDFfdWkGGOx6", [
+
+    'controller' => 'index',
+
+    'action' => 'index'
+
+])->setName('activate');
+
 /***************************************************
 ********************rutas Api***********************
 ***************************************************/

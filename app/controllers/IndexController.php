@@ -64,11 +64,20 @@ class IndexController extends ControllerBase
             "Activar Cuenta A Tiempo Api",//subject
             'test',//templatename
             [
-                'mensaje' => 'Hola javier, gracias por usar a tiempo api ahora deberas activar tu cuenta haciendo click en el link..'
+                'mensaje' => 'Hola javier, gracias por usar a tiempo api ahora deberas activar tu cuenta haciendo click en el link.. <br>http://127.0.0.1/Atiempo-api/f5wwluJTnRDBiEZjwasajeJXjuyNs95i6ecJwL9cunuDFfdWkGGOx6'
             ]
         );
 
         $this->view->disable();
+
+    }
+
+    public function indexAction($id)
+    {
+
+        //echo $id;
+
+        //$this->view->disable();
 
     }
 
