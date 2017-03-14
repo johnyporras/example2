@@ -76,9 +76,9 @@ class IndexController extends ControllerBase
     public function indexAction($id)
     {
 
-        echo $id;
+        //echo $id;
 
-        $this->view->disable();
+        //$this->view->disable();
 
     }
 
