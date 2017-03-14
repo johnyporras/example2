@@ -144,6 +144,17 @@ class UsersController extends \Phalcon\Mvc\Controller
 
             }
 
+            $this->getDI()->getMail()->send(
+                [
+                    "javier.alberto.lugo@gmail.com" => "Javier"
+                ],
+                "Activar Cuenta A Tiempo Api",//subject
+                'test',//templatename
+                [
+                    'mensaje' => 'Hola javier, gracias por usar a tiempo api ahora deberas activar tu cuenta haciendo click en el link.. <br>http://35.166.131.103/Atiempo-api/f5wwluJTnRDBiEZjwasajeJXjuyNs95i6ecJwL9cunuDFfdWkGGOx6'
+                ]
+            );
+
         }
 
         $status = 200;
