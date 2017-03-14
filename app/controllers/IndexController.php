@@ -78,7 +78,7 @@ class IndexController extends ControllerBase
 
         echo $id;
 
-        //$this->view->disable();
+        $this->view->disable();
 
     }
 
