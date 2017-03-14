@@ -76,9 +76,20 @@ class IndexController extends ControllerBase
     public function indexAction($id)
     {
 
-        //echo $id;
+        $user = Users::findFirstById($id);
+        $user->active = 'S';
 
-        //$this->view->disable();
+        if( $user->update() ){
+            $msn = 'Felicidades has activado tu cuenta correctamente';
+        }else{
+            $msn = 'Problemas al activar la cuenta, intentelo mas tarde o comuniquese con un administrador del sistema';
+       }
+
+        $this->view->setVars([
+            'msn' => $msn
+        ]);
+
+        $this->view->pick('index/index');
 
     }
 
