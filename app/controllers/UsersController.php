@@ -1,5 +1,7 @@
 <?php
 
+use Phalcon\Mvc\Model\Transaction\Manager as Transaction;
+
 class UsersController extends \Phalcon\Mvc\Controller
 {
 
@@ -127,33 +129,47 @@ class UsersController extends \Phalcon\Mvc\Controller
 
         }else{
 
-            $user = new Users();
+            try{
 
-            $user->name = $request->getPost('name');
-            $user->email = $request->getPost('email');
-            $user->password = $this->security->hash($request->getPost('password'));
-            $user->department = 'Sistemas';
-            $user->type = 2;
-            $user->user = $request->getPost('user');
-            $user->active = 'N';
-            $user->proveedor = 1;
+                $transactionManager = new Transaction();
 
-            if (!$user->save()){
+                $transaction = $transactionManager->get();
 
-                $this->_msnValidation[] = 'Problemas durate el registro de usuario, por favor intentelo mas tarde o comuniquese con un administrador del sistema';
+                $user = new Users();
+
+                $user->name = $request->getPost('name');
+                $user->email = $request->getPost('email');
+                $user->password = $this->security->hash($request->getPost('password'));
+                $user->department = 'Sistemas';
+                $user->type = 2;
+                $user->user = $request->getPost('user');
+                $user->active = 'N';
+                $user->proveedor = 1;
+
+                if (!$user->save()){
+
+                    $transaction->rollback("Problemas durate el registro de usuario, por favor intentelo mas tarde o comuniquese con un administrador del sistema");
+
+                }
+
+                $this->getDI()->getMail()->send(
+                    [
+                        $user->email => $user->name
+                    ],
+                    "Activar Cuenta A Tiempo Api",//subject
+                    'test',//templatename
+                    [
+                        'mensaje' => 'Hola '.$user->name.', gracias por usar a tiempo api ahora deberas activar tu cuenta haciendo click en el link.. <br>http://35.166.131.103/Atiempo-api/f5wwluJTnRDBiEZjwasajeJXjuyNs9'.$user->id.'i6ecJwL9cunuDFfdWkGGOx6'
+                    ]
+                );
+
+                $transaction->commit();
+
+            }catch (Phalcon\Mvc\Model\Transaction\Failed $e){
+
+                $this->_msnValidation[] = $e->getMessage();
 
             }
-
-            $this->getDI()->getMail()->send(
-                [
-                    $user->email => $user->name
-                ],
-                "Activar Cuenta A Tiempo Api",//subject
-                'test',//templatename
-                [
-                    'mensaje' => 'Hola '.$user->name.', gracias por usar a tiempo api ahora deberas activar tu cuenta haciendo click en el link.. <br>http://35.166.131.103/Atiempo-api/f5wwluJTnRDBiEZjwasajeJXjuyNs9'.$user->id.'i6ecJwL9cunuDFfdWkGGOx6'
-                ]
-            );
 
         }
 
