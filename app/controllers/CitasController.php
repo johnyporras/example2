@@ -80,26 +80,66 @@ class CitasController extends \Phalcon\Mvc\Controller
 
         $response = $this->response;
         $request = $this->request;
+        $token = $request->getPost('token');
 
-        $busqueda = AcProveedoresExtranet::find([
-            'conditions' => 'nombre LIKE :value:',
-            'bind' => [
-                'value' => '%'.$request->getPost('val').'%'
-            ]
-        ]);
+        if( !isset($token) || empty($token) ){
 
-        foreach ( $busqueda as $item ){
+            $status = 200;
+            $msnStatus = 'OK';
+            $this->_data = null;
+            $this->_mensajes = [
+                "msnConsult" => 'Consulta relizada con exito',
+                "msnToken" => false,//el token de autrización esta ausente
+                "msnInvalid" => null
+            ];
 
-            $this->_list[] = $item;
+        }else{
+
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);
+
+            //comprobamos si existe el usuario
+            $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
+
+            //si no existe
+            if($auth->count() == 0)
+            {
+                //no es un token correcto
+                //devolvemos un 401, Unauthorized
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = null;
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,
+                    "msnInvalid" => true//las credenciales del token de autorizacion son invalidas
+                ];
+            }else{
+
+                $busqueda = AcProveedoresExtranet::find([
+                    'conditions' => 'nombre LIKE :value:',
+                    'bind' => [
+                        'value' => '%'.$request->getPost('val').'%'
+                    ]
+                ]);
+
+                foreach ( $busqueda as $item ){
+
+                    $this->_list[] = $item;
+
+                }
+
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = $this->_list;
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,//el header de autrización esta ausente
+                    "msnInvalid" => false
+                ];
+
+            }
 
         }
-
-        $status = 200;
-        $msnStatus = 'OK';
-        $this->_data = $this->_list;
-        $this->_mensajes = [
-            "msnConsult" => 'Consulta relizada con exito',
-        ];
 
         $response->setJsonContent([
             "status" => $status,
@@ -119,50 +159,90 @@ class CitasController extends \Phalcon\Mvc\Controller
         $response = $this->response;
         $request = $this->request;
         $random = new \Phalcon\Security\Random();
+        $token = $request->getPost('token');
 
-        $objDatos =  json_decode( $request->getPost('obj') );
+        if( !isset($token) || empty($token) ){
 
-        $clave = new AcClaves();
-        $clave->clave = AcClaves::claveRandom();
-        $clave->cedula_afiliado = $objDatos->cedula_afiliado;
-        $clave->codigo_contrato = $objDatos->codContra;
-        $clave->fecha_cita = $objDatos->fecha_cita;
-        $clave->motivo = $objDatos->motivo;
-        $clave->observaciones = $objDatos->observaciones;
-        $clave->costo_total = $objDatos->montoTotal;
-        $clave->codigo_proveedor_creador = 0;
-        $clave->correo = $objDatos->email;
-        $clave->examen = null;
-        $clave->estatus_clave = 5;
-        $clave->creador = $this->session->get("id");
-        $clave->telefono = $objDatos->telefono;
-        $clave->rechazo = null;
-        $clave->tipo_afiliado = $objDatos->tipoAfiliado;
-        $clave->cantidad_servicios = $objDatos->cantServ;
-        $clave->save();
+            $status = 200;
+            $msnStatus = 'OK';
+            $this->_data = null;
+            $this->_mensajes = [
+                "msnConsult" => 'Consulta relizada con exito',
+                "msnToken" => false,//el token de autrización esta ausente
+                "msnInvalid" => null
+            ];
 
-        //aqui se mandan los detalles de los servicios que tienen que ver con la espacialidad, de igual forma estos valores los puedes chekr una vez se guarden
+        }else{
 
-        foreach ($objDatos->detailClaveServ as $item ) {
-            
-            $claveDetalle = new AcClavesDetalle();
-            $claveDetalle->id_clave = $clave->id;
-            $claveDetalle->codigo_servicio = $item->tipoServ->codigo_servicio;
-            $claveDetalle->codigo_especialidad = $objDatos->espec;
-            $claveDetalle->id_procedimiento = $item->proMed->id;
-            $claveDetalle->codigo_proveedor = $objDatos->proveedor->codigo_proveedor;
-            $claveDetalle->costo = $item->monto;
-            $claveDetalle->detalle = $objDatos->detailServ;
-            $claveDetalle->save();
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);
+
+            //comprobamos si existe el usuario
+            $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
+
+            //si no existe
+            if($auth->count() == 0)
+            {
+                //no es un token correcto
+                //devolvemos un 401, Unauthorized
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = null;
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,
+                    "msnInvalid" => true//las credenciales del token de autorizacion son invalidas
+                ];
+            }else{
+
+                $objDatos =  json_decode( $request->getPost('obj') );
+
+                $clave = new AcClaves();
+                $clave->clave = AcClaves::claveRandom();
+                $clave->cedula_afiliado = $objDatos->cedula_afiliado;
+                $clave->codigo_contrato = $objDatos->codContra;
+                $clave->fecha_cita = $objDatos->fecha_cita;
+                $clave->motivo = $objDatos->motivo;
+                $clave->observaciones = $objDatos->observaciones;
+                $clave->costo_total = $objDatos->montoTotal;
+                $clave->codigo_proveedor_creador = 0;
+                $clave->correo = $objDatos->email;
+                $clave->examen = null;
+                $clave->estatus_clave = 5;
+                $clave->creador = $this->session->get("id");
+                $clave->telefono = $objDatos->telefono;
+                $clave->rechazo = null;
+                $clave->tipo_afiliado = $objDatos->tipoAfiliado;
+                $clave->cantidad_servicios = $objDatos->cantServ;
+                $clave->save();
+
+                //aqui se mandan los detalles de los servicios que tienen que ver con la espacialidad, de igual forma estos valores los puedes chekr una vez se guarden
+
+                foreach ($objDatos->detailClaveServ as $item ) {
+
+                    $claveDetalle = new AcClavesDetalle();
+                    $claveDetalle->id_clave = $clave->id;
+                    $claveDetalle->codigo_servicio = $item->tipoServ->codigo_servicio;
+                    $claveDetalle->codigo_especialidad = $objDatos->espec;
+                    $claveDetalle->id_procedimiento = $item->proMed->id;
+                    $claveDetalle->codigo_proveedor = $objDatos->proveedor->codigo_proveedor;
+                    $claveDetalle->costo = $item->monto;
+                    $claveDetalle->detalle = $objDatos->detailServ;
+                    $claveDetalle->save();
+
+                }
+
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = $clave->clave;
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,//el header de autrización esta ausente
+                    "msnInvalid" => false
+                ];
+
+            }
 
         }
-
-        $status = 200;
-        $msnStatus = 'OK';
-        $this->_data = $clave->clave;
-        $this->_mensajes = [
-            "msnConsult" => 'Consulta relizada con exito',
-        ];
 
         $response->setJsonContent([
             "status" => $status,

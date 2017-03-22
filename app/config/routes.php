@@ -175,7 +175,7 @@ $apiUrl->addPost(
     ]
 )->setName('listEspecialidades');
 
-$apiUrl->addGet(
+$apiUrl->addPost(
     "/especialidades-all",
     [
         "controller" => "especialidades",
@@ -227,7 +227,7 @@ $apiUrl->addGet(
 ************rutas tipo de servicios*****************
 ***************************************************/
 
-$apiUrl->addGet(
+$apiUrl->addPost(
     "/list-tipo-servicio",
     [
         "controller" => "tipo-servicio",

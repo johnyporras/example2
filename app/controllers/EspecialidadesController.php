@@ -12,21 +12,61 @@ class EspecialidadesController extends \Phalcon\Mvc\Controller
 
         $response = $this->response;
         $request = $this->request;
+        $token = $request->getPost('token');
 
-        $especialidades = AcEspecialidadesExtranet::find();
+        if( !isset($token) || empty($token) ){
 
-        foreach ( $especialidades as $item ){
+            $status = 200;
+            $msnStatus = 'OK';
+            $this->_data = null;
+            $this->_mensajes = [
+                "msnConsult" => 'Consulta relizada con exito',
+                "msnToken" => false,//el token de autrización esta ausente
+                "msnInvalid" => null
+            ];
 
-            $this->_list[] = $item;
+        }else{
+
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);
+
+            //comprobamos si existe el usuario
+            $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
+
+            //si no existe
+            if($auth->count() == 0)
+            {
+                //no es un token correcto
+                //devolvemos un 401, Unauthorized
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = null;
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,
+                    "msnInvalid" => true//las credenciales del token de autorizacion son invalidas
+                ];
+            }else{
+
+                $especialidades = AcEspecialidadesExtranet::find();
+
+                foreach ( $especialidades as $item ){
+
+                    $this->_list[] = $item;
+
+                }
+
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = $this->_list;
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,//el header de autrización esta ausente
+                    "msnInvalid" => false
+                ];
+
+            }
 
         }
-
-        $status = 200;
-        $msnStatus = 'OK';
-        $this->_data = $this->_list;
-        $this->_mensajes = [
-            "msnConsult" => 'Consulta relizada con exito',
-        ];
 
         $response->setJsonContent([
             "status" => $status,

@@ -10,6 +10,12 @@ $loader->registerDirs(
         $config->application->controllersDir,
         $config->application->modelsDir,
         $config->application->validationsDir,
-	   $config->application->libraryDir,
+	    $config->application->libraryDir,
     ]
-)->register();
+);
+
+/*$loader->registerClasses([
+    'JWT' => APP_PATH.'/library/JWT.php'
+]);*/
+
+$loader->register();

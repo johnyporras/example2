@@ -97,9 +97,19 @@ class ApiController extends \Phalcon\Mvc\Controller
                                     $aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
                                     //$colectivo = AcColectivos::findFirstByCodigoColectivo($contrato->codigo_colectivo);
 
+                                    $token = [
+                                        'user' => $user,
+                                        'afiliados' => $this->_afiliados,
+                                        'contrato' => $contrato,
+                                        'aseguradora' => $aseguradora,
+                                        'colectivo' => $colectivo,
+                                    ];
+
                                     $status = 200;
                                     $msnStatus = 'OK';
-                                    $this->_data = ['user' => $user, 'afiliados' => $this->_afiliados,'contrato' => $contrato, 'aseguradora' => $aseguradora, 'colectivo' => $colectivo];
+                                    $this->_data = [
+                                        'token' => JWT::encode($token,"Atiempo-api-rest")
+                                    ];
                                     $this->_mensajes = [
                                         "msnConsult" => 'Datos correctos',
                                     ];
