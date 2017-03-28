@@ -11,40 +11,27 @@ class AfiliadosController extends \Phalcon\Mvc\Controller
     	$response = $this->response;
     	$request = $this->request;
 
-    	if ( $this->session->get("id") == null ) {
-    		
-    		$status = 500;
-            $msnStatus = 'Error';
-            $this->_data = null;
-            $this->_mensajes = [
-                "msnConsult" => 'Usted aun no posee una sesion iniciada',
-            ];
+		$afiliado = AcAfiliados::findFirstByCedula( $request->getPost('cedula') );
 
-    	}else{
+		if ( $afiliado ) {
 
-    		$afiliado = AcAfiliados::findFirstByCedula( $request->getPost('cedula') );
+			$status = 200;
+			$msnStatus = 'OK';
+			$this->_data = $afiliado;
+			$this->_mensajes = [
+					"msnConsult" => 'Consulta relizada con exito',
+			];
 
-    		if ( $afiliado ) {
-    			
-    			$status = 200;
-	            $msnStatus = 'OK';
-	            $this->_data = $afiliado;
-	            $this->_mensajes = [
-	                "msnConsult" => 'Consulta relizada con exito',
-	            ];
+		}else{
 
-    		}else{
+			$status = 200;
+			$msnStatus = 'OK';
+			$this->_data = null;
+			$this->_mensajes = [
+					"msnConsult" => 'Ningun resultado obtenido',
+			];
 
-    			$status = 200;
-	            $msnStatus = 'OK';
-	            $this->_data = null;
-	            $this->_mensajes = [
-	                "msnConsult" => 'Ningun resultado obtenido',
-	            ];
-
-    		}
-
-    	}
+		}
 
     	$response->setJsonContent([
             "status" => $status,

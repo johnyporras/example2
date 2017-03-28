@@ -13,33 +13,20 @@ class ColectivosController extends \Phalcon\Mvc\Controller
         $response = $this->response;
         $request = $this->request;
 
-        if ( $this->session->get("id") == null ) {
+        $colectivos = AcColectivos::find();
 
-            $status = 500;
-            $msnStatus = 'Error';
-            $this->_data = null;
-            $this->_mensajes = [
-                "msnConsult" => 'Usted aun no posee una sesion iniciada',
-            ];
+        foreach ( $colectivos as $item ){
 
-        }else{
-
-            $colectivos = AcColectivos::find();
-
-            foreach ( $colectivos as $item ){
-
-                $this->_list[] = $item;
-
-            }
-
-            $status = 200;
-            $msnStatus = 'OK';
-            $this->_data = $this->_list;
-            $this->_mensajes = [
-                "msnConsult" => 'Consulta relizada con exito',
-            ];
+            $this->_list[] = $item;
 
         }
+
+        $status = 200;
+        $msnStatus = 'OK';
+        $this->_data = $this->_list;
+        $this->_mensajes = [
+            "msnConsult" => 'Consulta relizada con exito',
+        ];
 
         $response->setJsonContent([
             "status" => $status,
@@ -58,38 +45,25 @@ class ColectivosController extends \Phalcon\Mvc\Controller
         $response = $this->response;
         $request = $this->request;
 
-        if ( $this->session->get("id") == null ) {
+        $colectivo = AcColectivos::findFirstById( $request->getPost('id') );
 
-            $status = 500;
-            $msnStatus = 'Error';
-            $this->_data = null;
+        if ( $colectivo ) {
+
+            $status = 200;
+            $msnStatus = 'OK';
+            $this->_data = $colectivo;
             $this->_mensajes = [
-                "msnConsult" => 'Usted aun no posee una sesion iniciada',
+                "msnConsult" => 'Consulta relizada con exito',
             ];
 
         }else{
 
-            $colectivo = AcColectivos::findFirstById( $request->getPost('id') );
-
-            if ( $colectivo ) {
-
-                $status = 200;
-                $msnStatus = 'OK';
-                $this->_data = $colectivo;
-                $this->_mensajes = [
-                    "msnConsult" => 'Consulta relizada con exito',
-                ];
-
-            }else{
-
-                $status = 200;
-                $msnStatus = 'OK';
-                $this->_data = null;
-                $this->_mensajes = [
-                    "msnConsult" => 'Ningun resultado obtenido',
-                ];
-
-            }
+            $status = 200;
+            $msnStatus = 'OK';
+            $this->_data = null;
+            $this->_mensajes = [
+                "msnConsult" => 'Ningun resultado obtenido',
+            ];
 
         }
 

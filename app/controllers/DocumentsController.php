@@ -16,7 +16,7 @@ class DocumentsController extends \Phalcon\Mvc\Controller
         $docs = AcDocumentos::find([
             'conditions' => 'id_paciente = :idPaciente:',
             'bind' => [
-                'idPaciente' => $this->session->get("id")
+                'idPaciente' => 1
             ]
         ]);
 

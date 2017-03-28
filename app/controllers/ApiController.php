@@ -11,119 +11,95 @@ class ApiController extends \Phalcon\Mvc\Controller
         $request = $this->request;
         $response = $this->response;
 
-        if( $this->session->get("id") != null ){
+        if ( $request->isPost() ) {
 
-            $status = 200;
-            $msnStatus = 'Error';
-            $this->_data = ["id" => $this->session->get("id")];
-            $this->_mensajes = [
-                "msnConsult" => 'Ya usted posee una sesion establecida',
-            ];
+            $usuario = $request->getPost('usuario');
 
-        }else{
+            $password = $request->getPost('password');
 
-            if ( $request->isPost() ) {
+            if ( $this->security->checkToken($this->security->getTokenKey(), $this->security->getToken()) ) {
 
-                $usuario = $request->getPost('usuario');
+                $validarLogin = new ValidationLogin();
 
-                $password = $request->getPost('password');
+                $mensagesLogin = $validarLogin->validate($_POST);
 
-                if ( $this->security->checkToken($this->security->getTokenKey(), $this->security->getToken()) ) {
+                if ( $mensagesLogin->count() ) {
 
-                    $validarLogin = new ValidationLogin();
+                    foreach ($mensagesLogin->filter('usuario') as $message) {
+                        $msnUsuario[] =  $message->getMessage();
+                    }
 
-                    $mensagesLogin = $validarLogin->validate($_POST);
+                    foreach ($mensagesLogin->filter('password') as $message) {
+                        $msnPassword[] =  $message->getMessage();
+                    }
 
-                    if ( $mensagesLogin->count() ) {
+                    $status = 200;
+                    $msnStatus = 'Error';
+                    $this->_data = null;
+                    $this->_mensajes = [
+                        "msnConsult" => 'Error de Credenciales',
+                        "msnUsuario" => $msnUsuario[0],
+                        "msnPassword" =>$msnPassword[0]
+                    ];
 
-                        foreach ($mensagesLogin->filter('usuario') as $message) {
-                            $msnUsuario[] =  $message->getMessage();
-                        }
+                }else{
 
-                        foreach ($mensagesLogin->filter('password') as $message) {
-                            $msnPassword[] =  $message->getMessage();
-                        }
+                    //obtenemos al usuario por su nombre usuario
 
-                        $status = 200;
-                        $msnStatus = 'Error';
-                        $this->_data = null;
-                        $this->_mensajes = [
-                            "msnConsult" => 'Error de Credenciales',
-                            "msnUsuario" => $msnUsuario[0],
-                            "msnPassword" =>$msnPassword[0]
-                        ];
+                    $user = Users::findFirstByUser($usuario);
 
-                    }else{
+                    //si existe el usuario buscado por nombre usuario
 
-                        //obtenemos al usuario por su nombre usuario
-
-                        $user = Users::findFirstByUser($usuario);
-
-                        //si existe el usuario buscado por nombre usuario
-
-                        if ($user)
+                    if ($user)
+                    {
+                        //si el password que hay en la base de datos coincide con el que ha
+                        //ingresado encriptado, le damos luz verde, los datos son correctos
+                        if ($this->security->checkHash($password, $user->password))
                         {
-                            //si el password que hay en la base de datos coincide con el que ha
-                            //ingresado encriptado, le damos luz verde, los datos son correctos
-                            if ($this->security->checkHash($password, $user->password))
-                            {
-                                //validamos el estado del usuario
+                            //validamos el estado del usuario
 
-                                if( $user->active == 'S' ){
+                            if( $user->active == 'S' ){
 
-                                    //si esta activo creamos la sesión del usuario con sus datos
+                                //si esta activo creamos la sesión del usuario con sus datos
 
-                                    $this->session->set("id", $user->id);
+                                $titular = AcAfiliados::findFirstById($user->proveedor);
 
-                                    $titular = AcAfiliados::findFirstById($user->proveedor);
+                                $afiliados = AcAfiliados::find([
+                                    'conditions' => 'cedula_titular = :cedula:',
+                                    'bind' => [
+                                        'cedula' => $titular->cedula
+                                    ]
+                                ]);
 
-                                    $afiliados = AcAfiliados::find([
-                                        'conditions' => 'cedula_titular = :cedula:',
-                                        'bind' => [
-                                            'cedula' => $titular->cedula
-                                        ]
-                                    ]);
+                                foreach ($afiliados as $value) {
 
-                                    foreach ($afiliados as $value) {
-                                        
-                                        $this->_afiliados[] = $value;
-
-                                    }
-
-                                    $this->_afiliados[] = $titular;
-
-                                    $contrato = AcContratos::findFirstByCedulaAfiliado($titular->cedula);
-                                    $colectivo = AcColectivos::findFirstByCodigoColectivo($contrato->codigo_colectivo);
-                                    $aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
-                                    //$colectivo = AcColectivos::findFirstByCodigoColectivo($contrato->codigo_colectivo);
-
-                                    $token = [
-                                        'user' => $user,
-                                        'afiliados' => $this->_afiliados,
-                                        'contrato' => $contrato,
-                                        'aseguradora' => $aseguradora,
-                                        'colectivo' => $colectivo,
-                                    ];
-
-                                    $status = 200;
-                                    $msnStatus = 'OK';
-                                    $this->_data = [
-                                        'token' => JWT::encode($token,"Atiempo-api-rest")
-                                    ];
-                                    $this->_mensajes = [
-                                        "msnConsult" => 'Datos correctos',
-                                    ];
-
-                                }else{
-
-                                    $status = 200;
-                                    $msnStatus = 'Error';
-                                    $this->_data = null;
-                                    $this->_mensajes = [
-                                        "msnConsult" => 'Usted se encuentra en estado inactivo',
-                                    ];
+                                    $this->_afiliados[] = $value;
 
                                 }
+
+                                $this->_afiliados[] = $titular;
+
+                                $contrato = AcContratos::findFirstByCedulaAfiliado($titular->cedula);
+                                $colectivo = AcColectivos::findFirstByCodigoColectivo($contrato->codigo_colectivo);
+                                $aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+                                //$colectivo = AcColectivos::findFirstByCodigoColectivo($contrato->codigo_colectivo);
+
+                                $token = [
+                                    'user' => $user,
+                                    'afiliados' => $this->_afiliados,
+                                    'contrato' => $contrato,
+                                    'aseguradora' => $aseguradora,
+                                    'colectivo' => $colectivo,
+                                ];
+
+                                $status = 200;
+                                $msnStatus = 'OK';
+                                $this->_data = [
+                                    'token' => JWT::encode($token,"Atiempo-api-rest")
+                                ];
+                                $this->_mensajes = [
+                                    "msnConsult" => 'Datos correctos',
+                                ];
 
                             }else{
 
@@ -131,7 +107,7 @@ class ApiController extends \Phalcon\Mvc\Controller
                                 $msnStatus = 'Error';
                                 $this->_data = null;
                                 $this->_mensajes = [
-                                    "msnConsult" => 'Clave incorrecta',
+                                    "msnConsult" => 'Usted se encuentra en estado inactivo',
                                 ];
 
                             }
@@ -142,21 +118,21 @@ class ApiController extends \Phalcon\Mvc\Controller
                             $msnStatus = 'Error';
                             $this->_data = null;
                             $this->_mensajes = [
-                                "msnConsult" => 'Usuario incorrecto',
+                                "msnConsult" => 'Usuario o clave incorrectos',
                             ];
 
                         }
 
+                    }else{
+
+                        $status = 200;
+                        $msnStatus = 'Error';
+                        $this->_data = null;
+                        $this->_mensajes = [
+                            "msnConsult" => 'Usuario o clave incorrectos',
+                        ];
+
                     }
-
-                }else{
-
-                    $status = 200;
-                    $msnStatus = 'Error';
-                    $this->_data = null;
-                    $this->_mensajes = [
-                        "msnConsult" => 'Problemas de validacion del formulario',
-                    ];
 
                 }
 
@@ -166,10 +142,19 @@ class ApiController extends \Phalcon\Mvc\Controller
                 $msnStatus = 'Error';
                 $this->_data = null;
                 $this->_mensajes = [
-                    "msnConsult" => 'Debe ser unapetición detipo POST',
+                    "msnConsult" => 'Problemas de validacion del formulario',
                 ];
 
             }
+
+        }else{
+
+            $status = 200;
+            $msnStatus = 'Error';
+            $this->_data = null;
+            $this->_mensajes = [
+                "msnConsult" => 'Debe ser unapetición detipo POST',
+            ];
 
         }
 

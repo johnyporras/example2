@@ -13,33 +13,20 @@ class AseguradorasController extends \Phalcon\Mvc\Controller
     	$response = $this->response;
     	$request = $this->request;
 
-    	if ( $this->session->get("id") == null ) {
-    		
-    		$status = 500;
-            $msnStatus = 'Error';
-            $this->_data = null;
-            $this->_mensajes = [
-                "msnConsult" => 'Usted aun no posee una sesion iniciada',
-            ];
+		$aseguradoras = AcAseguradora::find();
 
-    	}else{
+		foreach ( $aseguradoras as $item ){
 
-    		$aseguradoras = AcAseguradora::find();
+			$this->_list[] = $item;
 
-	        foreach ( $aseguradoras as $item ){
+		}
 
-	            $this->_list[] = $item;
-
-	        }
-
-	        $status = 200;
-            $msnStatus = 'OK';
-            $this->_data = $this->_list;
-            $this->_mensajes = [
-                "msnConsult" => 'Consulta relizada con exito',
-            ];
-
-    	}
+		$status = 200;
+		$msnStatus = 'OK';
+		$this->_data = $this->_list;
+		$this->_mensajes = [
+				"msnConsult" => 'Consulta relizada con exito',
+		];
 
         $response->setJsonContent([
             "status" => $status,
@@ -58,40 +45,27 @@ class AseguradorasController extends \Phalcon\Mvc\Controller
     	$response = $this->response;
     	$request = $this->request;
 
-    	if ( $this->session->get("id") == null ) {
-    		
-    		$status = 500;
-            $msnStatus = 'Error';
-            $this->_data = null;
-            $this->_mensajes = [
-                "msnConsult" => 'Usted aun no posee una sesion iniciada',
-            ];
+		$aseguradora = AcAseguradora::findFirstById( $request->getPost('id') );
 
-    	}else{
+		if ( $aseguradora ) {
 
-    		$aseguradora = AcAseguradora::findFirstById( $request->getPost('id') );
+			$status = 200;
+			$msnStatus = 'OK';
+			$this->_data = $aseguradora;
+			$this->_mensajes = [
+					"msnConsult" => 'Consulta relizada con exito',
+			];
 
-	        if ( $aseguradora ) {
-        	
-	        	$status = 200;
-	            $msnStatus = 'OK';
-	            $this->_data = $aseguradora;
-	            $this->_mensajes = [
-	                "msnConsult" => 'Consulta relizada con exito',
-	            ];
+		}else{
 
-	        }else{
+			$status = 200;
+			$msnStatus = 'OK';
+			$this->_data = null;
+			$this->_mensajes = [
+					"msnConsult" => 'Ningun resultado obtenido',
+			];
 
-	        	$status = 200;
-	            $msnStatus = 'OK';
-	            $this->_data = null;
-	            $this->_mensajes = [
-	                "msnConsult" => 'Ningun resultado obtenido',
-	            ];
-
-	        }
-
-    	}
+		}
 
         $response->setJsonContent([
             "status" => $status,
