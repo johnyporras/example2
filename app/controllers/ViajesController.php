@@ -153,13 +153,12 @@ class ViajesController extends \Phalcon\Mvc\Controller
                 $objcontrato = json_decode($request->getPost('contrato'));
                 $edadAfiliado = date('Y-m-d') - $objAfiliado->fecha_nacimiento;
                 $coberMonto = 1;
-                $codSolicitud = $random->number(9999999);
                 $objViajes = json_decode($request->getPost('viajes'));
                 $observacines = $request->getPost('observ');
                 $cronograma = $request->getPost('cronograma');
 
                 $avi = new Avi();
-                $avi->codigo_solicitud = $codSolicitud;
+                $avi->codigo_solicitud = 'av'.substr(uniqid(),7,13);
                 $avi->cedula_afiliado = $objcontrato->cedula_afiliado;
                 $avi->codigo_contrato = $objcontrato->codigo_contrato;
                 $avi->cobertura_monto = $coberMonto;
@@ -182,7 +181,7 @@ class ViajesController extends \Phalcon\Mvc\Controller
 
                 $status = 200;
                 $msnStatus = 'OK';
-                $this->_data = null;
+                $this->_data = substr(uniqid(),7,13);
                 $this->_mensajes = [
                     "msnConsult" => 'Consulta relizada con exito',
                     "msnHeaders" => true,
