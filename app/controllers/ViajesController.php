@@ -6,6 +6,7 @@ class ViajesController extends \Phalcon\Mvc\Controller
 {
 
     private $_list = [];
+    private $_detalles_avi = [];
     private $_mensajes = '';
     private $_data = '';
     private $_detailClaves = [];
@@ -62,13 +63,23 @@ class ViajesController extends \Phalcon\Mvc\Controller
                 foreach($lista as $item){
 
                     $destinos = AviDestino::find([
-                        'conditions' => 'codigo_solicitud_avi = :cod:',
+                        'conditions' => 'avi_id = :cod:',
                         'bind' => [
                             'cod' => $item->id,
                         ]
                     ]);
 
-                    $this->_list[] = ['avi' => $item, 'detalleAvi' => $destinos];
+                    foreach($destinos as $destino){
+
+                        $pais = Paises::findFirstByCodigo($destino->pais_destino);
+
+                        $this->_detalles_avi[] = ['detalle' => $destino, 'pais' => $pais];
+
+                    }
+
+                    $this->_list[] = ['avi' => $item, 'detalleAvi' => $this->_detalles_avi];
+
+                    $this->_detalles_avi = [];
 
                 }
 
@@ -161,7 +172,7 @@ class ViajesController extends \Phalcon\Mvc\Controller
                 foreach( $objViajes as $item ){
 
                     $aviDestino = new AviDestino();
-                    $aviDestino->codigo_solicitud_avi = $avi->id;
+                    $aviDestino->avi_id = $avi->id;
                     $aviDestino->pais_destino = $item->pais;
                     $aviDestino->fecha_desde = $item->desde;
                     $aviDestino->fecha_hasta = $item->hasta;

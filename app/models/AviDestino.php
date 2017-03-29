@@ -13,7 +13,8 @@ class AviDestino extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
-    public $codigo_solicitud_avi;
+    //public $codigo_solicitud_avi;
+    public $avi_id;
 
     /**
      *
