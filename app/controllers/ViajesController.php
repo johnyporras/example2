@@ -172,7 +172,7 @@ class ViajesController extends \Phalcon\Mvc\Controller
 
                     $aviDestino = new AviDestino();
                     $aviDestino->avi_id = $avi->id;
-                    $aviDestino->pais_destino = $item->pais;
+                    $aviDestino->pais_destino = $item->codPais;
                     $aviDestino->fecha_desde = $item->desde;
                     $aviDestino->fecha_hasta = $item->hasta;
                     $aviDestino->save();
