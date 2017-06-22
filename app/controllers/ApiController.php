@@ -62,10 +62,10 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                                 //si esta activo creamos la sesión del usuario con sus datos
 
-                                $titular = AcAfiliados::findFirstById($user->proveedor);
+                                $titular = AcAfiliados::findFirstById($user->detalles_usuario_id);
 
-                                $afiliados = AcAfiliados::find([
-                                    'conditions' => 'cedula_titular = :cedula:',
+                                /*$afiliados = AcAfiliados::find([
+                                    'conditions' => 'cedula = :cedula:',
                                     'bind' => [
                                         'cedula' => $titular->cedula
                                     ]
@@ -75,21 +75,21 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                                     $this->_afiliados[] = $value;
 
-                                }
+                                }*/
 
                                 $this->_afiliados[] = $titular;
 
-                                $contrato = AcContratos::findFirstByCedulaAfiliado($titular->cedula);
-                                $colectivo = AcColectivos::findFirstByCodigoColectivo($contrato->codigo_colectivo);
-                                $aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+                                //$contrato = AcContratos::findFirstByCedulaAfiliado($titular->cedula);
+                                //$colectivo = AcColectivos::findFirstByCodigoColectivo($contrato->codigo_colectivo);
+                              //  $aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
                                 //$colectivo = AcColectivos::findFirstByCodigoColectivo($contrato->codigo_colectivo);
 
                                 $token = [
                                     'user' => $user,
                                     'afiliados' => $this->_afiliados,
-                                    'contrato' => $contrato,
-                                    'aseguradora' => $aseguradora,
-                                    'colectivo' => $colectivo,
+                                    //'contrato' => $contrato,
+                                    //'aseguradora' => $aseguradora,
+                                  //  'colectivo' => $colectivo,
                                 ];
 
                                 $status = 200;
@@ -171,4 +171,3 @@ class ApiController extends \Phalcon\Mvc\Controller
     }
 
 }
-

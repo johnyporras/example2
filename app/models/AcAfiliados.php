@@ -59,30 +59,44 @@ class AcAfiliados extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=10, nullable=false)
-     */
-    public $val_user;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $tipo_afiliado;
-
-    /**
-     *
-     * @var string
      * @Column(type="string", length=50, nullable=true)
      */
     public $telefono;
 
     /**
      *
-     * @var string
-     * @Column(type="string", length=50, nullable=true)
+     * @var integer
+     * @Column(type="integer", nullable=false)
      */
-    public $cedula_titular;
+    public $id_cuenta;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", nullable=false)
+     */
+    public $id_estado;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string",lenght="255", nullable=false)
+     */
+    public $ciudad;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string",lenght="255", nullable=true)
+     */
+    public $embarazada;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", nullable=true)
+     */
+    public $tiempo_gestacion;
 
     /**
      *
@@ -134,9 +148,9 @@ class AcAfiliados extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
-        $this->belongsTo('tipo_afiliado', 'AcTipoAfiliado', 'id', ['alias' => 'AcTipoAfiliado']);
+        //$this->belongsTo('tipo_afiliado', 'AcTipoAfiliado', 'id', ['alias' => 'AcTipoAfiliado']);
     }
-    
+
     public function beforeCreate()
     {
         $this->created_at = date('Y-m-d H:i:s');

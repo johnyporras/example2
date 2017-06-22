@@ -31,6 +31,13 @@ class Users extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
+     * @Column(type="string", length=20, nullable=false)
+     */
+    public $user;
+
+    /**
+     *
+     * @var string
      * @Column(type="string", length=255, nullable=false)
      */
     public $password;
@@ -44,17 +51,17 @@ class Users extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $imagen_perfil;
+
+    /**
+     *
      * @var integer
      * @Column(type="integer", length=32, nullable=false)
      */
     public $type;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=20, nullable=false)
-     */
-    public $user;
 
     /**
      *
@@ -65,10 +72,38 @@ class Users extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @var string
+     * @Column(type="string", length=255, nullable=false)
      */
-    public $proveedor;
+    public $pregunta_1;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=false)
+     */
+    public $respuesta_1;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=false)
+     */
+    public $pregunta_2;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=false)
+     */
+    public $respuesta_2;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string",nullable=true)
+     */
+    public $ultimo_acceso;
 
     /**
      *
@@ -101,9 +136,17 @@ class Users extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", length=100, nullable=true)
      */
-    public $salt;
+    public $confirm_token;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=10, nullable=true)
+     */
+    public $detalles_usuario_id;
+
     /**
      * Initialize method for model.
      */

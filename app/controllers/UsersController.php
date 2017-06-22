@@ -148,7 +148,7 @@ class UsersController extends \Phalcon\Mvc\Controller
 
                 if (!$user->save()){
 
-                    $transaction->rollback("Problemas durate el registro de usuario, por favor intentelo mas tarde o comuniquese con un administrador del sistema");
+                    $transaction->rollback("Problemas durante el registro de usuario, por favor intentelo mas tarde o comuniquese con un administrador del sistema");
 
                 }
 
@@ -193,4 +193,3 @@ class UsersController extends \Phalcon\Mvc\Controller
     }
 
 }
-
