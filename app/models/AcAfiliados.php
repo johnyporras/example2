@@ -59,6 +59,13 @@ class AcAfiliados extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=false)
+     */
+    public $tipo_afiliado;
+
+    /**
+     *
      * @var string
      * @Column(type="string", length=50, nullable=true)
      */
@@ -66,40 +73,7 @@ class AcAfiliados extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", nullable=false)
-     */
-    public $id_cuenta;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", nullable=false)
-     */
-    public $id_estado;
-
-    /**
-     *
      * @var string
-     * @Column(type="string",lenght="255", nullable=false)
-     */
-    public $ciudad;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string",lenght="255", nullable=true)
-     */
-    public $embarazada;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", nullable=true)
-     */
-    public $tiempo_gestacion;
-    /*
-     *
      * @Column(type="string", nullable=true)
      */
     public $created_at;
@@ -183,11 +157,6 @@ class AcAfiliados extends \Phalcon\Mvc\Model
         $this->setSchema("atiempo_dev");
         $this->belongsTo('id_estado', '\AcEstados', 'es_id', ['alias' => 'AcEstados']);
         $this->belongsTo('id_cuenta', '\AcCuenta', 'id', ['alias' => 'AcCuenta']);
-    }
-
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
     }
 
     /**
