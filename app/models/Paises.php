@@ -6,24 +6,30 @@ class Paises extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
+     * @Primary
+     * @Identity
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $id;
 
     /**
      *
      * @var string
+     * @Column(type="string", length=2, nullable=false)
      */
     public $codigo;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=false)
      */
     public $name_es;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=false)
      */
     public $name_en;
 
@@ -45,21 +51,11 @@ class Paises extends \Phalcon\Mvc\Model
         return 'paises';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Paises[]
+     * @return Paises[]|Paises
      */
     public static function find($parameters = null)
     {

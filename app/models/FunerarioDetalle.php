@@ -1,12 +1,11 @@
 <?php
 
-class AcCoberturaDetalle extends \Phalcon\Mvc\Model
+class FunerarioDetalle extends \Phalcon\Mvc\Model
 {
 
     /**
      *
      * @var integer
-     * @Primary
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
@@ -14,52 +13,52 @@ class AcCoberturaDetalle extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
-     * @Column(type="string", length=200, nullable=false)
+     * @var integer
+     * @Column(type="integer", length=32, nullable=false)
      */
-    public $nombre;
+    public $funerario_id;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=false)
+     */
+    public $proveedor_id;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=false)
+     */
+    public $factura;
 
     /**
      *
      * @var string
      * @Column(type="string", nullable=false)
      */
-    public $desc;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=50, nullable=false)
-     */
-    public $short;
+    public $fecha;
 
     /**
      *
      * @var integer
      * @Column(type="integer", length=32, nullable=false)
      */
-    public $id_cobertura;
+    public $monto;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=20, nullable=false)
+     * @Column(type="string", nullable=true)
      */
-    public $precio;
+    public $detalles;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=1, nullable=false)
+     * @Column(type="string", nullable=true)
      */
-    public $act;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $orden;
+    public $doc_factura;
 
     /**
      *
@@ -97,24 +96,14 @@ class AcCoberturaDetalle extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'ac_cobertura_detalle';
-    }
-
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
+        return 'funerario_detalle';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcCoberturaDetalle[]
+     * @return FunerarioDetalle[]|FunerarioDetalle
      */
     public static function find($parameters = null)
     {
@@ -125,7 +114,7 @@ class AcCoberturaDetalle extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcCoberturaDetalle
+     * @return FunerarioDetalle
      */
     public static function findFirst($parameters = null)
     {

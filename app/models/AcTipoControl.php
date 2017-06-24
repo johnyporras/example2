@@ -6,30 +6,36 @@ class AcTipoControl extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
+     * @Identity
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $id;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=false)
      */
     public $descripcion;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $created_at;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $updated_at;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $deleted_at;
 
@@ -51,21 +57,11 @@ class AcTipoControl extends \Phalcon\Mvc\Model
         return 'ac_tipo_control';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcTipoControl[]
+     * @return AcTipoControl[]|AcTipoControl
      */
     public static function find($parameters = null)
     {

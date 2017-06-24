@@ -6,7 +6,6 @@ class AcFeriados extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
-     * @Primary
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
@@ -38,6 +37,20 @@ class AcFeriados extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", nullable=true)
      */
+    public $fecha;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=100, nullable=true)
+     */
+    public $descripcion;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
     public $created_at;
 
     /**
@@ -53,13 +66,6 @@ class AcFeriados extends \Phalcon\Mvc\Model
      * @Column(type="string", nullable=true)
      */
     public $deleted_at;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $fecha;
 
     /**
      * Initialize method for model.
@@ -79,21 +85,11 @@ class AcFeriados extends \Phalcon\Mvc\Model
         return 'ac_feriados';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcFeriados[]
+     * @return AcFeriados[]|AcFeriados
      */
     public static function find($parameters = null)
     {

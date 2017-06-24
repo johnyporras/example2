@@ -41,6 +41,13 @@ class AcEstatus extends \Phalcon\Mvc\Model
     public $deleted_at;
 
     /**
+     *
+     * @var string
+     * @Column(type="string", length=150, nullable=true)
+     */
+    public $referencia;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
@@ -58,21 +65,11 @@ class AcEstatus extends \Phalcon\Mvc\Model
         return 'ac_estatus';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcEstatus[]
+     * @return AcEstatus[]|AcEstatus
      */
     public static function find($parameters = null)
     {

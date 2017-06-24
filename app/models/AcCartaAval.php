@@ -1,7 +1,5 @@
 <?php
 
-use Phalcon\Mvc\Model\Validator\Email as Email;
-
 class AcCartaAval extends \Phalcon\Mvc\Model
 {
 
@@ -16,10 +14,10 @@ class AcCartaAval extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @var string
+     * @Column(type="string", length=100, nullable=true)
      */
-    public $codigo_contrato;
+    public $clave;
 
     /**
      *
@@ -27,6 +25,13 @@ class AcCartaAval extends \Phalcon\Mvc\Model
      * @Column(type="string", length=20, nullable=false)
      */
     public $cedula_afiliado;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=false)
+     */
+    public $codigo_contrato;
 
     /**
      *
@@ -47,14 +52,7 @@ class AcCartaAval extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", length=300, nullable=true)
      */
-    public $motivo_consulta;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $codigo_especialidad;
+    public $motivo;
 
     /**
      *
@@ -65,24 +63,10 @@ class AcCartaAval extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
-     * @Column(type="string", length=300, nullable=true)
-     */
-    public $codigo_examen;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=300, nullable=true)
-     */
-    public $email;
-
-    /**
-     *
      * @var double
      * @Column(type="double", length=12, nullable=true)
      */
-    public $monto;
+    public $costo_total;
 
     /**
      *
@@ -100,17 +84,10 @@ class AcCartaAval extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
-     * @Column(type="string", length=100, nullable=true)
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
      */
-    public $codigo_proveedor;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=30, nullable=true)
-     */
-    public $clave;
+    public $codigo_proveedor_creador;
 
     /**
      *
@@ -118,13 +95,6 @@ class AcCartaAval extends \Phalcon\Mvc\Model
      * @Column(type="integer", length=32, nullable=true)
      */
     public $creador;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $hora_guardado;
 
     /**
      *
@@ -159,7 +129,7 @@ class AcCartaAval extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", nullable=true)
      */
-    public $hora_autorizacion;
+    public $fecha_autorizacion;
 
     /**
      *
@@ -183,27 +153,11 @@ class AcCartaAval extends \Phalcon\Mvc\Model
     public $deleted_at;
 
     /**
-     * Validations and business logic
      *
-     * @return boolean
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
      */
-    public function validation()
-    {
-        $this->validate(
-            new Email(
-                [
-                    'field'    => 'email',
-                    'required' => true,
-                ]
-            )
-        );
-
-        if ($this->validationHasFailed() == true) {
-            return false;
-        }
-
-        return true;
-    }
+    public $id_factura;
 
     /**
      * Initialize method for model.
@@ -211,10 +165,6 @@ class AcCartaAval extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
-        $this->belongsTo('cedula_afiliado', 'AcAfiliados', 'cedula', ['alias' => 'AcAfiliados']);
-        $this->belongsTo('codigo_contrato', 'AcContratos', 'codigo_contrato', ['alias' => 'AcContratos']);
-        $this->belongsTo('codigo_especialidad', 'AcEspecialidadesExtranet', 'codigo_especialidad', ['alias' => 'AcEspecialidadesExtranet']);
-        $this->belongsTo('codigo_proveedor', 'AcProveedoresExtranet', 'codigo_proveedor', ['alias' => 'AcProveedoresExtranet']);
     }
 
     /**
@@ -227,21 +177,11 @@ class AcCartaAval extends \Phalcon\Mvc\Model
         return 'ac_carta_aval';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcCartaAval[]
+     * @return AcCartaAval[]|AcCartaAval
      */
     public static function find($parameters = null)
     {

@@ -6,42 +6,49 @@ class AcDiente extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $id;
 
     /**
      *
      * @var string
+     * @Column(type="string", length=300, nullable=true)
      */
     public $descripcion;
 
     /**
      *
      * @var integer
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $orden;
 
     /**
      *
      * @var integer
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $cuadrante;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $created_at;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $updated_at;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $deleted_at;
 
@@ -63,21 +70,11 @@ class AcDiente extends \Phalcon\Mvc\Model
         return 'ac_diente';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcDiente[]
+     * @return AcDiente[]|AcDiente
      */
     public static function find($parameters = null)
     {

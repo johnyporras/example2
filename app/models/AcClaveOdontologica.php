@@ -6,7 +6,7 @@ class AcClaveOdontologica extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
-     * @Primary
+     * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
     public $id;
@@ -14,35 +14,35 @@ class AcClaveOdontologica extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=1, nullable=true)
+     * @Column(type="string", length=100, nullable=false)
      */
     public $clave;
 
     /**
      *
-     * @var string
-     * @Column(type="string", length=1, nullable=true)
+     * @var integer
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $tipo_control;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=20, nullable=true)
+     * @Column(type="string", length=20, nullable=false)
      */
     public $cedula_afiliado;
 
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=true)
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $codigo_contrato;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=true)
+     * @Column(type="string", nullable=false)
      */
     public $fecha_atencion1;
 
@@ -63,44 +63,58 @@ class AcClaveOdontologica extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=1, nullable=true)
+     * @Column(type="string", length=100, nullable=true)
      */
     public $clave_primaria;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=1, nullable=true)
+     * @Column(type="string", length=300, nullable=true)
      */
     public $motivo;
 
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=true)
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $codigo_proveedor_creador;
 
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=true)
+     * @Column(type="integer", length=32, nullable=false)
      */
-    public $numero_control;
+    public $estatus;
 
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=true)
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $creador;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=1, nullable=true)
+     * @Column(type="string", length=20, nullable=false)
      */
     public $telefono;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $created_at;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $updated_at;
 
     /**
      *
@@ -114,7 +128,7 @@ class AcClaveOdontologica extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=32, nullable=true)
      */
-    public $estatus;
+    public $numero_control;
 
     /**
      * Initialize method for model.
@@ -134,21 +148,11 @@ class AcClaveOdontologica extends \Phalcon\Mvc\Model
         return 'ac_clave_odontologica';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcClaveOdontologica[]
+     * @return AcClaveOdontologica[]|AcClaveOdontologica
      */
     public static function find($parameters = null)
     {

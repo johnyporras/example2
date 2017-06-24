@@ -1,11 +1,12 @@
 <?php
 
-class AcContratos extends \Phalcon\Mvc\Model
+class AcCuentaplan extends \Phalcon\Mvc\Model
 {
 
     /**
      *
      * @var integer
+     * @Primary
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
@@ -14,65 +15,23 @@ class AcContratos extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @Column(type="integer", length=32, nullable=true)
      */
-    public $codigo_contrato;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=20, nullable=false)
-     */
-    public $cedula_afiliado;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $fecha_inicio;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $fecha_fin;
+    public $id_cuenta;
 
     /**
      *
      * @var integer
      * @Column(type="integer", length=32, nullable=true)
      */
-    public $codigo_colectivo;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $codigo_plan;
+    public $id_plan;
 
     /**
      *
      * @var string
      * @Column(type="string", nullable=true)
      */
-    public $created_at;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $updated_at;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $deleted_at;
+    public $costo;
 
     /**
      * Initialize method for model.
@@ -80,6 +39,7 @@ class AcContratos extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
+        $this->belongsTo('id_cuenta', '\AcCuenta', 'id', ['alias' => 'AcCuenta']);
     }
 
     /**
@@ -89,14 +49,14 @@ class AcContratos extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'ac_contratos';
+        return 'ac_cuentaplan';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcContratos[]|AcContratos
+     * @return AcCuentaplan[]|AcCuentaplan
      */
     public static function find($parameters = null)
     {
@@ -107,7 +67,7 @@ class AcContratos extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcContratos
+     * @return AcCuentaplan
      */
     public static function findFirst($parameters = null)
     {

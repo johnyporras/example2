@@ -1,12 +1,11 @@
 <?php
 
-class AcDetalleServicios extends \Phalcon\Mvc\Model
+class ProveedorFunerario extends \Phalcon\Mvc\Model
 {
 
     /**
      *
      * @var integer
-     * @Primary
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
@@ -14,24 +13,38 @@ class AcDetalleServicios extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
+     * @var string
+     * @Column(type="string", length=255, nullable=false)
      */
-    public $codigo_servicio;
+    public $codigo;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=100, nullable=true)
+     * @Column(type="string", length=255, nullable=true)
      */
-    public $descripcion;
+    public $razon_social;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=100, nullable=true)
+     * @Column(type="string", length=255, nullable=true)
      */
-    public $orden;
+    public $rif;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $direccion;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=20, nullable=true)
+     */
+    public $telefono;
 
     /**
      *
@@ -69,24 +82,14 @@ class AcDetalleServicios extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'ac_detalle_servicios';
-    }
-
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
+        return 'proveedor_funerario';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcDetalleServicios[]
+     * @return ProveedorFunerario[]|ProveedorFunerario
      */
     public static function find($parameters = null)
     {
@@ -97,7 +100,7 @@ class AcDetalleServicios extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcDetalleServicios
+     * @return ProveedorFunerario
      */
     public static function findFirst($parameters = null)
     {

@@ -1,6 +1,6 @@
 <?php
 
-class AcProfesionales extends \Phalcon\Mvc\Model
+class Funerario extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -10,56 +10,84 @@ class AcProfesionales extends \Phalcon\Mvc\Model
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
-    public $acp_id;
+    public $id;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=20, nullable=false)
+     */
+    public $codigo_solicitud;
 
     /**
      *
      * @var integer
      * @Column(type="integer", length=32, nullable=false)
      */
-    public $acp_es_id;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=100, nullable=false)
-     */
-    public $acp_ciudad;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=false)
-     */
-    public $acp_direccion;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=255, nullable=false)
-     */
-    public $acp_profesional;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=100, nullable=false)
-     */
-    public $acp_telefono;
+    public $estado_id;
 
     /**
      *
      * @var integer
      * @Column(type="integer", length=32, nullable=false)
      */
-    public $acp_acr_id;
+    public $afiliado_id;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=255, nullable=false)
+     * @Column(type="string", length=255, nullable=true)
      */
-    public $acp_ace_id;
+    public $ciudad;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=20, nullable=true)
+     */
+    public $contacto;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $cobertura;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=false)
+     */
+    public $metodo_id;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $plazo;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $doc_cedula;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $doc_acta;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=false)
+     */
+    public $creador;
 
     /**
      *
@@ -88,6 +116,10 @@ class AcProfesionales extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
+        $this->belongsTo('afiliado_id', '\AcAfiliados', 'id', ['alias' => 'AcAfiliados']);
+        $this->belongsTo('estado_id', '\AcEstados', 'es_id', ['alias' => 'AcEstados']);
+        $this->belongsTo('metodo_id', '\MetodoPago', 'id', ['alias' => 'MetodoPago']);
+        $this->belongsTo('creador', '\Users', 'id', ['alias' => 'Users']);
     }
 
     /**
@@ -97,24 +129,14 @@ class AcProfesionales extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'ac_profesionales';
-    }
-
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
+        return 'funerario';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcProfesionales[]
+     * @return Funerario[]|Funerario
      */
     public static function find($parameters = null)
     {
@@ -125,7 +147,7 @@ class AcProfesionales extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcProfesionales
+     * @return Funerario
      */
     public static function findFirst($parameters = null)
     {

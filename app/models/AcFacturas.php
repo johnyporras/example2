@@ -14,13 +14,6 @@ class AcFacturas extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
-     * @Column(type="string", length=10, nullable=false)
-     */
-    public $clave;
-
-    /**
-     *
      * @var integer
      * @Column(type="integer", length=32, nullable=false)
      */
@@ -73,7 +66,7 @@ class AcFacturas extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=32, nullable=true)
      */
-    public $status;
+    public $codigo_estatus;
 
     /**
      *
@@ -97,12 +90,27 @@ class AcFacturas extends \Phalcon\Mvc\Model
     public $deleted_at;
 
     /**
+     *
+     * @var string
+     * @Column(type="string", length=400, nullable=true)
+     */
+    public $documento;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $codigo_proveedor_creador;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
-        $this->belongsTo('clave', 'AcClaves', 'clave', ['alias' => 'AcClaves']);
+        $this->belongsTo('codigo_estatus', '\AcEstatus', 'id', ['alias' => 'AcEstatus']);
+        $this->belongsTo('codigo_proveedor_creador', '\AcProveedoresExtranet', 'codigo_proveedor', ['alias' => 'AcProveedoresExtranet']);
     }
 
     /**
@@ -115,21 +123,11 @@ class AcFacturas extends \Phalcon\Mvc\Model
         return 'ac_facturas';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcFacturas[]
+     * @return AcFacturas[]|AcFacturas
      */
     public static function find($parameters = null)
     {

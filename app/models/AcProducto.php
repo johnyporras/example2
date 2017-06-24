@@ -1,6 +1,6 @@
 <?php
 
-class Documentos extends \Phalcon\Mvc\Model
+class AcProducto extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -14,31 +14,17 @@ class Documentos extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @var string
+     * @Column(type="string", length=150, nullable=true)
      */
-    public $id_paciente;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $tipo_documento;
+    public $nombre;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", nullable=true)
      */
-    public $file;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $id_profesional;
+    public $costo;
 
     /**
      *
@@ -76,24 +62,14 @@ class Documentos extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'documentos';
-    }
-
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
+        return 'ac_producto';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Documentos[]
+     * @return AcProducto[]|AcProducto
      */
     public static function find($parameters = null)
     {
@@ -104,7 +80,7 @@ class Documentos extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Documentos
+     * @return AcProducto
      */
     public static function findFirst($parameters = null)
     {

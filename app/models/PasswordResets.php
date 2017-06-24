@@ -1,6 +1,7 @@
 <?php
 
-use Phalcon\Mvc\Model\Validator\Email as Email;
+use Phalcon\Validation;
+use Phalcon\Mvc\Model\Validator\Email as EmailValidator;
 
 class PasswordResets extends \Phalcon\Mvc\Model
 {
@@ -33,20 +34,19 @@ class PasswordResets extends \Phalcon\Mvc\Model
      */
     public function validation()
     {
-        $this->validate(
-            new Email(
+        $validator = new Validation();
+
+        $validator->add(
+            'email',
+            new EmailValidator(
                 [
-                    'field'    => 'email',
-                    'required' => true,
+                    'model'   => $this,
+                    'message' => 'Please enter a correct email address',
                 ]
             )
         );
 
-        if ($this->validationHasFailed() == true) {
-            return false;
-        }
-
-        return true;
+        return $this->validate($validator);
     }
 
     /**
@@ -67,16 +67,11 @@ class PasswordResets extends \Phalcon\Mvc\Model
         return 'password_resets';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return PasswordResets[]
+     * @return PasswordResets[]|PasswordResets
      */
     public static function find($parameters = null)
     {

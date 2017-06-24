@@ -6,84 +6,99 @@ class AcCitasOdontologicas extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
+     * @Identity
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $id;
 
     /**
      *
      * @var integer
+     * @Column(type="integer", length=32, nullable=true)
      */
     public $id_paciente;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $clave;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $fecha1;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $fecha2;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $fecha3;
 
     /**
      *
      * @var integer
+     * @Column(type="integer", length=32, nullable=true)
      */
     public $estatus;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $fecha_creacion;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $fecha_modifico;
 
     /**
      *
      * @var integer
+     * @Column(type="integer", length=32, nullable=true)
      */
     public $usuario_creador;
 
     /**
      *
      * @var integer
+     * @Column(type="integer", length=32, nullable=true)
      */
     public $usuario_modifico;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $created_at;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $updated_at;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $deleted_at;
 
@@ -105,21 +120,11 @@ class AcCitasOdontologicas extends \Phalcon\Mvc\Model
         return 'ac_citas_odontologicas';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcCitasOdontologicas[]
+     * @return AcCitasOdontologicas[]|AcCitasOdontologicas
      */
     public static function find($parameters = null)
     {

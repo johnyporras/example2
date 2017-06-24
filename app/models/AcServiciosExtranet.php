@@ -28,20 +28,6 @@ class AcServiciosExtranet extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $orden;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=1, nullable=false)
-     */
-    public $act;
-
-    /**
-     *
      * @var string
      * @Column(type="string", nullable=true)
      */
@@ -79,21 +65,11 @@ class AcServiciosExtranet extends \Phalcon\Mvc\Model
         return 'ac_servicios_extranet';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcServiciosExtranet[]
+     * @return AcServiciosExtranet[]|AcServiciosExtranet
      */
     public static function find($parameters = null)
     {

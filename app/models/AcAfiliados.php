@@ -1,6 +1,7 @@
 <?php
 
-use Phalcon\Mvc\Model\Validator\Email as Email;
+use Phalcon\Validation;
+use Phalcon\Mvc\Model\Validator\Email as EmailValidator;
 
 class AcAfiliados extends \Phalcon\Mvc\Model
 {
@@ -45,7 +46,7 @@ class AcAfiliados extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=500, nullable=false)
+     * @Column(type="string", length=500, nullable=true)
      */
     public $email;
 
@@ -97,10 +98,8 @@ class AcAfiliados extends \Phalcon\Mvc\Model
      * @Column(type="integer", nullable=true)
      */
     public $tiempo_gestacion;
-
-    /**
+    /*
      *
-     * @var string
      * @Column(type="string", nullable=true)
      */
     public $created_at;
@@ -120,26 +119,60 @@ class AcAfiliados extends \Phalcon\Mvc\Model
     public $deleted_at;
 
     /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=false)
+     */
+    public $id_cuenta;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $id_estado;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=100, nullable=true)
+     */
+    public $ciudad;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=1, nullable=true)
+     */
+    public $embarazada;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $tiempo_gestacion;
+
+    /**
      * Validations and business logic
      *
      * @return boolean
      */
     public function validation()
     {
-        $this->validate(
-            new Email(
+        $validator = new Validation();
+
+        $validator->add(
+            'email',
+            new EmailValidator(
                 [
-                    'field'    => 'email',
-                    'required' => true,
+                    'model'   => $this,
+                    'message' => 'Please enter a correct email address',
                 ]
             )
         );
 
-        if ($this->validationHasFailed() == true) {
-            return false;
-        }
-
-        return true;
+        return $this->validate($validator);
     }
 
     /**
@@ -148,17 +181,13 @@ class AcAfiliados extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
-        //$this->belongsTo('tipo_afiliado', 'AcTipoAfiliado', 'id', ['alias' => 'AcTipoAfiliado']);
+        $this->belongsTo('id_estado', '\AcEstados', 'es_id', ['alias' => 'AcEstados']);
+        $this->belongsTo('id_cuenta', '\AcCuenta', 'id', ['alias' => 'AcCuenta']);
     }
 
     public function beforeCreate()
     {
         $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
     }
 
     /**
@@ -175,7 +204,7 @@ class AcAfiliados extends \Phalcon\Mvc\Model
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcAfiliados[]
+     * @return AcAfiliados[]|AcAfiliados
      */
     public static function find($parameters = null)
     {

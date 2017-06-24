@@ -36,16 +36,9 @@ class AcProcedimientosMedicos extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=100, nullable=true)
+     * @Column(type="string", length=100, nullable=false)
      */
     public $tipo_examen;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=100, nullable=true)
-     */
-    public $orden;
 
     /**
      *
@@ -74,8 +67,8 @@ class AcProcedimientosMedicos extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
-        $this->belongsTo('codigo_especialidad', 'AcEspecialidadesExtranet', 'codigo_especialidad', ['alias' => 'AcEspecialidadesExtranet']);
-        $this->belongsTo('codigo_servicio', 'AcServiciosExtranet', 'codigo_servicio', ['alias' => 'AcServiciosExtranet']);
+        $this->belongsTo('codigo_especialidad', '\AcEspecialidadesExtranet', 'codigo_especialidad', ['alias' => 'AcEspecialidadesExtranet']);
+        $this->belongsTo('codigo_servicio', '\AcServiciosExtranet', 'codigo_servicio', ['alias' => 'AcServiciosExtranet']);
     }
 
     /**
@@ -88,21 +81,11 @@ class AcProcedimientosMedicos extends \Phalcon\Mvc\Model
         return 'ac_procedimientos_medicos';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcProcedimientosMedicos[]
+     * @return AcProcedimientosMedicos[]|AcProcedimientosMedicos
      */
     public static function find($parameters = null)
     {

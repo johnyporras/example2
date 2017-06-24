@@ -62,6 +62,34 @@ class Submodules extends \Phalcon\Mvc\Model
     public $deleted_at;
 
     /**
+     *
+     * @var string
+     * @Column(type="string", length=100, nullable=true)
+     */
+    public $url2;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=100, nullable=true)
+     */
+    public $url3;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=100, nullable=true)
+     */
+    public $url4;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=100, nullable=true)
+     */
+    public $url5;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
@@ -79,21 +107,11 @@ class Submodules extends \Phalcon\Mvc\Model
         return 'submodules';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Submodules[]
+     * @return Submodules[]|Submodules
      */
     public static function find($parameters = null)
     {

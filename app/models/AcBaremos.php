@@ -31,14 +31,14 @@ class AcBaremos extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", nullable=false)
      */
-    public $observaciones;
+    public $monto;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", nullable=true)
      */
-    public $monto;
+    public $observaciones;
 
     /**
      *
@@ -67,6 +67,7 @@ class AcBaremos extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
+        $this->belongsTo('id_proveedor', '\AcProveedoresExtranet', 'codigo_proveedor', ['alias' => 'AcProveedoresExtranet']);
     }
 
     /**
@@ -79,21 +80,11 @@ class AcBaremos extends \Phalcon\Mvc\Model
         return 'ac_baremos';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcBaremos[]
+     * @return AcBaremos[]|AcBaremos
      */
     public static function find($parameters = null)
     {

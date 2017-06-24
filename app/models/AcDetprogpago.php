@@ -1,6 +1,6 @@
 <?php
 
-class WebservicesUs extends \Phalcon\Mvc\Model
+class AcDetprogpago extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -14,17 +14,45 @@ class WebservicesUs extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
-     * @Column(type="string", length=100, nullable=false)
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
      */
-    public $user;
+    public $id_factura;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", nullable=true)
      */
-    public $pass;
+    public $montofact;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $montoimp1;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $montoimp2;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $montoimp3;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $estatus;
 
     /**
      *
@@ -38,14 +66,21 @@ class WebservicesUs extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", nullable=true)
      */
-    public $updated_at;
+    public $deleted_at;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $id_progpago;
 
     /**
      *
      * @var string
      * @Column(type="string", nullable=true)
      */
-    public $deleted_at;
+    public $updated_at;
 
     /**
      * Initialize method for model.
@@ -53,6 +88,7 @@ class WebservicesUs extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
+        $this->belongsTo('id_progpago', '\AcProgpago', 'id', ['alias' => 'AcProgpago']);
     }
 
     /**
@@ -62,24 +98,14 @@ class WebservicesUs extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'webservices_us';
-    }
-
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
+        return 'ac_detprogpago';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return WebservicesUs[]
+     * @return AcDetprogpago[]|AcDetprogpago
      */
     public static function find($parameters = null)
     {
@@ -90,7 +116,7 @@ class WebservicesUs extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return WebservicesUs
+     * @return AcDetprogpago
      */
     public static function findFirst($parameters = null)
     {

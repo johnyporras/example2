@@ -6,7 +6,6 @@ class AcPacientesAtendidos extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
-     * @Primary
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
@@ -17,47 +16,19 @@ class AcPacientesAtendidos extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=32, nullable=false)
      */
-    public $id_titular;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $id_paciente;
+    public $tipo_autorizacion;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=255, nullable=false)
+     * @Column(type="string", length=20, nullable=false)
      */
-    public $nombre;
+    public $cedula_afiliado;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=50, nullable=false)
-     */
-    public $telefono;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $tipo;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=255, nullable=false)
-     */
-    public $procedimiento;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=255, nullable=false)
+     * @Column(type="string", nullable=false)
      */
     public $clave;
 
@@ -66,56 +37,28 @@ class AcPacientesAtendidos extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=32, nullable=false)
      */
-    public $id_profesional;
+    public $id_clave_detalle;
 
     /**
      *
      * @var string
      * @Column(type="string", nullable=false)
      */
-    public $fecha;
+    public $fecha_atencion;
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
+     * @var string
+     * @Column(type="string", nullable=false)
      */
-    public $codigo_aseguradora;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $codigo_colectivo;
-
-    /**
-     *
-     * @var double
-     * @Column(type="double", length=10, nullable=true)
-     */
-    public $monto;
+    public $patologia;
 
     /**
      *
      * @var string
      * @Column(type="string", nullable=true)
      */
-    public $motivo;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $servicio;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=100, nullable=true)
-     */
-    public $patologia;
+    public $observaciones;
 
     /**
      *
@@ -156,21 +99,11 @@ class AcPacientesAtendidos extends \Phalcon\Mvc\Model
         return 'ac_pacientes_atendidos';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcPacientesAtendidos[]
+     * @return AcPacientesAtendidos[]|AcPacientesAtendidos
      */
     public static function find($parameters = null)
     {

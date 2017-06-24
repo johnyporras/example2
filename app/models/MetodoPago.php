@@ -1,21 +1,23 @@
 <?php
 
-class Migrations extends \Phalcon\Mvc\Model
+class MetodoPago extends \Phalcon\Mvc\Model
 {
+
+    /**
+     *
+     * @var integer
+     * @Primary
+     * @Identity
+     * @Column(type="integer", length=32, nullable=false)
+     */
+    public $id;
 
     /**
      *
      * @var string
      * @Column(type="string", length=255, nullable=false)
      */
-    public $migration;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $batch;
+    public $metodo;
 
     /**
      * Initialize method for model.
@@ -32,14 +34,14 @@ class Migrations extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'migrations';
+        return 'metodo_pago';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Migrations[]|Migrations
+     * @return MetodoPago[]|MetodoPago
      */
     public static function find($parameters = null)
     {
@@ -50,7 +52,7 @@ class Migrations extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Migrations
+     * @return MetodoPago
      */
     public static function findFirst($parameters = null)
     {

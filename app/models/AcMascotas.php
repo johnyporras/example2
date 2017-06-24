@@ -1,6 +1,6 @@
 <?php
 
-class AcCobertura extends \Phalcon\Mvc\Model
+class AcMascotas extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -14,66 +14,59 @@ class AcCobertura extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $id_cuenta;
+
+    /**
+     *
      * @var string
-     * @Column(type="string", length=255, nullable=false)
+     * @Column(type="string", length=100, nullable=true)
      */
     public $nombre;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", length=2, nullable=true)
      */
-    public $desc;
+    public $tipo;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=150, nullable=false)
+     * @Column(type="string", length=100, nullable=true)
      */
-    public $slogan;
+    public $raza;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=50, nullable=false)
+     * @Column(type="string", length=2, nullable=true)
      */
-    public $img;
+    public $tamano;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", length=20, nullable=true)
      */
-    public $banner;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=false)
-     */
-    public $icon;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=8, nullable=false)
-     */
-    public $color;
+    public $color_pelage;
 
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @Column(type="integer", length=32, nullable=true)
      */
-    public $orden;
+    public $edad;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=1, nullable=false)
+     * @Column(type="string", nullable=true)
      */
-    public $act;
+    public $fecha_nac;
 
     /**
      *
@@ -87,14 +80,14 @@ class AcCobertura extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", nullable=true)
      */
-    public $updated_at;
+    public $deleted_at;
 
     /**
      *
      * @var string
      * @Column(type="string", nullable=true)
      */
-    public $deleted_at;
+    public $updated_at;
 
     /**
      * Initialize method for model.
@@ -102,6 +95,7 @@ class AcCobertura extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
+        $this->belongsTo('id_cuenta', '\AcCuenta', 'id', ['alias' => 'AcCuenta']);
     }
 
     /**
@@ -111,24 +105,14 @@ class AcCobertura extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'ac_cobertura';
-    }
-
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
+        return 'ac_mascotas';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcCobertura[]
+     * @return AcMascotas[]|AcMascotas
      */
     public static function find($parameters = null)
     {
@@ -139,7 +123,7 @@ class AcCobertura extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcCobertura
+     * @return AcMascotas
      */
     public static function findFirst($parameters = null)
     {

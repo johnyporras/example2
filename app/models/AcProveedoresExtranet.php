@@ -1,6 +1,7 @@
 <?php
 
-use Phalcon\Mvc\Model\Validator\Email as Email;
+use Phalcon\Validation;
+use Phalcon\Mvc\Model\Validator\Email as EmailValidator;
 
 class AcProveedoresExtranet extends \Phalcon\Mvc\Model
 {
@@ -16,8 +17,8 @@ class AcProveedoresExtranet extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
-     * @Column(type="string", length=100, nullable=false)
+     * @var integer
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $codigo_proveedor;
 
@@ -34,13 +35,6 @@ class AcProveedoresExtranet extends \Phalcon\Mvc\Model
      * @Column(type="string", length=100, nullable=true)
      */
     public $nombre;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $fecha_nacimiento;
 
     /**
      *
@@ -61,28 +55,14 @@ class AcProveedoresExtranet extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", length=20, nullable=true)
      */
-    public $telefono_casa;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=20, nullable=true)
-     */
-    public $telefono_movil;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $urbanizacion;
+    public $telefono;
 
     /**
      *
      * @var integer
      * @Column(type="integer", length=32, nullable=true)
      */
-    public $codigo_estado;
+    public $estado_id;
 
     /**
      *
@@ -97,20 +77,6 @@ class AcProveedoresExtranet extends \Phalcon\Mvc\Model
      * @Column(type="string", length=100, nullable=true)
      */
     public $email;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $colegiatura;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=100, nullable=true)
-     */
-    public $msas;
 
     /**
      *
@@ -134,26 +100,39 @@ class AcProveedoresExtranet extends \Phalcon\Mvc\Model
     public $deleted_at;
 
     /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $tipo_cuenta;
+
+    /**
+     *
+     * @var double
+     * @Column(type="double", nullable=true)
+     */
+    public $numero_cuenta;
+
+    /**
      * Validations and business logic
      *
      * @return boolean
      */
     public function validation()
     {
-        $this->validate(
-            new Email(
+        $validator = new Validation();
+
+        $validator->add(
+            'email',
+            new EmailValidator(
                 [
-                    'field'    => 'email',
-                    'required' => true,
+                    'model'   => $this,
+                    'message' => 'Please enter a correct email address',
                 ]
             )
         );
 
-        if ($this->validationHasFailed() == true) {
-            return false;
-        }
-
-        return true;
+        return $this->validate($validator);
     }
 
     /**
@@ -162,6 +141,7 @@ class AcProveedoresExtranet extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
+        $this->belongsTo('estado_id', '\AcEstados', 'es_id', ['alias' => 'AcEstados']);
     }
 
     /**
@@ -174,21 +154,11 @@ class AcProveedoresExtranet extends \Phalcon\Mvc\Model
         return 'ac_proveedores_extranet';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcProveedoresExtranet[]
+     * @return AcProveedoresExtranet[]|AcProveedoresExtranet
      */
     public static function find($parameters = null)
     {

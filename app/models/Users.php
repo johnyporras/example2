@@ -1,6 +1,7 @@
 <?php
 
-use Phalcon\Mvc\Model\Validator\Email as Email;
+use Phalcon\Validation;
+use Phalcon\Mvc\Model\Validator\Email as EmailValidator;
 
 class Users extends \Phalcon\Mvc\Model
 {
@@ -45,7 +46,7 @@ class Users extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=50, nullable=false)
+     * @Column(type="string", length=50, nullable=true)
      */
     public $department;
 
@@ -104,7 +105,6 @@ class Users extends \Phalcon\Mvc\Model
      * @Column(type="string",nullable=true)
      */
     public $ultimo_acceso;
-
     /**
      *
      * @var string
@@ -146,6 +146,33 @@ class Users extends \Phalcon\Mvc\Model
      * @Column(type="integer", length=10, nullable=true)
      */
     public $detalles_usuario_id;
+    /*
+     *
+     * @Column(type="string", nullable=true)
+     */
+    public $salt;
+
+    /**
+     * Validations and business logic
+     *
+     * @return boolean
+     */
+    public function validation()
+    {
+        $validator = new Validation();
+
+        $validator->add(
+            'email',
+            new EmailValidator(
+                [
+                    'model'   => $this,
+                    'message' => 'Please enter a correct email address',
+                ]
+            )
+        );
+
+        return $this->validate($validator);
+    }
 
     /**
      * Initialize method for model.
@@ -165,21 +192,11 @@ class Users extends \Phalcon\Mvc\Model
         return 'users';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Users[]
+     * @return Users[]|Users
      */
     public static function find($parameters = null)
     {

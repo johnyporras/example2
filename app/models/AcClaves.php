@@ -28,13 +28,6 @@ class AcClaves extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
-     * @Column(type="string", length=100, nullable=true)
-     */
-    public $codigo_proveedor_creador;
-
-    /**
-     *
      * @var integer
      * @Column(type="integer", length=32, nullable=true)
      */
@@ -50,44 +43,9 @@ class AcClaves extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $fecha_creacion;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=100, nullable=true)
+     * @Column(type="string", length=300, nullable=true)
      */
     public $motivo;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $codigo_especialidad;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $codigo_servicio;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $codigo_tipo_examen;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=100, nullable=true)
-     */
-    public $detalle;
 
     /**
      *
@@ -101,14 +59,14 @@ class AcClaves extends \Phalcon\Mvc\Model
      * @var double
      * @Column(type="double", length=10, nullable=true)
      */
-    public $costo;
+    public $costo_total;
 
     /**
      *
      * @var integer
      * @Column(type="integer", length=32, nullable=true)
      */
-    public $estatus;
+    public $codigo_proveedor_creador;
 
     /**
      *
@@ -137,13 +95,6 @@ class AcClaves extends \Phalcon\Mvc\Model
      * @Column(type="integer", length=32, nullable=true)
      */
     public $creador;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $hora_guardado;
 
     /**
      *
@@ -202,16 +153,19 @@ class AcClaves extends \Phalcon\Mvc\Model
     public $deleted_at;
 
     /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $id_factura;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
-        $this->belongsTo('cedula_afiliado', 'AcAfiliados', 'cedula', ['alias' => 'AcAfiliados']);
-        $this->hasMany('id', 'AcClavesDetalle', 'id_clave', ['alias' => 'AcClavesDetalle']);
-        $this->belongsTo('codigo_especialidad', 'AcEspecialidadesExtranet', 'codigo_especialidad', ['alias' => 'AcEspecialidadesExtranet']);
-        $this->belongsTo('codigo_proveedor_creador', 'AcProveedoresExtranet', 'codigo_proveedor', ['alias' => 'AcProveedoresExtranet']);
-        $this->belongsTo('codigo_servicio', 'AcServiciosExtranet', 'codigo_servicio', ['alias' => 'AcServiciosExtranet']);
+        $this->belongsTo('estatus_clave', '\AcEstatus', 'id', ['alias' => 'AcEstatus']);
     }
 
     /**
@@ -224,42 +178,11 @@ class AcClaves extends \Phalcon\Mvc\Model
         return 'ac_claves';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
-    /**
-     * Genera de forma aleatoria la clave para la cita
-     *
-     * @param mixed $length
-     * @return clave
-     */
-    
-    public static function claveRandom($length = 7)
-    {
-        $characteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $characteresLength = strlen($characteres);
-        $randomString = '';
-        for ($i=0; $i < $length; $i++) { 
-            
-            $randomString .= $characteres[rand(0, $characteresLength - 1)];
-
-        }
-        return $randomString;
-    }    
-
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcClaves[]
+     * @return AcClaves[]|AcClaves
      */
     public static function find($parameters = null)
     {

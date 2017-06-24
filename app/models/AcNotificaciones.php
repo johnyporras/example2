@@ -6,7 +6,6 @@ class AcNotificaciones extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
-     * @Primary
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
@@ -86,21 +85,11 @@ class AcNotificaciones extends \Phalcon\Mvc\Model
         return 'ac_notificaciones';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcNotificaciones[]
+     * @return AcNotificaciones[]|AcNotificaciones
      */
     public static function find($parameters = null)
     {

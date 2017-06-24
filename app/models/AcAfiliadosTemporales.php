@@ -1,6 +1,7 @@
 <?php
 
-use Phalcon\Mvc\Model\Validator\Email as Email;
+use Phalcon\Validation;
+use Phalcon\Mvc\Model\Validator\Email as EmailValidator;
 
 class AcAfiliadosTemporales extends \Phalcon\Mvc\Model
 {
@@ -8,126 +9,148 @@ class AcAfiliadosTemporales extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
+     * @Identity
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $id;
 
     /**
      *
      * @var string
+     * @Column(type="string", length=20, nullable=false)
      */
     public $cedula;
 
     /**
      *
      * @var string
+     * @Column(type="string", length=500, nullable=false)
      */
     public $nombre;
 
     /**
      *
      * @var string
+     * @Column(type="string", length=500, nullable=false)
      */
     public $apellido;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=false)
      */
     public $fecha_nacimiento;
 
     /**
      *
      * @var string
+     * @Column(type="string", length=500, nullable=true)
      */
     public $email;
 
     /**
      *
      * @var string
+     * @Column(type="string", length=1, nullable=false)
      */
     public $sexo;
 
     /**
      *
      * @var string
+     * @Column(type="string", length=1, nullable=false)
      */
     public $val_user;
 
     /**
      *
      * @var integer
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $tipo_afiliado;
 
     /**
      *
      * @var string
+     * @Column(type="string", length=25, nullable=true)
      */
     public $telefono;
 
     /**
      *
      * @var string
+     * @Column(type="string", length=250, nullable=true)
      */
     public $nombre_titular;
 
     /**
      *
      * @var string
+     * @Column(type="string", length=250, nullable=true)
      */
     public $apellido_titular;
 
     /**
      *
      * @var string
+     * @Column(type="string", length=20, nullable=true)
      */
     public $cedula_titular;
 
     /**
      *
      * @var integer
+     * @Column(type="integer", length=32, nullable=true)
      */
     public $codigo_aseguradora;
 
     /**
      *
      * @var integer
+     * @Column(type="integer", length=32, nullable=true)
      */
     public $codigo_colectivo;
 
     /**
      *
      * @var integer
+     * @Column(type="integer", length=32, nullable=true)
      */
     public $estado;
 
     /**
      *
      * @var string
+     * @Column(type="string", length=100, nullable=true)
      */
     public $ciudad;
 
     /**
      *
      * @var integer
+     * @Column(type="integer", length=32, nullable=true)
      */
     public $tipo_creador;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $created_at;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $updated_at;
 
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
     public $deleted_at;
 
@@ -138,20 +161,19 @@ class AcAfiliadosTemporales extends \Phalcon\Mvc\Model
      */
     public function validation()
     {
-        $this->validate(
-            new Email(
-                array(
-                    'field'    => 'email',
-                    'required' => true,
-                )
+        $validator = new Validation();
+
+        $validator->add(
+            'email',
+            new EmailValidator(
+                [
+                    'model'   => $this,
+                    'message' => 'Please enter a correct email address',
+                ]
             )
         );
 
-        if ($this->validationHasFailed() == true) {
-            return false;
-        }
-
-        return true;
+        return $this->validate($validator);
     }
 
     /**
@@ -172,21 +194,11 @@ class AcAfiliadosTemporales extends \Phalcon\Mvc\Model
         return 'ac_afiliados_temporales';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcAfiliadosTemporales[]
+     * @return AcAfiliadosTemporales[]|AcAfiliadosTemporales
      */
     public static function find($parameters = null)
     {

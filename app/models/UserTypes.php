@@ -72,21 +72,11 @@ class UserTypes extends \Phalcon\Mvc\Model
         return 'user_types';
     }
 
-    public function beforeCreate()
-    {
-        $this->created_at = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date("Y-m-d H:i:s");
-    }
-
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return UserTypes[]
+     * @return UserTypes[]|UserTypes
      */
     public static function find($parameters = null)
     {
