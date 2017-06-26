@@ -59,13 +59,6 @@ class AcAfiliados extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $tipo_afiliado;
-
-    /**
-     *
      * @var string
      * @Column(type="string", length=50, nullable=true)
      */
@@ -95,7 +88,7 @@ class AcAfiliados extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @Column(type="integer", length=32, nullable=true)
      */
     public $id_cuenta;
 
@@ -155,8 +148,6 @@ class AcAfiliados extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
-        $this->belongsTo('id_estado', '\AcEstados', 'es_id', ['alias' => 'AcEstados']);
-        $this->belongsTo('id_cuenta', '\AcCuenta', 'id', ['alias' => 'AcCuenta']);
     }
 
     /**

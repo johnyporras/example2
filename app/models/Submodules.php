@@ -95,6 +95,7 @@ class Submodules extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
+        $this->belongsTo('modules_id', '\Modules', 'id', ['alias' => 'Modules']);
     }
 
     /**

@@ -1,11 +1,12 @@
 <?php
 
-class AcCitasOdontologicas extends \Phalcon\Mvc\Model
+class AcClavedetalleprov extends \Phalcon\Mvc\Model
 {
 
     /**
      *
      * @var integer
+     * @Primary
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
@@ -16,70 +17,28 @@ class AcCitasOdontologicas extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=32, nullable=true)
      */
-    public $id_paciente;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $clave;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $fecha1;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $fecha2;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $fecha3;
+    public $id_clave;
 
     /**
      *
      * @var integer
      * @Column(type="integer", length=32, nullable=true)
      */
-    public $estatus;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $fecha_creacion;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $fecha_modifico;
+    public $id_proveedor;
 
     /**
      *
      * @var integer
      * @Column(type="integer", length=32, nullable=true)
      */
-    public $usuario_creador;
+    public $aceptado;
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
+     * @var string
+     * @Column(type="string", length=250, nullable=true)
      */
-    public $usuario_modifico;
+    public $observacion;
 
     /**
      *
@@ -96,13 +55,6 @@ class AcCitasOdontologicas extends \Phalcon\Mvc\Model
     public $updated_at;
 
     /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $deleted_at;
-
-    /**
      * Initialize method for model.
      */
     public function initialize()
@@ -117,14 +69,14 @@ class AcCitasOdontologicas extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'ac_citas_odontologicas';
+        return 'ac_clavedetalleprov';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcCitasOdontologicas[]|AcCitasOdontologicas
+     * @return AcClavedetalleprov[]|AcClavedetalleprov
      */
     public static function find($parameters = null)
     {
@@ -135,7 +87,7 @@ class AcCitasOdontologicas extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcCitasOdontologicas
+     * @return AcClavedetalleprov
      */
     public static function findFirst($parameters = null)
     {

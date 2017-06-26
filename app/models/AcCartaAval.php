@@ -165,6 +165,7 @@ class AcCartaAval extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
+        $this->belongsTo('estatus', '\AcEstatus', 'id', ['alias' => 'AcEstatus']);
     }
 
     /**

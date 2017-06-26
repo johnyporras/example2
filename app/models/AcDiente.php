@@ -6,6 +6,7 @@ class AcDiente extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
+     * @Primary
      * @Column(type="integer", length=32, nullable=false)
      */
     public $id;

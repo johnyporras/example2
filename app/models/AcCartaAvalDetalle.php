@@ -6,6 +6,7 @@ class AcCartaAvalDetalle extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
+     * @Primary
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
@@ -94,6 +95,12 @@ class AcCartaAvalDetalle extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
+        $this->belongsTo('codigo_servicio', '\AcServiciosExtranet', 'codigo_servicio', ['alias' => 'AcServiciosExtranet']);
+        $this->belongsTo('estatus', '\AcEstatusDetalle', 'id', ['alias' => 'AcEstatusDetalle']);
+        $this->belongsTo('id_procedimiento', '\AcProcedimientosMedicos', 'id', ['alias' => 'AcProcedimientosMedicos']);
+        $this->belongsTo('codigo_especialidad', '\AcEspecialidadesExtranet', 'codigo_especialidad', ['alias' => 'AcEspecialidadesExtranet']);
+        $this->belongsTo('id_carta', '\AcCartaAval', 'id', ['alias' => 'AcCartaAval']);
+        $this->belongsTo('codigo_proveedor', '\AcProveedoresExtranet', 'codigo_proveedor', ['alias' => 'AcProveedoresExtranet']);
     }
 
     /**

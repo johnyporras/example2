@@ -141,7 +141,6 @@ class AcProveedoresExtranet extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
-        $this->belongsTo('estado_id', '\AcEstados', 'es_id', ['alias' => 'AcEstados']);
     }
 
     /**

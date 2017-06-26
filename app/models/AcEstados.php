@@ -10,14 +10,14 @@ class AcEstados extends \Phalcon\Mvc\Model
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
-    public $es_id;
+    public $id;
 
     /**
      *
      * @var string
      * @Column(type="string", length=255, nullable=false)
      */
-    public $es_desc;
+    public $estado;
 
     /**
      *

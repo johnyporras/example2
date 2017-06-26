@@ -6,6 +6,7 @@ class AcPacientesAtendidos extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
+     * @Primary
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
@@ -87,6 +88,8 @@ class AcPacientesAtendidos extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
+        $this->belongsTo('cedula_afiliado', '\AcAfiliados', 'cedula', ['alias' => 'AcAfiliados']);
+        $this->belongsTo('tipo_autorizacion', '\AcTipoAutorizacion', 'id', ['alias' => 'AcTipoAutorizacion']);
     }
 
     /**

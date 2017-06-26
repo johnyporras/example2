@@ -1,6 +1,6 @@
 <?php
 
-class StatusPago extends \Phalcon\Mvc\Model
+class EstatusCuenta extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -17,7 +17,7 @@ class StatusPago extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", length=255, nullable=false)
      */
-    public $desc;
+    public $descripcion;
 
     /**
      *
@@ -34,13 +34,6 @@ class StatusPago extends \Phalcon\Mvc\Model
     public $updated_at;
 
     /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $deleted_at;
-
-    /**
      * Initialize method for model.
      */
     public function initialize()
@@ -55,14 +48,14 @@ class StatusPago extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'status_pago';
+        return 'estatus_cuenta';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return StatusPago[]|StatusPago
+     * @return EstatusCuenta[]|EstatusCuenta
      */
     public static function find($parameters = null)
     {
@@ -73,7 +66,7 @@ class StatusPago extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return StatusPago
+     * @return EstatusCuenta
      */
     public static function findFirst($parameters = null)
     {

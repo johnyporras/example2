@@ -28,24 +28,10 @@ class AcCuenta extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
-     * @Column(type="string", length=2, nullable=true)
-     */
-    public $estatus;
-
-    /**
-     *
      * @var integer
      * @Column(type="integer", length=32, nullable=true)
      */
     public $id_producto;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $id_plan;
 
     /**
      *
@@ -69,12 +55,19 @@ class AcCuenta extends \Phalcon\Mvc\Model
     public $deleted_at;
 
     /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $estatus;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
-        $this->belongsTo('id_producto', '\AcProducto', 'id', ['alias' => 'AcProducto']);
+        $this->belongsTo('estatus', '\EstatusCuenta', 'id', ['alias' => 'EstatusCuenta']);
     }
 
     /**

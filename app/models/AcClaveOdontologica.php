@@ -6,6 +6,7 @@ class AcClaveOdontologica extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
+     * @Primary
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
@@ -136,6 +137,11 @@ class AcClaveOdontologica extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
+        $this->belongsTo('codigo_proveedor_creador', '\AcProveedoresExtranet', 'codigo_proveedor', ['alias' => 'AcProveedoresExtranet']);
+        $this->belongsTo('cedula_afiliado', '\AcAfiliados', 'cedula', ['alias' => 'AcAfiliados']);
+        $this->belongsTo('estatus', '\AcEstatus', 'id', ['alias' => 'AcEstatus']);
+        $this->belongsTo('tipo_control', '\AcTipoControl', 'id', ['alias' => 'AcTipoControl']);
+        $this->belongsTo('creador', '\Users', 'id', ['alias' => 'Users']);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-class AcMascotas extends \Phalcon\Mvc\Model
+class Tarjetas extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -14,59 +14,17 @@ class AcMascotas extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
+     * @var string
+     * @Column(type="string", length=255, nullable=false)
      */
-    public $id_cuenta;
+    public $codigo_tarjeta;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=100, nullable=true)
+     * @Column(type="string", length=255, nullable=false)
      */
-    public $nombre;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=2, nullable=true)
-     */
-    public $tipo;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=100, nullable=true)
-     */
-    public $raza;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=2, nullable=true)
-     */
-    public $tamano;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=20, nullable=true)
-     */
-    public $color_pelage;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $edad;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $fecha_nac;
+    public $activada;
 
     /**
      *
@@ -80,14 +38,14 @@ class AcMascotas extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", nullable=true)
      */
-    public $deleted_at;
+    public $updated_at;
 
     /**
      *
      * @var string
      * @Column(type="string", nullable=true)
      */
-    public $updated_at;
+    public $deleted_at;
 
     /**
      * Initialize method for model.
@@ -95,7 +53,6 @@ class AcMascotas extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
-        $this->belongsTo('id_cuenta', '\AcCuenta', 'id', ['alias' => 'AcCuenta']);
     }
 
     /**
@@ -105,14 +62,14 @@ class AcMascotas extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'ac_mascotas';
+        return 'tarjetas';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcMascotas[]|AcMascotas
+     * @return Tarjetas[]|Tarjetas
      */
     public static function find($parameters = null)
     {
@@ -123,7 +80,7 @@ class AcMascotas extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcMascotas
+     * @return Tarjetas
      */
     public static function findFirst($parameters = null)
     {

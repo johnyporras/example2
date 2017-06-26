@@ -1,11 +1,12 @@
 <?php
 
-class AcColectivos extends \Phalcon\Mvc\Model
+class Tamanos extends \Phalcon\Mvc\Model
 {
 
     /**
      *
      * @var integer
+     * @Primary
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
@@ -13,24 +14,17 @@ class AcColectivos extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
      */
-    public $codigo_colectivo;
+    public $titulo;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=100, nullable=true)
+     * @Column(type="string", length=255, nullable=true)
      */
-    public $nombre;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $codigo_aseguradora;
+    public $descripcion;
 
     /**
      *
@@ -47,13 +41,6 @@ class AcColectivos extends \Phalcon\Mvc\Model
     public $updated_at;
 
     /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $deleted_at;
-
-    /**
      * Initialize method for model.
      */
     public function initialize()
@@ -68,14 +55,14 @@ class AcColectivos extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'ac_colectivos';
+        return 'tamanos';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcColectivos[]|AcColectivos
+     * @return Tamanos[]|Tamanos
      */
     public static function find($parameters = null)
     {
@@ -86,7 +73,7 @@ class AcColectivos extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcColectivos
+     * @return Tamanos
      */
     public static function findFirst($parameters = null)
     {

@@ -6,6 +6,7 @@ class FunerarioDetalle extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
+     * @Primary
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
@@ -87,6 +88,8 @@ class FunerarioDetalle extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
+        $this->belongsTo('funerario_id', '\Funerario', 'id', ['alias' => 'Funerario']);
+        $this->belongsTo('proveedor_id', '\ProveedorFunerario', 'id', ['alias' => 'ProveedorFunerario']);
     }
 
     /**

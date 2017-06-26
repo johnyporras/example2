@@ -102,9 +102,51 @@ class Users extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $pregunta_1;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $respuesta_1;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $pregunta_2;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $respuesta_2;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=100, nullable=true)
+     */
+    public $confirm_token;
+
+    /**
+     *
+     * @var string
      * @Column(type="string", nullable=true)
      */
-    public $salt;
+    public $ultimo_acceso;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $imagen_perfil;
 
     /**
      * Validations and business logic
@@ -134,6 +176,7 @@ class Users extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
+        $this->belongsTo('type', '\UserTypes', 'id', ['alias' => 'UserTypes']);
     }
 
     /**

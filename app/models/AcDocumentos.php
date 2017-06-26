@@ -6,6 +6,7 @@ class AcDocumentos extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
+     * @Primary
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
@@ -59,6 +60,8 @@ class AcDocumentos extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
+        $this->belongsTo('id_paciente', '\AcPacientesAtendidos', 'id', ['alias' => 'AcPacientesAtendidos']);
+        $this->belongsTo('id_tipo_documento', '\AcTipoDocumentos', 'id', ['alias' => 'AcTipoDocumentos']);
     }
 
     /**

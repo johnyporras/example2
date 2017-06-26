@@ -1,11 +1,12 @@
 <?php
 
-class AcContratos extends \Phalcon\Mvc\Model
+class Preguntas extends \Phalcon\Mvc\Model
 {
 
     /**
      *
      * @var integer
+     * @Primary
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
@@ -13,45 +14,10 @@ class AcContratos extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $codigo_contrato;
-
-    /**
-     *
      * @var string
-     * @Column(type="string", length=20, nullable=false)
+     * @Column(type="string", length=255, nullable=false)
      */
-    public $cedula_afiliado;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $fecha_inicio;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $fecha_fin;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $codigo_colectivo;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $codigo_plan;
+    public $pregunta;
 
     /**
      *
@@ -89,14 +55,14 @@ class AcContratos extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'ac_contratos';
+        return 'preguntas';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcContratos[]|AcContratos
+     * @return Preguntas[]|Preguntas
      */
     public static function find($parameters = null)
     {
@@ -107,7 +73,7 @@ class AcContratos extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcContratos
+     * @return Preguntas
      */
     public static function findFirst($parameters = null)
     {

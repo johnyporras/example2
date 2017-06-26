@@ -6,6 +6,7 @@ class AcTratamientoOdontologico extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
+     * @Primary
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
@@ -115,6 +116,11 @@ class AcTratamientoOdontologico extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("atiempo_dev");
+        $this->belongsTo('estatus', '\AcEstatusDetalle', 'id', ['alias' => 'AcEstatusDetalle']);
+        $this->belongsTo('id_procedimiento', '\AcProcedimientosMedicos', 'id', ['alias' => 'AcProcedimientosMedicos']);
+        $this->belongsTo('id_clave', '\AcClaveOdontologica', 'id', ['alias' => 'AcClaveOdontologica']);
+        $this->belongsTo('id_ubicacion', '\AcUbicacionTratamiento', 'id', ['alias' => 'AcUbicacionTratamiento']);
+        $this->belongsTo('id_diente', '\AcDiente', 'id', ['alias' => 'AcDiente']);
     }
 
     /**
