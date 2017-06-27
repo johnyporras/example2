@@ -23,7 +23,8 @@ class ViajesController extends \Phalcon\Mvc\Controller
 
             $status = 200;
             $msnStatus = 'OK';
-            $this->_data = null;
+            //$this->_data = null;
+            $this->_data = 'ok';
             $this->_mensajes = [
                 "msnConsult" => 'Consulta relizada con exito',
                 "msnToken" => false,//el token de autrización esta ausente
@@ -53,10 +54,9 @@ class ViajesController extends \Phalcon\Mvc\Controller
             }else{
 
                 $lista = Avi::find([
-                    'conditions' => 'cedula_afiliado = :ced_afi: AND codigo_contrato = :cod_contra:',
+                    'conditions' => 'cedula_afiliado = :ced_afi:',
                     'bind' => [
-                        'ced_afi' => $datos->contrato->cedula_afiliado,
-                        'cod_contra' => $datos->contrato->codigo_contrato
+                        'ced_afi' => $datos->titular->cedula
                     ]
                 ]);
 
@@ -71,9 +71,7 @@ class ViajesController extends \Phalcon\Mvc\Controller
 
                     foreach($destinos as $destino){
 
-                        $pais = Paises::findFirstByCodigo($destino->pais_destino);
-
-                        $this->_detalles_avi[] = ['detalle' => $destino, 'pais' => $pais];
+                        $this->_detalles_avi[] = ['detalle' => $destino, 'pais' => $destino->Paises];
 
                     }
 
@@ -85,6 +83,7 @@ class ViajesController extends \Phalcon\Mvc\Controller
 
                 $status = 200;
                 $msnStatus = 'OK';
+                //$this->_data = $this->_list;
                 $this->_data = $this->_list;
                 $this->_mensajes = [
                     "msnConsult" => 'Consulta relizada con exito',
@@ -148,10 +147,7 @@ class ViajesController extends \Phalcon\Mvc\Controller
                     "msnInvalid" => true//las credenciales del token de autorizacion son invalidas
                 ];
             }else{
-
-                $objAfiliado = json_decode($request->getPost('afiliado'));
-                $objcontrato = json_decode($request->getPost('contrato'));
-                $edadAfiliado = date('Y-m-d') - $objAfiliado->fecha_nacimiento;
+                $edadAfiliado = date('Y-m-d') - $datos->titular->fecha_nacimiento;
                 $coberMonto = 1;
                 $objViajes = json_decode($request->getPost('viajes'));
                 $observacines = $request->getPost('observ');
@@ -159,8 +155,8 @@ class ViajesController extends \Phalcon\Mvc\Controller
 
                 $avi = new Avi();
                 $avi->codigo_solicitud = 'av'.substr(uniqid(),7,13);
-                $avi->cedula_afiliado = $objcontrato->cedula_afiliado;
-                $avi->codigo_contrato = $objcontrato->codigo_contrato;
+                $avi->cedula_afiliado = $datos->titular->cedula;
+                $avi->codigo_contrato = $datos->titular->id_cuenta;//OJO
                 $avi->cobertura_monto = $coberMonto;
                 $avi->edad_afiliado = $edadAfiliado;
                 $avi->nro_cronograma = $cronograma;
@@ -172,7 +168,7 @@ class ViajesController extends \Phalcon\Mvc\Controller
 
                     $aviDestino = new AviDestino();
                     $aviDestino->avi_id = $avi->id;
-                    $aviDestino->pais_destino = $item->codPais;
+                    $aviDestino->pais_id= $item->codPais;
                     $aviDestino->fecha_desde = $item->desde;
                     $aviDestino->fecha_hasta = $item->hasta;
                     $aviDestino->save();

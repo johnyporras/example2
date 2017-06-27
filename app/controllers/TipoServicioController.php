@@ -71,7 +71,7 @@ class TipoServicioController extends \Phalcon\Mvc\Controller
         $response->setJsonContent([
             "status" => $status,
             "mensajes" => $this->_mensajes,
-            "data" => $this->_data,
+            "data" => 'ok',
         ]);
         $response->setStatusCode($status, $msnStatus);
         $response->send();

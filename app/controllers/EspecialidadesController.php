@@ -4,6 +4,8 @@ class EspecialidadesController extends \Phalcon\Mvc\Controller
 {
 
     private $_list = [];
+    private $_listServ = [];
+    private $_listEsp = [];
     private $_mensajes = '';
     private $_data = '';
 
@@ -48,16 +50,23 @@ class EspecialidadesController extends \Phalcon\Mvc\Controller
             }else{
 
                 $especialidades = AcEspecialidadesExtranet::find();
+                $servicios = AcServiciosExtranet::find();
+
+                foreach ( $servicios as $item ){
+
+                    $this->_listServ[] = $item;
+
+                }
 
                 foreach ( $especialidades as $item ){
 
-                    $this->_list[] = $item;
+                    $this->_listEsp[] = $item;
 
                 }
 
                 $status = 200;
                 $msnStatus = 'OK';
-                $this->_data = $this->_list;
+                $this->_data = ["esp" => $this->_listEsp, "serv" => $this->_listServ];
                 $this->_mensajes = [
                     "msnConsult" => 'Consulta relizada con exito',
                     "msnHeaders" => true,//el header de autrización esta ausente

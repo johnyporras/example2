@@ -23,7 +23,7 @@ class CitasController extends \Phalcon\Mvc\Controller
 
         foreach ( $lista as $item ){
 
-            foreach ($item->AcClavesDetalle as $itemDetail) {
+            foreach (AcClavesDetalle::find('id_clave = '.$item->id) as $itemDetail) {
                 
                 $this->_detailClaves[] = [
 
@@ -35,20 +35,23 @@ class CitasController extends \Phalcon\Mvc\Controller
                             'idCodServ' => $itemDetail->codigo_servicio,
                             'idCodEspc' => $itemDetail->codigo_especialidad
                         ]
-                    ])
+                    ]),
+
+                    'proveedor' => $itemDetail->AcProveedoresExtranet,
+
+                    'especialidad' => $itemDetail->AcEspecialidadesExtranet
+
                 ];
 
             }
 
             $this->_list[] = [
 
-                'nombre' => $item->AcAfiliados->nombre,
+                'nombre' => '',
                 'fecha' => $item->fecha_cita,
                 'clave' => $item->clave,
-                'aja' => $item->AcClavesDetalle->toArray(),
+                'codigoProve' => $item->codigo_proveedor_creador ? $item->codigo_proveedor_creador : 'no',
                 'detallesClave' => $this->_detailClaves,
-                'proveedor' => $item->AcProveedoresExtranet->nombre,
-                'especialidad' => AcEspecialidadesExtranet::findFirstByCodigoEspecialidad($item->acproveedoresextranet->codigo_especialidad)->descripcion
 
             ];
 
@@ -58,6 +61,7 @@ class CitasController extends \Phalcon\Mvc\Controller
 
         $status = 200;
         $msnStatus = 'OK';
+        //$this->_data = $this->_list;
         $this->_data = $this->_list;
         $this->_mensajes = [
             "msnConsult" => 'Consulta relizada con exito',
@@ -118,7 +122,7 @@ class CitasController extends \Phalcon\Mvc\Controller
                 $busqueda = AcProveedoresExtranet::find([
                     'conditions' => 'nombre LIKE :value:',
                     'bind' => [
-                        'value' => '%'.$request->getPost('val').'%'
+                        'value' => '%'.strtoupper($request->getPost('val')).'%'
                     ]
                 ]);
 
@@ -199,7 +203,7 @@ class CitasController extends \Phalcon\Mvc\Controller
                 $clave = new AcClaves();
                 $clave->clave = AcClaves::claveRandom();
                 $clave->cedula_afiliado = $objDatos->cedula_afiliado;
-                $clave->codigo_contrato = $objDatos->codContra;
+                $clave->codigo_contrato = $datos->titular->id_cuenta;
                 $clave->fecha_cita = $objDatos->fecha_cita;
                 $clave->motivo = $objDatos->motivo;
                 $clave->observaciones = $objDatos->observaciones;
@@ -255,6 +259,81 @@ class CitasController extends \Phalcon\Mvc\Controller
         $this->view->disable();
 
     }
+
+
+    public function allAction()
+    {
+
+        $response = $this->response;
+        $request = $this->request;
+        $token = $request->getPost('token');
+
+        if( !isset($token) || empty($token) ){
+
+            $status = 200;
+            $msnStatus = 'OK';
+            $this->_data = null;
+            $this->_mensajes = [
+                "msnConsult" => 'Consulta relizada con exito',
+                "msnToken" => false,//el token de autrización esta ausente
+                "msnInvalid" => null
+            ];
+
+        }else{
+
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);
+
+            //comprobamos si existe el usuario
+            $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
+
+            //si no existe
+            if($auth->count() == 0)
+            {
+                //no es un token correcto
+                //devolvemos un 401, Unauthorized
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = null;
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,
+                    "msnInvalid" => true//las credenciales del token de autorizacion son invalidas
+                ];
+            }else{
+
+                $list = AcServiciosExtranet::find();
+
+                foreach ( $list as $item ){
+
+                    $this->_list[] = $item;
+
+                }
+
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = $list;
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,//el header de autrización esta ausente
+                    "msnInvalid" => false
+                ];
+
+            }
+
+        }
+
+        $response->setJsonContent([
+            "status" => $status,
+            "mensajes" => $this->_mensajes,
+            "data" => $this->_data,
+        ]);
+        $response->setStatusCode($status, $msnStatus);
+        $response->send();
+
+        $this->view->disable();
+
+    }
+
 
 }
 

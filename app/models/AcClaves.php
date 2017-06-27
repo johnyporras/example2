@@ -179,6 +179,25 @@ class AcClaves extends \Phalcon\Mvc\Model
     }
 
     /**
+     * retorna un radom para la clave
+     *
+     * @param mixed $length
+     * @return randomString|AcClaves
+     */
+    public static function claveRandom($length = 7)
+    {
+        $characteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $characteresLength = strlen($characteres);
+        $randomString = '';
+        for ($i=0; $i < $length; $i++) {
+
+            $randomString .= $characteres[rand(0, $characteresLength - 1)];
+
+        }
+        return $randomString;
+    }
+
+    /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters

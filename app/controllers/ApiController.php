@@ -64,32 +64,11 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                                 $titular = AcAfiliados::findFirstById($user->detalles_usuario_id);
 
-                                /*$afiliados = AcAfiliados::find([
-                                    'conditions' => 'cedula = :cedula:',
-                                    'bind' => [
-                                        'cedula' => $titular->cedula
-                                    ]
-                                ]);
-
-                                foreach ($afiliados as $value) {
-
-                                    $this->_afiliados[] = $value;
-
-                                }*/
-
-                                $this->_afiliados[] = $titular;
-
-                                //$contrato = AcContratos::findFirstByCedulaAfiliado($titular->cedula);
-                                //$colectivo = AcColectivos::findFirstByCodigoColectivo($contrato->codigo_colectivo);
                               //  $aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
-                                //$colectivo = AcColectivos::findFirstByCodigoColectivo($contrato->codigo_colectivo);
 
                                 $token = [
                                     'user' => $user,
-                                    'afiliados' => $this->_afiliados,
-                                    //'contrato' => $contrato,
-                                    //'aseguradora' => $aseguradora,
-                                  //  'colectivo' => $colectivo,
+                                    'titular' => $titular,
                                 ];
 
                                 $status = 200;

@@ -230,7 +230,8 @@ $apiUrl->addGet(
 $apiUrl->addPost(
     "/list-tipo-servicio",
     [
-        "controller" => "tipo-servicio",
+        //"controller" => "tipo-servicio",
+        "controller" => "citas",
         "action" => "all",
     ]
 )->setName('listTipoServicio');
