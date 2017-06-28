@@ -14,26 +14,25 @@ class ProfesionalesController extends \Phalcon\Mvc\Controller
         $response = $this->response;
         $request = $this->request;
 
-        $ramo = AcRamo::findFirstByAcrDesc($request->getPost('ramo'));
+        $especialidad = AcEspecialidadesExtranet::findFirstById($request->getPost('idEsp'));
 
-        $ciudades = AcProfesionales::find([
-            'conditions' => 'acp_es_id = :estado: AND acp_acr_id = :ramo: AND acp_ace_id = :especialidad:',
-            'group by' => 'acp_ciudad',
+        $ciudades = AcProveedoresExtranet::find([
+            'conditions' => 'estado_id = :estado: AND codigo_especialidad = :especialidad:',
+            'group by' => 'ciudad',
             'bind' => [
                 'estado' => $request->getPost('idEstado') ? $request->getPost('idEstado') : 0,
-                'ramo' => $ramo->acr_id,
-                'especialidad' => $request->getPost('idEsp')
+                'especialidad' => $especialidad->codigo_especialidad
             ]
         ]);
 
         foreach ($ciudades as $item){
 
-            if ( $item->acp_ciudad !== $this->_valor ) {
+            if ( $item->ciudad !== $this->_valor ) {
 
                  $this->_list[] = $item; 
              }
 
-             $this->_valor = $item->acp_ciudad;
+             $this->_valor = $item->ciudad;
 
         }
 
@@ -62,8 +61,8 @@ class ProfesionalesController extends \Phalcon\Mvc\Controller
     	$response = $this->response;
     	$request = $this->request;
 
-    	$prof = AcProfesionales::find([
-            'conditions' => 'acp_ciudad = :ciudad:',
+    	$prof = AcProveedoresExtranet::find([
+            'conditions' => 'ciudad = :ciudad:',
             'bind' => [
                 'ciudad' => $request->getPost('ciudad')
             ]
