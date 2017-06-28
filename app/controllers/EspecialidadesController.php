@@ -50,6 +50,79 @@ class EspecialidadesController extends \Phalcon\Mvc\Controller
             }else{
 
                 $especialidades = AcEspecialidadesExtranet::find();
+
+                foreach ( $especialidades as $item ){
+
+                    $this->_listEsp[] = $item;
+
+                }
+
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = $this->_listEsp;
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,//el header de autrización esta ausente
+                    "msnInvalid" => false
+                ];
+
+            }
+
+        }
+
+        $response->setJsonContent([
+            "status" => $status,
+            "mensajes" => $this->_mensajes,
+            "data" => $this->_data,
+        ]);
+        $response->setStatusCode($status, $msnStatus);
+        $response->send();
+
+        $this->view->disable();
+
+    }
+
+    public function allEspcAndServAction()
+    {
+
+        $response = $this->response;
+        $request = $this->request;
+        $token = $request->getPost('token');
+
+        if( !isset($token) || empty($token) ){
+
+            $status = 200;
+            $msnStatus = 'OK';
+            $this->_data = null;
+            $this->_mensajes = [
+                "msnConsult" => 'Consulta relizada con exito',
+                "msnToken" => false,//el token de autrización esta ausente
+                "msnInvalid" => null
+            ];
+
+        }else{
+
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);
+
+            //comprobamos si existe el usuario
+            $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
+
+            //si no existe
+            if($auth->count() == 0)
+            {
+                //no es un token correcto
+                //devolvemos un 401, Unauthorized
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = null;
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,
+                    "msnInvalid" => true//las credenciales del token de autorizacion son invalidas
+                ];
+            }else{
+
+                $especialidades = AcEspecialidadesExtranet::find();
                 $servicios = AcServiciosExtranet::find();
 
                 foreach ( $servicios as $item ){

@@ -183,6 +183,14 @@ $apiUrl->addPost(
     ]
 )->setName('allEspecialidades');
 
+$apiUrl->addPost(
+    "/especialidades-and-serv-all",
+    [
+        "controller" => "especialidades",
+        "action" => "allEspcAndServ",
+    ]
+)->setName('allEspecialidadesAndServicios');
+
 /***************************************************
 *********************rutas citas********************
 ***************************************************/
