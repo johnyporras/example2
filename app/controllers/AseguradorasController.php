@@ -7,13 +7,13 @@ class AseguradorasController extends \Phalcon\Mvc\Controller
 	private $_mensajes = '';
     private $_data = '';
 
-    public function allAction()
+    public function allAction()//metodo del controlador que no requiere token y retorna un array con todas las aseguradoras
     {
 
     	$response = $this->response;
     	$request = $this->request;
 
-		$aseguradoras = AcAseguradora::find();
+		$aseguradoras = AcAseguradora::find();//obtiene todas las aseguradoras
 
 		foreach ( $aseguradoras as $item ){
 
@@ -40,29 +40,29 @@ class AseguradorasController extends \Phalcon\Mvc\Controller
 
     }
 
-    public function searchAction(){
+    public function searchAction(){//metodo del controlador que no requiere token y retorna un objeto con los datos de una aseguradora
 
     	$response = $this->response;
     	$request = $this->request;
 
-		$aseguradora = AcAseguradora::findFirstById( $request->getPost('id') );
+		$aseguradora = AcAseguradora::findFirstById( $request->getPost('id') );//obtiene la aseguradora a traves de la variable 'id' enviada por el metodo post
 
-		if ( $aseguradora ) {
+		if ( $aseguradora ) {//si la busqueda retorna un objeto, se envia un mensaje con el valor generado por la busqueda
 
 			$status = 200;
 			$msnStatus = 'OK';
-			$this->_data = $aseguradora;
+			$this->_data = $aseguradora;//valor de la busqueda
 			$this->_mensajes = [
-					"msnConsult" => 'Consulta relizada con exito',
+					"msnConsult" => 'Consulta relizada con exito',//mensaje enviado
 			];
 
-		}else{
+		}else{//en caso de no retornar un objeto, envia un mensaje y valor 'null'
 
 			$status = 200;
 			$msnStatus = 'OK';
-			$this->_data = null;
+			$this->_data = null;//valor enviado
 			$this->_mensajes = [
-					"msnConsult" => 'Ningun resultado obtenido',
+					"msnConsult" => 'Ningun resultado obtenido',//mensaje enviado
 			];
 
 		}

@@ -7,7 +7,7 @@ class IndexController extends ControllerBase
     private $_mensajes = '';
     private $_data = '';
 
-    public function route404Action()
+    public function route404Action()//metodo del controlador que envia un mensaje de error si la ruta a la que intenta acceder no existe, no requiere ruta de acceso, actua como un evento
     {
         $this->response->setJsonContent('Ruta no valida');
         $this->response->setStatusCode(404, "Error");
@@ -17,7 +17,7 @@ class IndexController extends ControllerBase
 
     }
 
-    public function logaoutAction()
+    public function logaoutAction()//metodo que cierra session del usuario, no requiere token...ruta de acceso '/user-logaout' via get (metodo no usado actualmente)
     {
         $response = $this->response;
 
@@ -62,7 +62,7 @@ class IndexController extends ControllerBase
 
     }
 
-    public function indexAction($id)
+    public function indexAction($id)//metodo del controlador que activa la cuenta del usuraio registrado a traves de una variable 'id' via get, no requiere token de validacion...ruta de acceso encriptada '/f5wwluJTnRDBiEZjwasajeJXjuyNs9{id}i6ecJwL9cunuDFfdWkGGOx6' via get
     {
 
         $user = Users::findFirstById($id);

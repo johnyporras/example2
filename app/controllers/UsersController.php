@@ -8,12 +8,12 @@ class UsersController extends \Phalcon\Mvc\Controller
     private $_list = [];
     private $_msnValidation = [];
 
-    public function listAction()
+    public function listAction()//metodo del controlador que retorna un array de todos los usuarios, no requiere token de validacion...ruta de acceso '/user-list' via get
     {
 
         $response = $this->response;
 
-        $listUser = Users::find();
+        $listUser = Users::find();//obtiene el array con todos los usuarios
 
         foreach ( $listUser as $item ){
 
@@ -32,23 +32,23 @@ class UsersController extends \Phalcon\Mvc\Controller
 
     }
 
-    public function verifAction()
+    public function verifAction()//metodo del controlador que retorna un objeto con la informaicion de afiliado del usuario, no requiere token de validacion...ruta de acceso '/user-verificar' via post
     {
 
         $response = $this->response;
         $request = $this->request;
 
-        $afiliado = AcAfiliados::findFirst([
+        $afiliado = AcAfiliados::findFirst([//obtiene el objeto con la informacion
             'conditions' => 'cedula = :cedula: AND fecha_nacimiento = :fecha:',
             'bind' => [
-                'cedula' => $request->getPost('cedula'),
-                'fecha' => $request->getPost('fecha')
+                'cedula' => $request->getPost('cedula'),//variables post usadas para la busqueda del objeto
+                'fecha' => $request->getPost('fecha')//variables post usadas para la busqueda del objeto
             ]
         ]);
 
         if( isset($afiliado->email) ){
 
-            $user = Users::findFirstByEmail($afiliado->email);
+            $user = Users::findFirstByEmail($afiliado->email);//obtiene el usuario a travez del email del afiliado encontrado
 
         }
 
@@ -93,7 +93,7 @@ class UsersController extends \Phalcon\Mvc\Controller
 
     }
 
-    public function addAction()
+    public function addAction()//metodo del contolador que permite el registro de usuario, no requiere token de validacion...ruta de acceso '/user-add' via post
     {
 
         $response = $this->response;

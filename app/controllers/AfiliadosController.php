@@ -6,12 +6,12 @@ class AfiliadosController extends \Phalcon\Mvc\Controller
 	private $_mensajes = '';
     private $_data = '';
 
-    public function searchAction()
+    public function searchAction()//metodo buscar no requiere token..ruta de acceso '/afiliado-search' via post
     {
     	$response = $this->response;
     	$request = $this->request;
 
-		$afiliado = AcAfiliados::findFirstByCedula( $request->getPost('cedula') );
+		$afiliado = AcAfiliados::findFirstByCedula( $request->getPost('cedula') );//recibe la variable 'cedula' por post
 
 		if ( $afiliado ) {
 

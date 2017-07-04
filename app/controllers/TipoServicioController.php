@@ -7,7 +7,7 @@ class TipoServicioController extends \Phalcon\Mvc\Controller
     private $_mensajes = '';
     private $_data = '';
 
-    public function allAction()
+    public function allAction()//metodo del controlador que obtiene un array con todos los tipos de servicios, requiere token de validacion...ruta de acceso '/list-tipo-servicio' via post
     {
 
         $response = $this->response;

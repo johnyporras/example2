@@ -147,7 +147,7 @@ $apiUrl->addPost(
 ******************rutas colectivos******************
 ***************************************************/
 
-$apiUrl->addGet(
+/*$apiUrl->addGet(
     "/colectivos-list",
     [
         "controller" => "colectivos",
@@ -161,7 +161,7 @@ $apiUrl->addPost(
         "controller" => "colectivos",
         "action" => "search",
     ]
-)->setName('searchColectivo');
+)->setName('searchColectivo');*/
 
 /***************************************************
 ***************rutas especialidades*****************

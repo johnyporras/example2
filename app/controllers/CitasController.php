@@ -8,28 +8,28 @@ class CitasController extends \Phalcon\Mvc\Controller
     private $_data = '';
     private $_detailClaves = [];
 
-    public function listAllAction()
+    public function listAllAction()//metodo del controlador que no requiere token..retorna un array con citas..ruta de acceso '/citas-list' via post
     {
 
         $response = $this->response;
         $request = $this->request;
 
-        $lista = AcClaves::find([
+        $lista = AcClaves::find([//obtiene array de citas por medio de la variable post 'cedula'
             'conditions' => 'cedula_afiliado = :cedula:',
             'bind' => [
                 'cedula' => $request->getPost('cedula')
             ]
         ]);
 
-        foreach ( $lista as $item ){
+        foreach ( $lista as $item ){//recorre el array de las citas encontradas
 
-            foreach (AcClavesDetalle::find('id_clave = '.$item->id) as $itemDetail) {
+            foreach (AcClavesDetalle::find('id_clave = '.$item->id) as $itemDetail) {//obtiene y recorre el array de los detalles de la cita
                 
-                $this->_detailClaves[] = [
+                $this->_detailClaves[] = [//creacion del array que contiene el detalle de la cita
 
-                    'tipoServ' => AcServiciosExtranet::findFirstByCodigoServicio($itemDetail->codigo_servicio),
+                    'tipoServ' => AcServiciosExtranet::findFirstByCodigoServicio($itemDetail->codigo_servicio),//obtiene el detalle de la cita
 
-                    'proMedico' => AcProcedimientosMedicos::findFirst([
+                    'proMedico' => AcProcedimientosMedicos::findFirst([//obtiene el procedimiento de la cita
                         'conditions' => 'codigo_especialidad = :idCodEspc: AND codigo_servicio = :idCodServ:',
                         'bind' => [
                             'idCodServ' => $itemDetail->codigo_servicio,
@@ -45,7 +45,7 @@ class CitasController extends \Phalcon\Mvc\Controller
 
             }
 
-            $this->_list[] = [
+            $this->_list[] = [//creacion del array de la cita
 
                 'nombre' => '',
                 'fecha' => $item->fecha_cita,
@@ -79,14 +79,14 @@ class CitasController extends \Phalcon\Mvc\Controller
 
     }
 
-    public function buscarAction()
+    public function buscarAction()//metodo del controlador que retorna un array de clinicas, requiere de token de validacion... ruta de acceso '/list-clinicas' via post
     {
 
         $response = $this->response;
         $request = $this->request;
-        $token = $request->getPost('token');
+        $token = $request->getPost('token');//obtiene el token de validacion via post y se asigna a una variable 'token'
 
-        if( !isset($token) || empty($token) ){
+        if( !isset($token) || empty($token) ){//se verifica si no existe y si esta vacio
 
             $status = 200;
             $msnStatus = 'OK';
@@ -97,18 +97,17 @@ class CitasController extends \Phalcon\Mvc\Controller
                 "msnInvalid" => null
             ];
 
-        }else{
+        }else{//en caso de existir y no estar vacio
 
-            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);//desencripta el token y se asigna a una variable 'datos'
 
-            //comprobamos si existe el usuario
+            //comprobamos si existe el usuario mediante los datos obtenidos por el token
             $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
 
             //si no existe
             if($auth->count() == 0)
             {
                 //no es un token correcto
-                //devolvemos un 401, Unauthorized
                 $status = 200;
                 $msnStatus = 'OK';
                 $this->_data = null;
@@ -119,7 +118,7 @@ class CitasController extends \Phalcon\Mvc\Controller
                 ];
             }else{
 
-                $busqueda = AcProveedoresExtranet::find([
+                $busqueda = AcProveedoresExtranet::find([//obtiene el array de las clinicas mediante la variable 'val' obtenida via post
                     'conditions' => 'nombre LIKE :value:',
                     'bind' => [
                         'value' => '%'.strtoupper($request->getPost('val')).'%'
@@ -157,15 +156,15 @@ class CitasController extends \Phalcon\Mvc\Controller
 
     }
 
-    public function genClavAction()
+    public function genClavAction()//metodo del controlador que genera la clave y crea el registro para las citas, requiere token de autorizacion...ruta de acceso '/generar-claves' via post
     {
 
         $response = $this->response;
         $request = $this->request;
         $random = new \Phalcon\Security\Random();
-        $token = $request->getPost('token');
+        $token = $request->getPost('token');//obtiene el token de validacion via post y se asigna a una variable 'token'
 
-        if( !isset($token) || empty($token) ){
+        if( !isset($token) || empty($token) ){//se verifica si no existe y si esta vacio
 
             $status = 200;
             $msnStatus = 'OK';
@@ -176,18 +175,17 @@ class CitasController extends \Phalcon\Mvc\Controller
                 "msnInvalid" => null
             ];
 
-        }else{
+        }else{//en caso de existir y no estar vacio
 
-            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);//desencripta el token y se asigna a una variable 'datos'
 
-            //comprobamos si existe el usuario
+            //comprobamos si existe el usuario mediante los datos obtenidos por el token
             $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
 
             //si no existe
             if($auth->count() == 0)
             {
                 //no es un token correcto
-                //devolvemos un 401, Unauthorized
                 $status = 200;
                 $msnStatus = 'OK';
                 $this->_data = null;
@@ -198,7 +196,7 @@ class CitasController extends \Phalcon\Mvc\Controller
                 ];
             }else{
 
-                $objDatos =  json_decode( $request->getPost('obj') );
+                $objDatos =  json_decode( $request->getPost('obj') );//objeto enviado via post que contiene los datos para la creacion de las citas
 
                 $clave = new AcClaves();
                 $clave->clave = AcClaves::claveRandom();
@@ -211,17 +209,20 @@ class CitasController extends \Phalcon\Mvc\Controller
                 $clave->codigo_proveedor_creador = 0;
                 $clave->correo = $objDatos->email;
                 $clave->examen = null;
-                $clave->estatus_clave = 5;
+                $clave->estatus_clave = 1;
                 $clave->creador = $this->session->get("id");
                 $clave->telefono = $objDatos->telefono;
                 $clave->rechazo = null;
                 $clave->tipo_afiliado = $objDatos->tipoAfiliado;
-                $clave->cantidad_servicios = $objDatos->cantServ;
+                //$clave->cantidad_servicios = $objDatos->cantServ;
+                $clave->cantidad_servicios = 1;
+                $clave->hora_autorizado = null;
+                $clave->id_factura = null;
                 $clave->save();
 
                 //aqui se mandan los detalles de los servicios que tienen que ver con la espacialidad, de igual forma estos valores los puedes chekr una vez se guarden
 
-                foreach ($objDatos->detailClaveServ as $item ) {
+                /*foreach ($objDatos->detailClaveServ as $item ) {
 
                     $claveDetalle = new AcClavesDetalle();
                     $claveDetalle->id_clave = $clave->id;
@@ -231,13 +232,28 @@ class CitasController extends \Phalcon\Mvc\Controller
                     $claveDetalle->codigo_proveedor = $objDatos->proveedor->codigo_proveedor;
                     $claveDetalle->costo = $item->monto;
                     $claveDetalle->detalle = $objDatos->detailServ;
+                    $claveDetalle->estatus = 1;
                     $claveDetalle->save();
 
                 }
 
+                foreach ($objDatos->detailClaveServ as $item ) {
+
+                    $claveDetalleProv = new AcClavedetalleprov();
+                    $claveDetalleProv->id_clave = $clave->id;
+                    $claveDetalleProv->id_proveedor = $objDatos->proveedor->id;
+                    $claveDetalleProv->aceptado = 0;
+                    $claveDetalleProv->observacion = '';
+                    $claveDetalleProv->fechacita = '';
+                    $claveDetalleProv->horacita = '';
+                    $claveDetalleProv->preferido = $item->pre == true ? 1 : 0;
+                    $claveDetalleProv->save();
+
+                }*/
+
                 $status = 200;
                 $msnStatus = 'OK';
-                $this->_data = $clave->clave;
+                $this->_data = $clave->clave;//se envia la clave generada para la cita
                 $this->_mensajes = [
                     "msnConsult" => 'Consulta relizada con exito',
                     "msnHeaders" => true,//el header de autrización esta ausente
@@ -261,14 +277,14 @@ class CitasController extends \Phalcon\Mvc\Controller
     }
 
 
-    public function allAction()
+    public function allAction()//metodo del controlador que retorna un array con todas las citas, requiere token de autorizacion...ruta de acceso no definida, actualmente no se usa
     {
 
         $response = $this->response;
         $request = $this->request;
-        $token = $request->getPost('token');
+        $token = $request->getPost('token');//obtiene el token de validacion via post y se asigna a una variable 'token'
 
-        if( !isset($token) || empty($token) ){
+        if( !isset($token) || empty($token) ){//se verifica si no existe y si esta vacio
 
             $status = 200;
             $msnStatus = 'OK';
@@ -279,18 +295,17 @@ class CitasController extends \Phalcon\Mvc\Controller
                 "msnInvalid" => null
             ];
 
-        }else{
+        }else{//en caso de existir y no estar vacio
 
-            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);//desencripta el token y se asigna a una variable 'datos'
 
-            //comprobamos si existe el usuario
+            //comprobamos si existe el usuario mediante los datos obtenidos por el token
             $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
 
             //si no existe
             if($auth->count() == 0)
             {
                 //no es un token correcto
-                //devolvemos un 401, Unauthorized
                 $status = 200;
                 $msnStatus = 'OK';
                 $this->_data = null;
@@ -301,17 +316,50 @@ class CitasController extends \Phalcon\Mvc\Controller
                 ];
             }else{
 
-                $list = AcServiciosExtranet::find();
 
-                foreach ( $list as $item ){
+                $lista = AcClaves::find();//obtiene array de todas citas
 
-                    $this->_list[] = $item;
+                foreach ( $lista as $item ){//recorre el array de las citas encontradas
+
+                    foreach (AcClavesDetalle::find('id_clave = '.$item->id) as $itemDetail) {//obtiene y recorre el array de los detalles de la cita
+
+                        $this->_detailClaves[] = [//creacion del array que contiene el detalle de la cita
+
+                            'tipoServ' => AcServiciosExtranet::findFirstByCodigoServicio($itemDetail->codigo_servicio),//obtiene el detalle de la cita
+
+                            'proMedico' => AcProcedimientosMedicos::findFirst([//obtiene el procedimiento de la cita
+                                'conditions' => 'codigo_especialidad = :idCodEspc: AND codigo_servicio = :idCodServ:',
+                                'bind' => [
+                                    'idCodServ' => $itemDetail->codigo_servicio,
+                                    'idCodEspc' => $itemDetail->codigo_especialidad
+                                ]
+                            ]),
+
+                            'proveedor' => $itemDetail->AcProveedoresExtranet,
+
+                            'especialidad' => $itemDetail->AcEspecialidadesExtranet
+
+                        ];
+
+                    }
+
+                    $this->_list[] = [//creacion del array de la cita
+
+                        'nombre' => '',
+                        'fecha' => $item->fecha_cita,
+                        'clave' => $item->clave,
+                        'codigoProve' => $item->codigo_proveedor_creador ? $item->codigo_proveedor_creador : 'no',
+                        'detallesClave' => $this->_detailClaves,
+
+                    ];
+
+                    $this->_detailClaves = [];
 
                 }
 
                 $status = 200;
                 $msnStatus = 'OK';
-                $this->_data = $list;
+                $this->_data = $this->_list;
                 $this->_mensajes = [
                     "msnConsult" => 'Consulta relizada con exito',
                     "msnHeaders" => true,//el header de autrización esta ausente

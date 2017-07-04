@@ -11,38 +11,35 @@ class ViajesController extends \Phalcon\Mvc\Controller
     private $_data = '';
     private $_detailClaves = [];
 
-    public function listAllAction()
+    public function listAllAction()//metodo del controlador que retorna un array filtrado con los viajes del afiliado, requiere token de validacion...ruta de acceso '/viajes-list' via post
     {
 
         $response = $this->response;
         $request = $this->request;
-        $token = $request->getPost('token');
+        $token = $request->getPost('token');//obtiene el token de validacion via post y se asigna a una variable 'token'
 
-
-        if( !isset($token) || empty($token) ){
+        if( !isset($token) || empty($token) ){//se verifica si no existe y si esta vacio
 
             $status = 200;
             $msnStatus = 'OK';
-            //$this->_data = null;
-            $this->_data = 'ok';
+            $this->_data = null;
             $this->_mensajes = [
                 "msnConsult" => 'Consulta relizada con exito',
                 "msnToken" => false,//el token de autrización esta ausente
                 "msnInvalid" => null
             ];
 
-        }else{
+        }else{//en caso de existir y no estar vacio
 
-            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);//desencripta el token y se asigna a una variable 'datos'
 
-            //comprobamos si existe el usuario
+            //comprobamos si existe el usuario mediante los datos obtenidos por el token
             $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
 
             //si no existe
             if($auth->count() == 0)
             {
                 //no es un token correcto
-                //devolvemos un 401, Unauthorized
                 $status = 200;
                 $msnStatus = 'OK';
                 $this->_data = null;
@@ -53,7 +50,7 @@ class ViajesController extends \Phalcon\Mvc\Controller
                 ];
             }else{
 
-                $lista = Avi::find([
+                $lista = Avi::find([//obtiene array filtrado del a busqueda
                     'conditions' => 'cedula_afiliado = :ced_afi:',
                     'bind' => [
                         'ced_afi' => $datos->titular->cedula
@@ -62,7 +59,7 @@ class ViajesController extends \Phalcon\Mvc\Controller
 
                 foreach($lista as $item){
 
-                    $destinos = AviDestino::find([
+                    $destinos = AviDestino::find([//obtiene el detalle de los viajes
                         'conditions' => 'avi_id = :cod:',
                         'bind' => [
                             'cod' => $item->id,
@@ -107,7 +104,7 @@ class ViajesController extends \Phalcon\Mvc\Controller
 
     }
 
-    public function genViajeAction()
+    public function genViajeAction()//metodo del controlador que registra los viajes solicitados por el afiliados, requiere token de autenticacion...ruta de acceso '/generar-viaje' via post
     {
         $random = new Random();
         $response = $this->response;

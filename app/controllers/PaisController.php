@@ -8,13 +8,13 @@ class PaisController extends \Phalcon\Mvc\Controller
     private $_data = '';
     private $_detailClaves = [];
 
-    public function listAllAction()
+    public function listAllAction()//metodo del controlador que retorna un array con todos los paises, no requiere de token de validacion...ruta de acceso '/pais-list' via get
     {
 
         $response = $this->response;
         $request = $this->request;
 
-        $lista = Paises::find();
+        $lista = Paises::find();//obtiene el array con los paises
 
         foreach($lista as $item){
 

@@ -7,13 +7,13 @@ class ProcedimientosMedicosController extends \Phalcon\Mvc\Controller
     private $_mensajes = '';
     private $_data = '';
 
-    public function allAction()
+    public function allAction()//metodo del controlador que retorna un array con todos los procedimientos medicos, no requiere token de validacion... ruta de acceso '/procedimientos-medicos-all' via get
     {
 
         $response = $this->response;
         $request = $this->request;
 
-        $procMedicos = AcProcedimientosMedicos::find();
+        $procMedicos = AcProcedimientosMedicos::find();//obtien el array con todos los procedimientos medicos
 
         foreach ( $procMedicos as $item ){
 
@@ -40,14 +40,14 @@ class ProcedimientosMedicosController extends \Phalcon\Mvc\Controller
 
     }
 
-    public function listAction()
+    public function listAction()//metodo del controlador que rretorna un array filtrado con las variables pos 'serv' y 'espec' de los procedimientos medicos, requiere token de validacion...ruta de acceso '/procedimientos-medicos-list' via post
     {
 
         $response = $this->response;
         $request = $this->request;
-        $token = $request->getPost('token');
+        $token = $request->getPost('token');//obtiene el token de validacion via post y se asigna a una variable 'token'
 
-        if( !isset($token) || empty($token) ){
+        if( !isset($token) || empty($token) ){//se verifica si no existe y si esta vacio
 
             $status = 200;
             $msnStatus = 'OK';
@@ -58,18 +58,17 @@ class ProcedimientosMedicosController extends \Phalcon\Mvc\Controller
                 "msnInvalid" => null
             ];
 
-        }else{
+        }else{//en caso de existir y no estar vacio
 
-            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);//desencripta el token y se asigna a una variable 'datos'
 
-            //comprobamos si existe el usuario
+            //comprobamos si existe el usuario mediante los datos obtenidos por el token
             $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
 
             //si no existe
             if($auth->count() == 0)
             {
                 //no es un token correcto
-                //devolvemos un 401, Unauthorized
                 $status = 200;
                 $msnStatus = 'OK';
                 $this->_data = null;
@@ -80,11 +79,11 @@ class ProcedimientosMedicosController extends \Phalcon\Mvc\Controller
                 ];
             }else{
 
-                $procMedicos = AcProcedimientosMedicos::find([
+                $procMedicos = AcProcedimientosMedicos::find([//obtiene el array filtrado con los procedimientos medicos
                     'conditions' => 'codigo_servicio = :serv: AND codigo_especialidad = :espec:',
                     'bind' => [
-                        'serv' => $request->getPost('serv'),
-                        'espec' => $request->getPost('espec')
+                        'serv' => $request->getPost('serv'),//variable post usada para filtrar la busqueda
+                        'espec' => $request->getPost('espec')//variable post usada para filtrar la busqueda
                     ]
                 ]);
 
@@ -119,14 +118,14 @@ class ProcedimientosMedicosController extends \Phalcon\Mvc\Controller
 
     }
 
-    public function montoAction()
+    public function montoAction()//metodo del controlador usado para obtener un objeto con el monto del procedimiento medico, requiere token de validacion...ruta de acceso '/serv-monto' via post
     {
 
         $response = $this->response;
         $request = $this->request;
-        $token = $request->getPost('token');
+        $token = $request->getPost('token');//obtiene el token de validacion via post y se asigna a una variable 'token'
 
-        if( !isset($token) || empty($token) ){
+        if( !isset($token) || empty($token) ){//se verifica si no existe y si esta vacio
 
             $status = 200;
             $msnStatus = 'OK';
@@ -137,18 +136,17 @@ class ProcedimientosMedicosController extends \Phalcon\Mvc\Controller
                 "msnInvalid" => null
             ];
 
-        }else{
+        }else{//en caso de existir y no estar vacio
 
-            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);//desencripta el token y se asigna a una variable 'datos'
 
-            //comprobamos si existe el usuario
+            //comprobamos si existe el usuario mediante los datos obtenidos por el token
             $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
 
             //si no existe
             if($auth->count() == 0)
             {
                 //no es un token correcto
-                //devolvemos un 401, Unauthorized
                 $status = 200;
                 $msnStatus = 'OK';
                 $this->_data = null;
@@ -159,11 +157,11 @@ class ProcedimientosMedicosController extends \Phalcon\Mvc\Controller
                 ];
             }else{
 
-                $montoBaremos = AcBaremos::findFirst([
+                $montoBaremos = AcBaremos::findFirst([//obtiene el objeto de la busqueda
                     'conditions' => 'id_procedimiento = :idProc: AND id_proveedor = :idProv:',
                     'bind' => [
-                        'idProc' => $request->getPost('idProc'),
-                        'idProv' => $request->getPost('idProv')
+                        'idProc' => $request->getPost('idProc'),//variables post usadas en la busqueda
+                        'idProv' => $request->getPost('idProv')//variables post usadas en la busqueda
                     ]
                 ]);
 

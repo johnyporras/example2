@@ -55,6 +55,34 @@ class AcClavedetalleprov extends \Phalcon\Mvc\Model
     public $updated_at;
 
     /**
+     *
+     * @var string
+     * @Column(type="date", nullable=true)
+     */
+    public $fechacita;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=50, nullable=true)
+     */
+    public $horacita;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=200, nullable=true)
+     */
+    public $direccion;
+
+    /**
+     *
+     * @var string
+     * @Column(type="integer", nullable=true)
+     */
+    public $preferido;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()

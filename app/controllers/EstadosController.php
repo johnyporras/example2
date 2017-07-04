@@ -7,12 +7,12 @@ class EstadosController extends \Phalcon\Mvc\Controller
 	private $_mensajes = '';
     private $_data = '';
 
-    public function allAction()
+    public function allAction()//metodo del controlador que retorna un array con todos los estados, no requiere token de validacion... ruta de acceso '/estados-list' via get
     {
 
     	$response = $this->response;
 
-        $listEstados = AcEstados::find();
+        $listEstados = AcEstados::find();//retorna array con los estados
 
         foreach ( $listEstados as $item ){
 
@@ -34,13 +34,13 @@ class EstadosController extends \Phalcon\Mvc\Controller
 
     }
 
-    public function searchAction()
+    public function searchAction()//metodo del controlador que retorna un array filtrado a traves de la variable post 'id', no requiere token de validacion...ruta de acceso '/estado-search' via post
     {
 
     	$response = $this->response;
     	$request = $this->request;
 
-        $estado = AcEstados::findFirstByEsId( $request->getPost('id') );
+        $estado = AcEstados::findFirstByEsId( $request->getPost('id') );//obtiene el array filtrado
 
         if ( $estado ) {
         	

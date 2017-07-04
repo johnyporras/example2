@@ -9,14 +9,14 @@ class EspecialidadesController extends \Phalcon\Mvc\Controller
     private $_mensajes = '';
     private $_data = '';
 
-    public function allAction()
+    public function allAction()//metodo del controlador que retorna un array con todas las especialidades, requiere token de validacion...ruta de acceso '/especialidades-all' via post
     {
 
         $response = $this->response;
         $request = $this->request;
-        $token = $request->getPost('token');
+        $token = $request->getPost('token');//obtiene el token de validacion via post y se asigna a una variable 'token'
 
-        if( !isset($token) || empty($token) ){
+        if( !isset($token) || empty($token) ){//se verifica si no existe y si esta vacio
 
             $status = 200;
             $msnStatus = 'OK';
@@ -27,18 +27,17 @@ class EspecialidadesController extends \Phalcon\Mvc\Controller
                 "msnInvalid" => null
             ];
 
-        }else{
+        }else{//en caso de existir y no estar vacio
 
-            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);//desencripta el token y se asigna a una variable 'datos'
 
-            //comprobamos si existe el usuario
+            //comprobamos si existe el usuario mediante los datos obtenidos por el token
             $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
 
             //si no existe
             if($auth->count() == 0)
             {
                 //no es un token correcto
-                //devolvemos un 401, Unauthorized
                 $status = 200;
                 $msnStatus = 'OK';
                 $this->_data = null;
@@ -49,7 +48,7 @@ class EspecialidadesController extends \Phalcon\Mvc\Controller
                 ];
             }else{
 
-                $especialidades = AcEspecialidadesExtranet::find();
+                $especialidades = AcEspecialidadesExtranet::find();//obtiene todas las especialidades
 
                 foreach ( $especialidades as $item ){
 
@@ -82,14 +81,14 @@ class EspecialidadesController extends \Phalcon\Mvc\Controller
 
     }
 
-    public function allEspcAndServAction()
+    public function allEspcAndServAction()//metodo del controlador que ertorna un array con todos los revicio y espacialidades, requiere token de validacion...ruta de acceso /especialidades-and-serv-all via post
     {
 
         $response = $this->response;
         $request = $this->request;
-        $token = $request->getPost('token');
+        $token = $request->getPost('token');//obtiene el token de validacion via post y se asigna a una variable 'token'
 
-        if( !isset($token) || empty($token) ){
+        if( !isset($token) || empty($token) ){//se verifica si no existe y si esta vacio
 
             $status = 200;
             $msnStatus = 'OK';
@@ -100,18 +99,17 @@ class EspecialidadesController extends \Phalcon\Mvc\Controller
                 "msnInvalid" => null
             ];
 
-        }else{
+        }else{//en caso de existir y no estar vacio
 
-            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);//desencripta el token y se asigna a una variable 'datos'
 
-            //comprobamos si existe el usuario
+            //comprobamos si existe el usuario mediante los datos obtenidos por el token
             $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
 
             //si no existe
             if($auth->count() == 0)
             {
                 //no es un token correcto
-                //devolvemos un 401, Unauthorized
                 $status = 200;
                 $msnStatus = 'OK';
                 $this->_data = null;
@@ -122,8 +120,8 @@ class EspecialidadesController extends \Phalcon\Mvc\Controller
                 ];
             }else{
 
-                $especialidades = AcEspecialidadesExtranet::find();
-                $servicios = AcServiciosExtranet::find();
+                $especialidades = AcEspecialidadesExtranet::find();//obtiene array con todas las especialidades
+                $servicios = AcServiciosExtranet::find();//obtiene array con todos los servicios
 
                 foreach ( $servicios as $item ){
 
@@ -139,7 +137,7 @@ class EspecialidadesController extends \Phalcon\Mvc\Controller
 
                 $status = 200;
                 $msnStatus = 'OK';
-                $this->_data = ["esp" => $this->_listEsp, "serv" => $this->_listServ];
+                $this->_data = ["esp" => $this->_listEsp, "serv" => $this->_listServ];//arra enviado a la app
                 $this->_mensajes = [
                     "msnConsult" => 'Consulta relizada con exito',
                     "msnHeaders" => true,//el header de autrización esta ausente
@@ -162,7 +160,7 @@ class EspecialidadesController extends \Phalcon\Mvc\Controller
 
     }
 
-    public function listAction()
+    public function listAction()//metodo del controlador que retorna un array con la lista de especialidades de acuerdo a la rama a travez de la variable 'acrDesc', no requiere token de validacion... ruta de acceso '/especialidades-list'
     {
 
         $response = $this->response;

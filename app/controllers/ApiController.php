@@ -6,31 +6,31 @@ class ApiController extends \Phalcon\Mvc\Controller
     private $_data = [];
     private $_afiliados = [];
 
-    public function loginAction()
+    public function loginAction()//metodo login del controlador... por ser el metodo de verificacion de credenciales no requiere token..ruta de acceso '/user-login' via post
     {
         $request = $this->request;
         $response = $this->response;
 
-        if ( $request->isPost() ) {
+        if ( $request->isPost() ) {//verifica que la peticion post exite
 
-            $usuario = $request->getPost('usuario');
+            $usuario = $request->getPost('usuario');//variable requerida para la verificacion de la cuenta
 
-            $password = $request->getPost('password');
+            $password = $request->getPost('password');//variable requerida para la verificacion de la cuenta
 
-            if ( $this->security->checkToken($this->security->getTokenKey(), $this->security->getToken()) ) {
+            if ( $this->security->checkToken($this->security->getTokenKey(), $this->security->getToken()) ) {//token de seguridad del usuario (Por el momento no usada)
 
-                $validarLogin = new ValidationLogin();
+                $validarLogin = new ValidationLogin();//contiene la validacion de las variables de formulario
 
-                $mensagesLogin = $validarLogin->validate($_POST);
+                $mensagesLogin = $validarLogin->validate($_POST);//se le pasan las variables tomadas de la peticion post y se asigna a una variable
 
-                if ( $mensagesLogin->count() ) {
+                if ( $mensagesLogin->count() ) {//verifica si contiene un mensaje de validacion en caso de que alla fallado la validacion
 
-                    foreach ($mensagesLogin->filter('usuario') as $message) {
-                        $msnUsuario[] =  $message->getMessage();
+                    foreach ($mensagesLogin->filter('usuario') as $message) {//filtra uno a uno los mensajes de la variable 'usuario'
+                        $msnUsuario[] =  $message->getMessage();//obtiene los mensajes y los asigna a un array
                     }
 
-                    foreach ($mensagesLogin->filter('password') as $message) {
-                        $msnPassword[] =  $message->getMessage();
+                    foreach ($mensagesLogin->filter('password') as $message) {//filtra uno a uno los mensajes de la variable 'password'
+                        $msnPassword[] =  $message->getMessage();//obtiene los mensajes y los asigna a un array
                     }
 
                     $status = 200;
@@ -38,35 +38,28 @@ class ApiController extends \Phalcon\Mvc\Controller
                     $this->_data = null;
                     $this->_mensajes = [
                         "msnConsult" => 'Error de Credenciales',
-                        "msnUsuario" => $msnUsuario[0],
-                        "msnPassword" =>$msnPassword[0]
+                        "msnUsuario" => $msnUsuario[0],//mensajes de validacion
+                        "msnPassword" =>$msnPassword[0]//mensajes de validacion
                     ];
 
-                }else{
+                }else{//en caso de que alla pasado las validaciones correctamente pasamos a la verificacion de las credenciales
 
-                    //obtenemos al usuario por su nombre usuario
+                    $user = Users::findFirstByUser($usuario);//obtenemos al usuario por su nombre usuario
 
-                    $user = Users::findFirstByUser($usuario);
-
-                    //si existe el usuario buscado por nombre usuario
-
-                    if ($user)
+                    if ($user)//si existe el usuario buscado por nombre usuario
                     {
-                        //si el password que hay en la base de datos coincide con el que ha
-                        //ingresado encriptado, le damos luz verde, los datos son correctos
-                        if ($this->security->checkHash($password, $user->password))
+
+                        if ($this->security->checkHash($password, $user->password))//si el password que hay en la base de datos coincide con el que ha ingresado el usuairo, le damos luz verde.. los datos son correctos
                         {
                             //validamos el estado del usuario
 
-                            if( $user->active == 'S' ){
+                            if( $user->active == 'S' ){//si esta activo creamos el token de sesión encriptado para el usuario con sus datos para ser enviados a la app
 
-                                //si esta activo creamos la sesión del usuario con sus datos
-
-                                $titular = AcAfiliados::findFirstById($user->detalles_usuario_id);
+                                $titular = AcAfiliados::findFirstById($user->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
 
                               //  $aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
-                                $token = [
+                                $token = [//array que sera encriptado para ser enviado a la app
                                     'user' => $user,
                                     'titular' => $titular,
                                 ];
@@ -74,13 +67,13 @@ class ApiController extends \Phalcon\Mvc\Controller
                                 $status = 200;
                                 $msnStatus = 'OK';
                                 $this->_data = [
-                                    'token' => JWT::encode($token,"Atiempo-api-rest")
+                                    'token' => JWT::encode($token,"Atiempo-api-rest")//creacion del token de sesion encriptado
                                 ];
                                 $this->_mensajes = [
                                     "msnConsult" => 'Datos correctos',
                                 ];
 
-                            }else{
+                            }else{//en caso de estar inactivo
 
                                 $status = 200;
                                 $msnStatus = 'Error';
@@ -91,7 +84,7 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                             }
 
-                        }else{
+                        }else{//en caso de que el password enviado por el usuario no coincida con el de la base de datos
 
                             $status = 200;
                             $msnStatus = 'Error';
@@ -102,7 +95,7 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                         }
 
-                    }else{
+                    }else{//en caso de que la busqueda por nombre de usuario no retorne ningun objeto
 
                         $status = 200;
                         $msnStatus = 'Error';
@@ -115,24 +108,24 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                 }
 
-            }else{
+            }else{//en caso de fallar la verificacion del formulario manda un mensaje (Por el momento no usado)
 
                 $status = 200;
                 $msnStatus = 'Error';
                 $this->_data = null;
                 $this->_mensajes = [
-                    "msnConsult" => 'Problemas de validacion del formulario',
+                    "msnConsult" => 'Problemas de validacion del formulario',//mensaje enviado en caso de fallar la verificacion del formulario
                 ];
 
             }
 
-        }else{
+        }else{//de no esxistir la peticion por post manda un mensaje
 
             $status = 200;
             $msnStatus = 'Error';
             $this->_data = null;
             $this->_mensajes = [
-                "msnConsult" => 'Debe ser unapetición detipo POST',
+                "msnConsult" => 'Debe ser unapetición detipo POST',//mensaje enviado en caso de no ser una peticion post
             ];
 
         }
