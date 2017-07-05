@@ -210,7 +210,7 @@ class CitasController extends \Phalcon\Mvc\Controller
                 $clave->correo = $objDatos->email;
                 $clave->examen = null;
                 $clave->estatus_clave = 1;
-                $clave->creador = $this->session->get("id");
+                $clave->creador = $datos->user->id;
                 $clave->telefono = $objDatos->telefono;
                 $clave->rechazo = null;
                 $clave->tipo_afiliado = $objDatos->tipoAfiliado;
@@ -222,14 +222,14 @@ class CitasController extends \Phalcon\Mvc\Controller
 
                 //aqui se mandan los detalles de los servicios que tienen que ver con la espacialidad, de igual forma estos valores los puedes chekr una vez se guarden
 
-                /*foreach ($objDatos->detailClaveServ as $item ) {
+                foreach ($objDatos->detailClaveServ as $item ) {
 
                     $claveDetalle = new AcClavesDetalle();
                     $claveDetalle->id_clave = $clave->id;
                     $claveDetalle->codigo_servicio = $item->tipoServ->codigo_servicio;
                     $claveDetalle->codigo_especialidad = $objDatos->espec;
                     $claveDetalle->id_procedimiento = $item->proMed->id;
-                    $claveDetalle->codigo_proveedor = $objDatos->proveedor->codigo_proveedor;
+                    $claveDetalle->codigo_proveedor = $item->prov->codigo_proveedor;
                     $claveDetalle->costo = $item->monto;
                     $claveDetalle->detalle = $objDatos->detailServ;
                     $claveDetalle->estatus = 1;
@@ -241,15 +241,15 @@ class CitasController extends \Phalcon\Mvc\Controller
 
                     $claveDetalleProv = new AcClavedetalleprov();
                     $claveDetalleProv->id_clave = $clave->id;
-                    $claveDetalleProv->id_proveedor = $objDatos->proveedor->id;
+                    $claveDetalleProv->id_proveedor = $item->prov->id;
                     $claveDetalleProv->aceptado = 0;
-                    $claveDetalleProv->observacion = '';
-                    $claveDetalleProv->fechacita = '';
-                    $claveDetalleProv->horacita = '';
+                    $claveDetalleProv->observacion = null;
+                    $claveDetalleProv->fechacita = null;
+                    $claveDetalleProv->horacita = null;
                     $claveDetalleProv->preferido = $item->pre == true ? 1 : 0;
                     $claveDetalleProv->save();
 
-                }*/
+                }
 
                 $status = 200;
                 $msnStatus = 'OK';
