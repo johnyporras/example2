@@ -50,6 +50,7 @@ class CitasController extends \Phalcon\Mvc\Controller
                 'nombre' => '',
                 'fecha' => $item->fecha_cita,
                 'clave' => $item->clave,
+                'status_clave' => $item->estatus_clave,
                 'codigoProve' => $item->codigo_proveedor_creador ? $item->codigo_proveedor_creador : 'no',
                 'detallesClave' => $this->_detailClaves,
 
@@ -250,6 +251,28 @@ class CitasController extends \Phalcon\Mvc\Controller
                     $claveDetalleProv->save();
 
                 }
+
+                $this->getDI()->getMail()->send(
+                    [
+                        $datos->user->email => $datos->user->name
+                    ],
+                    "???????",//subject
+                    'clavesEmail',//templatename
+                    [
+                        'data' => [
+                            "nombre" => $datos->user->name,
+                            "cedula" => $datos->titular->cedula,
+                            "nombreCompleto" => $datos->titular->nombre,
+                            "telefono" => $datos->titular->telefono,
+                            "fecha_cita" => $objDatos->fecha_cita,
+                            "motivo" => $objDatos->motivo,
+                            "obser" => $objDatos->observaciones,
+                            "servicio" => '?????',
+                            "especialidad" => '?????',
+                            "procedimiento" => '?????',
+                        ]
+                    ]
+                );
 
                 $status = 200;
                 $msnStatus = 'OK';
