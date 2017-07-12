@@ -267,9 +267,12 @@ class CitasController extends \Phalcon\Mvc\Controller
                             "fecha_cita" => $objDatos->fecha_cita,
                             "motivo" => $objDatos->motivo,
                             "obser" => $objDatos->observaciones,
-                            "servicio" => '?????',
-                            "especialidad" => '?????',
-                            "procedimiento" => '?????',
+                            "servicio" => $objDatos->infoTra->tipoServ->descripcion,
+                            "especialidad" => $objDatos->nomEspec,
+                            "procedimiento" => $objDatos->infoTra->proMed->tipo_examen,
+                            "idclave" => $clave->id,
+                            "idclaveprov" => $objDatos->infoTra->prov->codigo_proveedor,
+                            "tipo" => 1
                         ]
                     ]
                 );
