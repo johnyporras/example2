@@ -44,6 +44,13 @@ $apiUrl->addPost(
 )->setName('login');
 
 $apiUrl->addPost(
+    "/login-tel",
+    [
+        "action" => "loginTel",
+    ]
+)->setName('loginTel');
+
+$apiUrl->addPost(
     "/user-verificar",
     [
         "controller" => "users",
