@@ -185,7 +185,7 @@ class ApiController extends \Phalcon\Mvc\Controller
                     if ($user)//si existe el usuario buscado por nombre usuario
                     {
 
-                        if ( $clave === $user->clave )//si el clave que hay en la base de datos coincide con el que ha ingresado el usuairo, le damos luz verde.. los datos son correctos
+                        if ( $this->security->checkHash($clave, $user->clave))//si el clave que hay en la base de datos coincide con el que ha ingresado el usuairo, le damos luz verde.. los datos son correctos
                         {
                             //validamos el estado del usuario
 
