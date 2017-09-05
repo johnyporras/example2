@@ -149,6 +149,13 @@ class Users extends \Phalcon\Mvc\Model
     public $imagen_perfil;
 
     /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $clave;
+
+    /**
      * Validations and business logic
      *
      * @return boolean

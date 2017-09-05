@@ -106,6 +106,14 @@ $apiUrl->addPost(
     ]
 )->setName('listCiudades');
 
+$apiUrl->addPost(
+    "/buscar-ciudades",
+    [
+        "controller" => "estados",
+        "action" => "searchCiudades",
+    ]
+)->setName('searchCiudades');
+
 /***************************************************
 *****************rutas profesionales****************
 ***************************************************/

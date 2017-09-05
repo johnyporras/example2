@@ -6,6 +6,7 @@ class EspecialidadesController extends \Phalcon\Mvc\Controller
     private $_list = [];
     private $_listServ = [];
     private $_listEsp = [];
+    private $_listEstados = [];
     private $_mensajes = '';
     private $_data = '';
 
@@ -122,6 +123,7 @@ class EspecialidadesController extends \Phalcon\Mvc\Controller
 
                 $especialidades = AcEspecialidadesExtranet::find();//obtiene array con todas las especialidades
                 $servicios = AcServiciosExtranet::find();//obtiene array con todos los servicios
+                $listEstados = AcEstados::find();//retorna array con los estados
 
                 foreach ( $servicios as $item ){
 
@@ -135,9 +137,19 @@ class EspecialidadesController extends \Phalcon\Mvc\Controller
 
                 }
 
+                foreach ( $listEstados as $item ){
+
+                    $this->_listEstados[] = $item;
+
+                }
+
                 $status = 200;
                 $msnStatus = 'OK';
-                $this->_data = ["esp" => $this->_listEsp, "serv" => $this->_listServ];//arra enviado a la app
+                $this->_data = [
+                    "esp" => $this->_listEsp,
+                    "estados" => $this->_listEstados,
+                    "serv" => $this->_listServ
+                ];//arra enviado a la app
                 $this->_mensajes = [
                     "msnConsult" => 'Consulta relizada con exito',
                     "msnHeaders" => true,//el header de autrización esta ausente

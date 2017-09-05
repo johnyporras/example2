@@ -56,12 +56,18 @@ class ApiController extends \Phalcon\Mvc\Controller
                             if( $user->active == 'S' ){//si esta activo creamos el token de sesión encriptado para el usuario con sus datos para ser enviados a la app
 
                                 $titular = AcAfiliados::findFirstById($user->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
+                                $listEstados = AcEstados::find();//retorna array con los estados
+                                $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
+                                $documentos = AcDocumentos::find();//retorna array con los documentos
 
-                              //  $aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+                              //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
                                 $token = [//array que sera encriptado para ser enviado a la app
                                     'user' => $user,
                                     'titular' => $titular,
+                                    'listEstados' => $listEstados
+                                    'tipoDocuments' => $tipoDocuments,
+                                    'documentos' => $documentos
                                 ];
 
                                 $status = 200;
@@ -192,12 +198,12 @@ class ApiController extends \Phalcon\Mvc\Controller
                             if( $user->active == 'S' ){//si esta activo creamos el token de sesión encriptado para el usuario con sus datos para ser enviados a la app
 
                                 $titular = AcAfiliados::findFirstById($user->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
-
+                                
                               //  $aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
                                 $token = [//array que sera encriptado para ser enviado a la app
                                     'user' => $user,
-                                    'titular' => $titular,
+                                    'titular' => $titular
                                 ];
 
                                 $status = 200;

@@ -90,6 +90,27 @@ class AcClavesDetalle extends \Phalcon\Mvc\Model
     public $estatus;
 
     /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $estado;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $ciudad;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $turno;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()

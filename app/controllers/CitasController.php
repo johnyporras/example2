@@ -120,9 +120,11 @@ class CitasController extends \Phalcon\Mvc\Controller
             }else{
 
                 $busqueda = AcProveedoresExtranet::find([//obtiene el array de las clinicas mediante la variable 'val' obtenida via post
-                    'conditions' => 'nombre LIKE :value:',
+                    'conditions' => 'estado_id = :idEstado: AND codigo_especialidad = :codEsp: AND nombre LIKE :value:',
                     'bind' => [
-                        'value' => '%'.strtoupper($request->getPost('val')).'%'
+                        'value' => '%'.strtoupper($request->getPost('val')).'%',
+                        'idEstado' => $request->getPost('idEstado'),
+                        'codEsp' => $request->getPost('codEsp')
                     ]
                 ]);
 
@@ -215,7 +217,6 @@ class CitasController extends \Phalcon\Mvc\Controller
                 $clave->telefono = $objDatos->telefono;
                 $clave->rechazo = null;
                 $clave->tipo_afiliado = $objDatos->tipoAfiliado;
-                //$clave->cantidad_servicios = $objDatos->cantServ;
                 $clave->cantidad_servicios = 1;
                 $clave->hora_autorizado = null;
                 $clave->id_factura = null;
@@ -234,6 +235,9 @@ class CitasController extends \Phalcon\Mvc\Controller
                     $claveDetalle->costo = $item->monto;
                     $claveDetalle->detalle = $objDatos->detailServ;
                     $claveDetalle->estatus = 1;
+                    $claveDetalle->estado = $objDatos->estado;
+                    $claveDetalle->ciudad = $objDatos->ciudad;
+                    $claveDetalle->turno = $objDatos->turno;
                     $claveDetalle->save();
 
                 }
@@ -248,6 +252,8 @@ class CitasController extends \Phalcon\Mvc\Controller
                     $claveDetalleProv->fechacita = null;
                     $claveDetalleProv->horacita = null;
                     $claveDetalleProv->preferido = $item->pre == true ? 1 : 0;
+                    $claveDetalleProv->direccion = null;
+                    $claveDetalleProv->pendiente = $item->pre == true ? 1 : 0;
                     $claveDetalleProv->save();
 
                 }

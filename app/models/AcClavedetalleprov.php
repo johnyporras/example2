@@ -83,6 +83,13 @@ class AcClavedetalleprov extends \Phalcon\Mvc\Model
     public $preferido;
 
     /**
+     *
+     * @var string
+     * @Column(type="integer", nullable=true)
+     */
+    public $pendiente;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
