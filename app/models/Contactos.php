@@ -1,6 +1,6 @@
 <?php
 
-class AcTipoAutorizacion extends \Phalcon\Mvc\Model
+class Contactos extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -14,10 +14,31 @@ class AcTipoAutorizacion extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
-     * @Column(type="string", length=255, nullable=false)
+     * @var integer
+     * @Column(type="integer", length=32, nullable=false)
      */
-    public $descripcion;
+    public $id_afiliado;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $nombre;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $telefono;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $parentesco;
 
     /**
      *
@@ -46,7 +67,7 @@ class AcTipoAutorizacion extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("public");
-        $this->hasMany('id', 'AcPacientesAtendidos', 'tipo_autorizacion', ['alias' => 'AcPacientesAtendidos']);
+        $this->belongsTo('id_afiliado', '\AcAfiliados', 'id', ['alias' => 'AcAfiliados']);
     }
 
     /**
@@ -56,14 +77,14 @@ class AcTipoAutorizacion extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'ac_tipo_autorizacion';
+        return 'contactos';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcTipoAutorizacion[]|AcTipoAutorizacion
+     * @return Contactos[]|Contactos
      */
     public static function find($parameters = null)
     {
@@ -74,7 +95,7 @@ class AcTipoAutorizacion extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcTipoAutorizacion
+     * @return Contactos
      */
     public static function findFirst($parameters = null)
     {

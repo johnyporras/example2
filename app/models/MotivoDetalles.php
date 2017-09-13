@@ -1,6 +1,6 @@
 <?php
 
-class Avi extends \Phalcon\Mvc\Model
+class MotivoDetalles extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -17,49 +17,70 @@ class Avi extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=32, nullable=false)
      */
-    public $afiliado_id;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=30, nullable=false)
-     */
-    public $codigo_solicitud;
+    public $id_motivo;
 
     /**
      *
      * @var integer
      * @Column(type="integer", length=32, nullable=false)
      */
-    public $codigo_contrato;
+    public $id_afiliado;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=20, nullable=false)
+     * @Column(type="string", length=255, nullable=true)
      */
-    public $cobertura_monto;
+    public $tipo;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=20, nullable=false)
+     * @Column(type="string", length=255, nullable=true)
      */
-    public $nro_cronograma;
+    public $cantidad;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", length=255, nullable=true)
      */
-    public $observaciones;
+    public $frecuencia;
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
      */
-    public $creador;
+    public $causa;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $fecha;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $tratamiento;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $profecional;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $comentarios;
 
     /**
      *
@@ -88,8 +109,8 @@ class Avi extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("public");
-        $this->hasMany('id', 'AviDestino', 'avi_id', ['alias' => 'AviDestino']);
-        $this->belongsTo('afiliado_id', '\AcAfiliados', 'id', ['alias' => 'AcAfiliados']);
+        $this->belongsTo('id_motivo', '\Motivos', 'id', ['alias' => 'Motivos']);
+        $this->belongsTo('id_afiliado', '\AcAfiliados', 'id', ['alias' => 'AcAfiliados']);
     }
 
     /**
@@ -99,14 +120,14 @@ class Avi extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'avi';
+        return 'motivo_detalles';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Avi[]|Avi
+     * @return MotivoDetalles[]|MotivoDetalles
      */
     public static function find($parameters = null)
     {
@@ -117,7 +138,7 @@ class Avi extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Avi
+     * @return MotivoDetalles
      */
     public static function findFirst($parameters = null)
     {

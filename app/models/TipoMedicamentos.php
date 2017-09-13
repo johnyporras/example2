@@ -1,6 +1,6 @@
 <?php
 
-class AcTipoAutorizacion extends \Phalcon\Mvc\Model
+class TipoMedicamentos extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -15,7 +15,7 @@ class AcTipoAutorizacion extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=255, nullable=false)
+     * @Column(type="string", length=255, nullable=true)
      */
     public $descripcion;
 
@@ -46,7 +46,7 @@ class AcTipoAutorizacion extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("public");
-        $this->hasMany('id', 'AcPacientesAtendidos', 'tipo_autorizacion', ['alias' => 'AcPacientesAtendidos']);
+        $this->hasMany('id', 'Medicamentos', 'id_tipo_medicamento', ['alias' => 'Medicamentos']);
     }
 
     /**
@@ -56,14 +56,14 @@ class AcTipoAutorizacion extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'ac_tipo_autorizacion';
+        return 'tipo_medicamentos';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcTipoAutorizacion[]|AcTipoAutorizacion
+     * @return TipoMedicamentos[]|TipoMedicamentos
      */
     public static function find($parameters = null)
     {
@@ -74,7 +74,7 @@ class AcTipoAutorizacion extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcTipoAutorizacion
+     * @return TipoMedicamentos
      */
     public static function findFirst($parameters = null)
     {

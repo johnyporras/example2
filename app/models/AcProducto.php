@@ -15,14 +15,14 @@ class AcProducto extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=150, nullable=true)
+     * @Column(type="string", length=255, nullable=false)
      */
     public $nombre;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=true)
+     * @Column(type="string", nullable=false)
      */
     public $costo;
 
@@ -52,7 +52,8 @@ class AcProducto extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
+        $this->hasMany('id', 'AcCuenta', 'id_producto', ['alias' => 'AcCuenta']);
     }
 
     /**

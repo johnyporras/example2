@@ -28,13 +28,6 @@ class AcClaves extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $codigo_contrato;
-
-    /**
-     *
      * @var string
      * @Column(type="string", nullable=true)
      */
@@ -43,7 +36,7 @@ class AcClaves extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=300, nullable=true)
+     * @Column(type="string", length=100, nullable=true)
      */
     public $motivo;
 
@@ -133,6 +126,20 @@ class AcClaves extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $id_factura;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $codigo_contrato;
+
+    /**
+     *
      * @var string
      * @Column(type="string", nullable=true)
      */
@@ -153,18 +160,12 @@ class AcClaves extends \Phalcon\Mvc\Model
     public $deleted_at;
 
     /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $id_factura;
-
-    /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
+        $this->hasMany('id', 'AcClavesDetalle', 'id_clave', ['alias' => 'AcClavesDetalle']);
         $this->belongsTo('estatus_clave', '\AcEstatus', 'id', ['alias' => 'AcEstatus']);
     }
 

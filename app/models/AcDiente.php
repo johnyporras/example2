@@ -7,6 +7,7 @@ class AcDiente extends \Phalcon\Mvc\Model
      *
      * @var integer
      * @Primary
+     * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
     public $id;
@@ -14,21 +15,21 @@ class AcDiente extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=300, nullable=true)
+     * @Column(type="string", length=255, nullable=true)
      */
     public $descripcion;
 
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @Column(type="integer", length=32, nullable=true)
      */
     public $orden;
 
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @Column(type="integer", length=32, nullable=true)
      */
     public $cuadrante;
 
@@ -58,7 +59,7 @@ class AcDiente extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
     }
 
     /**

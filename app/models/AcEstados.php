@@ -45,7 +45,10 @@ class AcEstados extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
+        $this->hasMany('id', 'AcAfiliados', 'id_estado', ['alias' => 'AcAfiliados']);
+        $this->hasMany('id', 'AcProveedoresExtranet', 'estado_id', ['alias' => 'AcProveedoresExtranet']);
+        $this->hasMany('id', 'Funerario', 'estado_id', ['alias' => 'Funerario']);
     }
 
     /**

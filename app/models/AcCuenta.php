@@ -15,23 +15,37 @@ class AcCuenta extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=50, nullable=true)
+     * @Column(type="string", length=30, nullable=false)
      */
     public $codigo_cuenta;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=true)
+     * @Column(type="string", nullable=false)
      */
     public $fecha;
 
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=true)
+     * @Column(type="integer", length=32, nullable=false)
+     */
+    public $estatus;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $id_producto;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $acepto_terminos;
 
     /**
      *
@@ -55,18 +69,16 @@ class AcCuenta extends \Phalcon\Mvc\Model
     public $deleted_at;
 
     /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $estatus;
-
-    /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
+        $this->hasMany('id', 'AcAfiliados', 'id_cuenta', ['alias' => 'AcAfiliados']);
+        $this->hasMany('id', 'AcCuentaplan', 'id_cuenta', ['alias' => 'AcCuentaplan']);
+        $this->hasMany('id', 'Mascotas', 'cuenta_id', ['alias' => 'Mascotas']);
+        $this->hasMany('id', 'Pagos', 'cuenta_id', ['alias' => 'Pagos']);
+        $this->belongsTo('id_producto', '\AcProducto', 'id', ['alias' => 'AcProducto']);
         $this->belongsTo('estatus', '\EstatusCuenta', 'id', ['alias' => 'EstatusCuenta']);
     }
 

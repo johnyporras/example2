@@ -36,9 +36,30 @@ class AcClavedetalleprov extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=250, nullable=true)
+     * @Column(type="string", length=255, nullable=true)
      */
     public $observacion;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $preferido;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $fechacita;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $rangohoracita;
 
     /**
      *
@@ -55,46 +76,11 @@ class AcClavedetalleprov extends \Phalcon\Mvc\Model
     public $updated_at;
 
     /**
-     *
-     * @var string
-     * @Column(type="date", nullable=true)
-     */
-    public $fechacita;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=50, nullable=true)
-     */
-    public $horacita;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=200, nullable=true)
-     */
-    public $direccion;
-
-    /**
-     *
-     * @var string
-     * @Column(type="integer", nullable=true)
-     */
-    public $preferido;
-
-    /**
-     *
-     * @var string
-     * @Column(type="integer", nullable=true)
-     */
-    public $pendiente;
-
-    /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-class AcTipoControl extends \Phalcon\Mvc\Model
+class HistorialExamenes extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -14,10 +14,17 @@ class AcTipoControl extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
-     * @Column(type="string", nullable=false)
+     * @var integer
+     * @Column(type="integer", length=32, nullable=false)
      */
-    public $descripcion;
+    public $id_historial;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $examen;
 
     /**
      *
@@ -34,18 +41,12 @@ class AcTipoControl extends \Phalcon\Mvc\Model
     public $updated_at;
 
     /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $deleted_at;
-
-    /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
+        $this->belongsTo('id_historial', '\HistorialMedico', 'id', ['alias' => 'HistorialMedico']);
     }
 
     /**
@@ -55,14 +56,14 @@ class AcTipoControl extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'ac_tipo_control';
+        return 'historial_examenes';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcTipoControl[]|AcTipoControl
+     * @return HistorialExamenes[]|HistorialExamenes
      */
     public static function find($parameters = null)
     {
@@ -73,7 +74,7 @@ class AcTipoControl extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcTipoControl
+     * @return HistorialExamenes
      */
     public static function findFirst($parameters = null)
     {

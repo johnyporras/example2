@@ -15,7 +15,7 @@ class AcUbicacionTratamiento extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=300, nullable=true)
+     * @Column(type="string", length=255, nullable=true)
      */
     public $descripcion;
 
@@ -45,7 +45,7 @@ class AcUbicacionTratamiento extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
     }
 
     /**

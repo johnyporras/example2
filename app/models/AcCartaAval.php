@@ -15,7 +15,7 @@ class AcCartaAval extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=100, nullable=true)
+     * @Column(type="string", length=255, nullable=false)
      */
     public $clave;
 
@@ -25,13 +25,6 @@ class AcCartaAval extends \Phalcon\Mvc\Model
      * @Column(type="string", length=20, nullable=false)
      */
     public $cedula_afiliado;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $codigo_contrato;
 
     /**
      *
@@ -63,8 +56,8 @@ class AcCartaAval extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var double
-     * @Column(type="double", length=12, nullable=true)
+     * @var string
+     * @Column(type="string", nullable=true)
      */
     public $costo_total;
 
@@ -84,8 +77,8 @@ class AcCartaAval extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
+     * @var string
+     * @Column(type="string", length=100, nullable=true)
      */
     public $codigo_proveedor_creador;
 
@@ -133,6 +126,13 @@ class AcCartaAval extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $id_factura;
+
+    /**
+     *
      * @var string
      * @Column(type="string", nullable=true)
      */
@@ -153,19 +153,12 @@ class AcCartaAval extends \Phalcon\Mvc\Model
     public $deleted_at;
 
     /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $id_factura;
-
-    /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
-        $this->belongsTo('estatus', '\AcEstatus', 'id', ['alias' => 'AcEstatus']);
+        $this->setSchema("public");
+        $this->hasMany('id', 'AcCartaAvalDetalle', 'id_carta', ['alias' => 'AcCartaAvalDetalle']);
     }
 
     /**

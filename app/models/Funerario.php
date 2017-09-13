@@ -115,11 +115,12 @@ class Funerario extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
+        $this->hasMany('id', 'FunerarioDetalle', 'funerario_id', ['alias' => 'FunerarioDetalle']);
+        $this->belongsTo('estado_id', '\AcEstados', 'id', ['alias' => 'AcEstados']);
         $this->belongsTo('afiliado_id', '\AcAfiliados', 'id', ['alias' => 'AcAfiliados']);
         $this->belongsTo('metodo_id', '\MetodoPago', 'id', ['alias' => 'MetodoPago']);
         $this->belongsTo('creador', '\Users', 'id', ['alias' => 'Users']);
-        $this->belongsTo('estado_id', '\AcEstados', 'id', ['alias' => 'AcEstados']);
     }
 
     /**

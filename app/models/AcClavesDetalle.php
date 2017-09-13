@@ -15,51 +15,58 @@ class AcClavesDetalle extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @Column(type="integer", length=32, nullable=true)
      */
     public $id_clave;
 
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @Column(type="integer", length=32, nullable=true)
      */
     public $codigo_servicio;
 
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @Column(type="integer", length=32, nullable=true)
      */
     public $codigo_especialidad;
 
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @Column(type="integer", length=32, nullable=true)
      */
     public $id_procedimiento;
 
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @Column(type="integer", length=32, nullable=true)
      */
     public $codigo_proveedor;
 
     /**
      *
-     * @var double
-     * @Column(type="double", length=10, nullable=false)
+     * @var string
+     * @Column(type="string", nullable=false)
      */
     public $costo;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=100, nullable=true)
+     * @Column(type="string", nullable=true)
      */
     public $detalle;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $estatus;
 
     /**
      *
@@ -83,45 +90,17 @@ class AcClavesDetalle extends \Phalcon\Mvc\Model
     public $deleted_at;
 
     /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $estatus;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $estado;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $ciudad;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $turno;
-
-    /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
-        $this->belongsTo('id_procedimiento', '\AcProcedimientosMedicos', 'id', ['alias' => 'AcProcedimientosMedicos']);
-        $this->belongsTo('codigo_especialidad', '\AcEspecialidadesExtranet', 'codigo_especialidad', ['alias' => 'AcEspecialidadesExtranet']);
-        $this->belongsTo('estatus', '\AcEstatusDetalle', 'id', ['alias' => 'AcEstatusDetalle']);
-        $this->belongsTo('codigo_proveedor', '\AcProveedoresExtranet', 'codigo_proveedor', ['alias' => 'AcProveedoresExtranet']);
-        $this->belongsTo('id_clave', '\AcClaves', 'id', ['alias' => 'AcClaves']);
+        $this->setSchema("public");
         $this->belongsTo('codigo_servicio', '\AcServiciosExtranet', 'codigo_servicio', ['alias' => 'AcServiciosExtranet']);
+        $this->belongsTo('codigo_especialidad', '\AcEspecialidadesExtranet', 'codigo_especialidad', ['alias' => 'AcEspecialidadesExtranet']);
+        $this->belongsTo('id_clave', '\AcClaves', 'id', ['alias' => 'AcClaves']);
+        $this->belongsTo('estatus', '\AcEstatusDetalle', 'id', ['alias' => 'AcEstatusDetalle']);
+        $this->belongsTo('id_procedimiento', '\AcProcedimientosMedicos', 'id', ['alias' => 'AcProcedimientosMedicos']);
+        $this->belongsTo('codigo_proveedor', '\AcProveedoresExtranet', 'codigo_proveedor', ['alias' => 'AcProveedoresExtranet']);
     }
 
     /**

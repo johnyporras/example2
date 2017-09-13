@@ -1,6 +1,6 @@
 <?php
 
-class Avi extends \Phalcon\Mvc\Model
+class Medicamentos extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -17,49 +17,91 @@ class Avi extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=32, nullable=false)
      */
-    public $afiliado_id;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=30, nullable=false)
-     */
-    public $codigo_solicitud;
+    public $id_tipo_medicamento;
 
     /**
      *
      * @var integer
      * @Column(type="integer", length=32, nullable=false)
      */
-    public $codigo_contrato;
+    public $id_afiliado;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=20, nullable=false)
+     * @Column(type="string", length=255, nullable=true)
      */
-    public $cobertura_monto;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=20, nullable=false)
-     */
-    public $nro_cronograma;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=false)
-     */
-    public $observaciones;
+    public $nombre;
 
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @Column(type="integer", length=32, nullable=true)
      */
-    public $creador;
+    public $dosis;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $frecuencia;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $duracion;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $diagnostico;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $recetado;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $file;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $fecha_inicio;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $fecha_fin;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $hora;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $mensaje;
 
     /**
      *
@@ -88,8 +130,8 @@ class Avi extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("public");
-        $this->hasMany('id', 'AviDestino', 'avi_id', ['alias' => 'AviDestino']);
-        $this->belongsTo('afiliado_id', '\AcAfiliados', 'id', ['alias' => 'AcAfiliados']);
+        $this->belongsTo('id_afiliado', '\AcAfiliados', 'id', ['alias' => 'AcAfiliados']);
+        $this->belongsTo('id_tipo_medicamento', '\TipoMedicamentos', 'id', ['alias' => 'TipoMedicamentos']);
     }
 
     /**
@@ -99,14 +141,14 @@ class Avi extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'avi';
+        return 'medicamentos';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Avi[]|Avi
+     * @return Medicamentos[]|Medicamentos
      */
     public static function find($parameters = null)
     {
@@ -117,7 +159,7 @@ class Avi extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Avi
+     * @return Medicamentos
      */
     public static function findFirst($parameters = null)
     {

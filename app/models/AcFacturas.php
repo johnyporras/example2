@@ -36,7 +36,7 @@ class AcFacturas extends \Phalcon\Mvc\Model
     /**
      *
      * @var double
-     * @Column(type="double", length=10, nullable=false)
+     * @Column(type="double", length=10, nullable=true)
      */
     public $monto;
 
@@ -71,6 +71,20 @@ class AcFacturas extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $documento;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $codigo_proveedor_creador;
+
+    /**
+     *
+     * @var string
      * @Column(type="string", nullable=true)
      */
     public $created_at;
@@ -90,25 +104,11 @@ class AcFacturas extends \Phalcon\Mvc\Model
     public $deleted_at;
 
     /**
-     *
-     * @var string
-     * @Column(type="string", length=400, nullable=true)
-     */
-    public $documento;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $codigo_proveedor_creador;
-
-    /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
         $this->belongsTo('codigo_estatus', '\AcEstatus', 'id', ['alias' => 'AcEstatus']);
         $this->belongsTo('codigo_proveedor_creador', '\AcProveedoresExtranet', 'codigo_proveedor', ['alias' => 'AcProveedoresExtranet']);
     }

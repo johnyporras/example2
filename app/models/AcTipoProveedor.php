@@ -15,7 +15,7 @@ class AcTipoProveedor extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", length=255, nullable=false)
      */
     public $descripcion;
 
@@ -45,7 +45,7 @@ class AcTipoProveedor extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
     }
 
     /**

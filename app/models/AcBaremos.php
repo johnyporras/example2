@@ -29,7 +29,7 @@ class AcBaremos extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", nullable=true)
      */
     public $monto;
 
@@ -66,7 +66,7 @@ class AcBaremos extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
         $this->belongsTo('id_procedimiento', '\AcProcedimientosMedicos', 'id', ['alias' => 'AcProcedimientosMedicos']);
         $this->belongsTo('id_proveedor', '\AcProveedoresExtranet', 'codigo_proveedor', ['alias' => 'AcProveedoresExtranet']);
     }

@@ -21,15 +21,15 @@ class AcPacientesAtendidos extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
-     * @Column(type="string", length=20, nullable=false)
+     * @var integer
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $cedula_afiliado;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", length=255, nullable=false)
      */
     public $clave;
 
@@ -50,14 +50,14 @@ class AcPacientesAtendidos extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", length=255, nullable=false)
      */
     public $patologia;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=true)
+     * @Column(type="string", nullable=false)
      */
     public $observaciones;
 
@@ -87,8 +87,7 @@ class AcPacientesAtendidos extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
-        $this->belongsTo('cedula_afiliado', '\AcAfiliados', 'cedula', ['alias' => 'AcAfiliados']);
+        $this->setSchema("public");
         $this->belongsTo('tipo_autorizacion', '\AcTipoAutorizacion', 'id', ['alias' => 'AcTipoAutorizacion']);
     }
 

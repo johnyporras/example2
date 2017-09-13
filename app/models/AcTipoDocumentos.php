@@ -15,7 +15,7 @@ class AcTipoDocumentos extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", length=255, nullable=true)
      */
     public $descripcion;
 
@@ -45,7 +45,8 @@ class AcTipoDocumentos extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
+        $this->hasMany('id', 'AcDocumentos', 'id_tipo_documento', ['alias' => 'AcDocumentos']);
     }
 
     /**

@@ -43,7 +43,7 @@ class AcFeriados extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=100, nullable=true)
+     * @Column(type="string", length=255, nullable=true)
      */
     public $descripcion;
 
@@ -73,7 +73,7 @@ class AcFeriados extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
     }
 
     /**

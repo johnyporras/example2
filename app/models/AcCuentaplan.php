@@ -15,14 +15,14 @@ class AcCuentaplan extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=true)
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $id_cuenta;
 
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=true)
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $id_plan;
 
@@ -38,7 +38,9 @@ class AcCuentaplan extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
+        $this->belongsTo('id_plan', '\AcPlanesExtranet', 'codigo_plan', ['alias' => 'AcPlanesExtranet']);
+        $this->belongsTo('id_cuenta', '\AcCuenta', 'id', ['alias' => 'AcCuenta']);
     }
 
     /**

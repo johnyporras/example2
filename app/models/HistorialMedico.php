@@ -1,6 +1,6 @@
 <?php
 
-class AcTratamientoOdontologico extends \Phalcon\Mvc\Model
+class HistorialMedico extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -17,77 +17,70 @@ class AcTratamientoOdontologico extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=32, nullable=false)
      */
-    public $id_clave;
+    public $id_user;
 
     /**
      *
      * @var integer
      * @Column(type="integer", length=32, nullable=false)
      */
-    public $id_procedimiento;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $id_diente;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $id_ubicacion;
+    public $id_afiliado;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", nullable=true)
      */
-    public $fecha_atencion;
+    public $fecha;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=300, nullable=true)
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $motivo;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $especialidad;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $tratamiento;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $procedimiento;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $medico;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
      */
     public $observaciones;
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $estatus;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $creador;
-
-    /**
-     *
      * @var string
-     * @Column(type="string", length=20, nullable=false)
+     * @Column(type="string", nullable=true)
      */
-    public $telefono;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=300, nullable=true)
-     */
-    public $doc1;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=300, nullable=true)
-     */
-    public $doc2;
+    public $recomendaciones;
 
     /**
      *
@@ -115,12 +108,10 @@ class AcTratamientoOdontologico extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
-        $this->belongsTo('estatus', '\AcEstatusDetalle', 'id', ['alias' => 'AcEstatusDetalle']);
-        $this->belongsTo('id_procedimiento', '\AcProcedimientosMedicos', 'id', ['alias' => 'AcProcedimientosMedicos']);
-        $this->belongsTo('id_clave', '\AcClaveOdontologica', 'id', ['alias' => 'AcClaveOdontologica']);
-        $this->belongsTo('id_ubicacion', '\AcUbicacionTratamiento', 'id', ['alias' => 'AcUbicacionTratamiento']);
-        $this->belongsTo('id_diente', '\AcDiente', 'id', ['alias' => 'AcDiente']);
+        $this->setSchema("public");
+        $this->hasMany('id', 'HistorialExamenes', 'id_historial', ['alias' => 'HistorialExamenes']);
+        $this->belongsTo('id_user', '\Users', 'id', ['alias' => 'Users']);
+        $this->belongsTo('id_afiliado', '\AcAfiliados', 'id', ['alias' => 'AcAfiliados']);
     }
 
     /**
@@ -130,14 +121,14 @@ class AcTratamientoOdontologico extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'ac_tratamiento_odontologico';
+        return 'historial_medico';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcTratamientoOdontologico[]|AcTratamientoOdontologico
+     * @return HistorialMedico[]|HistorialMedico
      */
     public static function find($parameters = null)
     {
@@ -148,7 +139,7 @@ class AcTratamientoOdontologico extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcTratamientoOdontologico
+     * @return HistorialMedico
      */
     public static function findFirst($parameters = null)
     {

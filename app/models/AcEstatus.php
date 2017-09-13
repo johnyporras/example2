@@ -41,18 +41,13 @@ class AcEstatus extends \Phalcon\Mvc\Model
     public $deleted_at;
 
     /**
-     *
-     * @var string
-     * @Column(type="string", length=150, nullable=true)
-     */
-    public $referencia;
-
-    /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
+        $this->hasMany('id', 'AcClaves', 'estatus_clave', ['alias' => 'AcClaves']);
+        $this->hasMany('id', 'AcFacturas', 'codigo_estatus', ['alias' => 'AcFacturas']);
     }
 
     /**

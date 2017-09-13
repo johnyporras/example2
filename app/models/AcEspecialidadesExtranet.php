@@ -21,8 +21,8 @@ class AcEspecialidadesExtranet extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @var string
+     * @Column(type="string", length=100, nullable=false)
      */
     public $rama;
 
@@ -59,7 +59,11 @@ class AcEspecialidadesExtranet extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
+        $this->hasMany('codigo_especialidad', 'AcCartaAvalDetalle', 'codigo_especialidad', ['alias' => 'AcCartaAvalDetalle']);
+        $this->hasMany('codigo_especialidad', 'AcClavesDetalle', 'codigo_especialidad', ['alias' => 'AcClavesDetalle']);
+        $this->hasMany('codigo_especialidad', 'AcCoberturaExtranet', 'id_especialidad', ['alias' => 'AcCoberturaExtranet']);
+        $this->hasMany('codigo_especialidad', 'AcProcedimientosMedicos', 'codigo_especialidad', ['alias' => 'AcProcedimientosMedicos']);
     }
 
     /**

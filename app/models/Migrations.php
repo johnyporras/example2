@@ -5,6 +5,15 @@ class Migrations extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     * @Primary
+     * @Identity
+     * @Column(type="integer", length=32, nullable=false)
+     */
+    public $id;
+
+    /**
+     *
      * @var string
      * @Column(type="string", length=255, nullable=false)
      */
@@ -22,7 +31,7 @@ class Migrations extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
     }
 
     /**

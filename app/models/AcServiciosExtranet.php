@@ -52,7 +52,11 @@ class AcServiciosExtranet extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
+        $this->hasMany('codigo_servicio', 'AcCartaAvalDetalle', 'codigo_servicio', ['alias' => 'AcCartaAvalDetalle']);
+        $this->hasMany('codigo_servicio', 'AcClavesDetalle', 'codigo_servicio', ['alias' => 'AcClavesDetalle']);
+        $this->hasMany('codigo_servicio', 'AcCoberturaExtranet', 'id_servicio', ['alias' => 'AcCoberturaExtranet']);
+        $this->hasMany('codigo_servicio', 'AcProcedimientosMedicos', 'codigo_servicio', ['alias' => 'AcProcedimientosMedicos']);
     }
 
     /**

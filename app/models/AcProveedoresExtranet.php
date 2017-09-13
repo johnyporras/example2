@@ -25,7 +25,7 @@ class AcProveedoresExtranet extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=100, nullable=true)
+     * @Column(type="string", length=100, nullable=false)
      */
     public $cedula;
 
@@ -59,8 +59,29 @@ class AcProveedoresExtranet extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var string
+     * @Column(type="string", length=100, nullable=true)
+     */
+    public $email;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=50, nullable=true)
+     */
+    public $tipo_cuenta;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=50, nullable=true)
+     */
+    public $numero_cuenta;
+
+    /**
+     *
      * @var integer
-     * @Column(type="integer", length=32, nullable=true)
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $estado_id;
 
@@ -70,13 +91,6 @@ class AcProveedoresExtranet extends \Phalcon\Mvc\Model
      * @Column(type="string", length=100, nullable=true)
      */
     public $ciudad;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=100, nullable=true)
-     */
-    public $email;
 
     /**
      *
@@ -98,20 +112,6 @@ class AcProveedoresExtranet extends \Phalcon\Mvc\Model
      * @Column(type="string", nullable=true)
      */
     public $deleted_at;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $tipo_cuenta;
-
-    /**
-     *
-     * @var double
-     * @Column(type="double", nullable=true)
-     */
-    public $numero_cuenta;
 
     /**
      * Validations and business logic
@@ -140,7 +140,12 @@ class AcProveedoresExtranet extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
+        $this->hasMany('codigo_proveedor', 'AcBaremos', 'id_proveedor', ['alias' => 'AcBaremos']);
+        $this->hasMany('codigo_proveedor', 'AcCartaAvalDetalle', 'codigo_proveedor', ['alias' => 'AcCartaAvalDetalle']);
+        $this->hasMany('codigo_proveedor', 'AcClavesDetalle', 'codigo_proveedor', ['alias' => 'AcClavesDetalle']);
+        $this->hasMany('codigo_proveedor', 'AcFacturas', 'codigo_proveedor_creador', ['alias' => 'AcFacturas']);
+        $this->belongsTo('estado_id', '\AcEstados', 'id', ['alias' => 'AcEstados']);
     }
 
     /**

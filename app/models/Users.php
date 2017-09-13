@@ -34,14 +34,35 @@ class Users extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", length=255, nullable=false)
      */
+    public $user;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=false)
+     */
     public $password;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=50, nullable=true)
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $clave;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=50, nullable=false)
      */
     public $department;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $imagen_perfil;
 
     /**
      *
@@ -53,51 +74,9 @@ class Users extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=20, nullable=false)
-     */
-    public $user;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=1, nullable=false)
+     * @Column(type="string", nullable=false)
      */
     public $active;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $detalles_usuario_id;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=100, nullable=true)
-     */
-    public $remember_token;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $created_at;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $updated_at;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $deleted_at;
 
     /**
      *
@@ -130,6 +109,20 @@ class Users extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $ultimo_acceso;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=true)
+     */
+    public $detalles_usuario_id;
+
+    /**
+     *
+     * @var string
      * @Column(type="string", length=100, nullable=true)
      */
     public $confirm_token;
@@ -137,23 +130,30 @@ class Users extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
+     * @Column(type="string", length=100, nullable=true)
+     */
+    public $remember_token;
+
+    /**
+     *
+     * @var string
      * @Column(type="string", nullable=true)
      */
-    public $ultimo_acceso;
+    public $created_at;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=255, nullable=true)
+     * @Column(type="string", nullable=true)
      */
-    public $imagen_perfil;
+    public $updated_at;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=255, nullable=true)
+     * @Column(type="string", nullable=true)
      */
-    public $clave;
+    public $deleted_at;
 
     /**
      * Validations and business logic
@@ -182,8 +182,9 @@ class Users extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
-        $this->belongsTo('type', '\UserTypes', 'id', ['alias' => 'UserTypes']);
+        $this->setSchema("public");
+        $this->hasMany('id', 'Funerario', 'creador', ['alias' => 'Funerario']);
+        $this->hasMany('id', 'HistorialMedico', 'id_user', ['alias' => 'HistorialMedico']);
     }
 
     /**

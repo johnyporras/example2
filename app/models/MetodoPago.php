@@ -24,7 +24,8 @@ class MetodoPago extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
+        $this->hasMany('id', 'Funerario', 'metodo_id', ['alias' => 'Funerario']);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-class AcTipoAfiliado extends \Phalcon\Mvc\Model
+class Mascotas extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -14,17 +14,59 @@ class AcTipoAfiliado extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=false)
+     */
+    public $cuenta_id;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=false)
+     */
+    public $tamano_id;
+
+    /**
+     *
      * @var string
-     * @Column(type="string", length=100, nullable=true)
+     * @Column(type="string", length=255, nullable=false)
      */
     public $nombre;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=100, nullable=true)
+     * @Column(type="string", length=255, nullable=false)
      */
-    public $orden;
+    public $raza;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=false)
+     */
+    public $color_pelage;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=false)
+     */
+    public $edad;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=false)
+     */
+    public $fecha;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=false)
+     */
+    public $tipo;
 
     /**
      *
@@ -52,7 +94,9 @@ class AcTipoAfiliado extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
+        $this->belongsTo('cuenta_id', '\AcCuenta', 'id', ['alias' => 'AcCuenta']);
+        $this->belongsTo('tamano_id', '\Tamanos', 'id', ['alias' => 'Tamanos']);
     }
 
     /**
@@ -62,14 +106,14 @@ class AcTipoAfiliado extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'ac_tipo_afiliado';
+        return 'mascotas';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcTipoAfiliado[]|AcTipoAfiliado
+     * @return Mascotas[]|Mascotas
      */
     public static function find($parameters = null)
     {
@@ -80,7 +124,7 @@ class AcTipoAfiliado extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return AcTipoAfiliado
+     * @return Mascotas
      */
     public static function findFirst($parameters = null)
     {

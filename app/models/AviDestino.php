@@ -6,6 +6,7 @@ class AviDestino extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
+     * @Primary
      * @Identity
      * @Column(type="integer", length=32, nullable=false)
      */
@@ -14,21 +15,28 @@ class AviDestino extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
-     * @Column(type="integer", length=32, nullable=true)
+     * @Column(type="integer", length=32, nullable=false)
      */
     public $avi_id;
 
     /**
      *
+     * @var integer
+     * @Column(type="integer", length=32, nullable=false)
+     */
+    public $pais_id;
+
+    /**
+     *
      * @var string
-     * @Column(type="string", nullable=true)
+     * @Column(type="string", nullable=false)
      */
     public $fecha_desde;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=true)
+     * @Column(type="string", nullable=false)
      */
     public $fecha_hasta;
 
@@ -54,18 +62,11 @@ class AviDestino extends \Phalcon\Mvc\Model
     public $deleted_at;
 
     /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=true)
-     */
-    public $pais_id;
-
-    /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
         $this->belongsTo('avi_id', '\Avi', 'id', ['alias' => 'Avi']);
         $this->belongsTo('pais_id', '\Paises', 'id', ['alias' => 'Paises']);
     }

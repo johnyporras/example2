@@ -56,20 +56,6 @@ class AcDetprogpago extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $created_at;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $deleted_at;
-
-    /**
-     *
      * @var integer
      * @Column(type="integer", length=32, nullable=true)
      */
@@ -80,14 +66,28 @@ class AcDetprogpago extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", nullable=true)
      */
+    public $created_at;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
     public $updated_at;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $deleted_at;
 
     /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
         $this->belongsTo('id_progpago', '\AcProgpago', 'id', ['alias' => 'AcProgpago']);
     }
 

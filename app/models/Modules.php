@@ -36,7 +36,7 @@ class Modules extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=50, nullable=false)
+     * @Column(type="string", length=60, nullable=false)
      */
     public $icon;
 
@@ -66,7 +66,7 @@ class Modules extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
     }
 
     /**

@@ -36,9 +36,16 @@ class AcProcedimientosMedicos extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=100, nullable=false)
+     * @Column(type="string", length=100, nullable=true)
      */
     public $tipo_examen;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=100, nullable=true)
+     */
+    public $orden;
 
     /**
      *
@@ -66,9 +73,12 @@ class AcProcedimientosMedicos extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
-        $this->belongsTo('codigo_especialidad', '\AcEspecialidadesExtranet', 'codigo_especialidad', ['alias' => 'AcEspecialidadesExtranet']);
+        $this->setSchema("public");
+        $this->hasMany('id', 'AcBaremos', 'id_procedimiento', ['alias' => 'AcBaremos']);
+        $this->hasMany('id', 'AcCartaAvalDetalle', 'id_procedimiento', ['alias' => 'AcCartaAvalDetalle']);
+        $this->hasMany('id', 'AcClavesDetalle', 'id_procedimiento', ['alias' => 'AcClavesDetalle']);
         $this->belongsTo('codigo_servicio', '\AcServiciosExtranet', 'codigo_servicio', ['alias' => 'AcServiciosExtranet']);
+        $this->belongsTo('codigo_especialidad', '\AcEspecialidadesExtranet', 'codigo_especialidad', ['alias' => 'AcEspecialidadesExtranet']);
     }
 
     /**

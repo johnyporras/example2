@@ -14,59 +14,17 @@ class Pagos extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
+     * @var string
+     * @Column(type="string", length=30, nullable=false)
      */
-    public $user_id;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $mes;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $ano;
+    public $codigo_confirmacion;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=255, nullable=false)
+     * @Column(type="string", nullable=false)
      */
     public $monto;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=false)
-     */
-    public $fecha_corte;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=255, nullable=false)
-     */
-    public $numero_factura;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=false)
-     */
-    public $fecha_factura;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=false)
-     */
-    public $fecha_recibo_factura;
 
     /**
      *
@@ -77,31 +35,17 @@ class Pagos extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var string
+     * @Column(type="string", length=255, nullable=false)
+     */
+    public $estatus;
+
+    /**
+     *
      * @var integer
      * @Column(type="integer", length=32, nullable=false)
      */
-    public $numero_deposito;
-
-    /**
-     *
-     * @var integer
-     * @Column(type="integer", length=32, nullable=false)
-     */
-    public $status;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=false)
-     */
-    public $fecha_creacion;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $retencion;
+    public $cuenta_id;
 
     /**
      *
@@ -129,7 +73,8 @@ class Pagos extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
+        $this->belongsTo('cuenta_id', '\AcCuenta', 'id', ['alias' => 'AcCuenta']);
     }
 
     /**

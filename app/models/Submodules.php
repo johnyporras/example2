@@ -43,27 +43,6 @@ class Submodules extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $created_at;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $updated_at;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=true)
-     */
-    public $deleted_at;
-
-    /**
-     *
-     * @var string
      * @Column(type="string", length=100, nullable=true)
      */
     public $url2;
@@ -90,12 +69,33 @@ class Submodules extends \Phalcon\Mvc\Model
     public $url5;
 
     /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $created_at;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $updated_at;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $deleted_at;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
-        $this->belongsTo('modules_id', '\Modules', 'id', ['alias' => 'Modules']);
+        $this->setSchema("public");
+        $this->hasMany('id', 'TypesProfile', 'id_module', ['alias' => 'TypesProfile']);
     }
 
     /**

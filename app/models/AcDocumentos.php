@@ -17,19 +17,26 @@ class AcDocumentos extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=32, nullable=false)
      */
-    public $id_paciente;
+    public $id_tipo_documento;
 
     /**
      *
      * @var integer
      * @Column(type="integer", length=32, nullable=false)
      */
-    public $id_tipo_documento;
+    public $id_afiliado;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $detalle;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
      */
     public $file;
 
@@ -59,8 +66,8 @@ class AcDocumentos extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
-        $this->belongsTo('id_paciente', '\AcPacientesAtendidos', 'id', ['alias' => 'AcPacientesAtendidos']);
+        $this->setSchema("public");
+        $this->belongsTo('id_afiliado', '\AcAfiliados', 'id', ['alias' => 'AcAfiliados']);
         $this->belongsTo('id_tipo_documento', '\AcTipoDocumentos', 'id', ['alias' => 'AcTipoDocumentos']);
     }
 

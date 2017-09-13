@@ -15,21 +15,28 @@ class Paises extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=2, nullable=false)
+     * @Column(type="string", length=255, nullable=false)
+     */
+    public $code;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
      */
     public $codigo;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", length=255, nullable=false)
      */
     public $name_es;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", length=255, nullable=false)
      */
     public $name_en;
 
@@ -38,7 +45,9 @@ class Paises extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("public");
+        $this->hasMany('id', 'AviDestino', 'pais_id', ['alias' => 'AviDestino']);
+        $this->hasMany('id', 'Terminos', 'pais_id', ['alias' => 'Terminos']);
     }
 
     /**
