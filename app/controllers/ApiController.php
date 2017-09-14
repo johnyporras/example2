@@ -57,8 +57,14 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                                 $titular = AcAfiliados::findFirstById($user->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
                                 $listEstados = AcEstados::find();//retorna array con los estados
+                                $listMotivos = Motivos::find();//retorna array con los motivos
+                                $listPreferencias = Preferencias::find();//retorna array con los preferencias
+                                $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
                                 $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
-                                $documentos = AcDocumentos::find();//retorna array con los documentos
+                                $documentos = $titular->AcDocumentos;//retorna array con los documentos
+                                $contactos = $titular->Contactos;//retorna array con los contactos
+                                $listMotivosDetalles = $titular->MotivoDetalles;//retorna array con los motivos detalles
+                                $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
 
                               //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
@@ -67,7 +73,13 @@ class ApiController extends \Phalcon\Mvc\Controller
                                     'titular' => $titular,
                                     'listEstados' => $listEstados
                                     'tipoDocuments' => $tipoDocuments,
-                                    'documentos' => $documentos
+                                    'documentos' => $documentos,
+                                    'contactos' => $contactos,
+                                    'listMotivosDetalles' => $listMotivosDetalles,
+                                    'listMotivos' => $listMotivos,
+                                    'listPreferencias' => $listPreferencias,
+                                    'listTipoMedicamentos' => $listTipoMedicamentos,
+                                    'listMedicamentos' => $listMedicamentos
                                 ];
 
                                 $status = 200;
@@ -269,6 +281,78 @@ class ApiController extends \Phalcon\Mvc\Controller
             $this->_mensajes = [
                 "msnConsult" => 'Debe ser unapetición detipo POST',//mensaje enviado en caso de no ser una peticion post
             ];
+
+        }
+
+        $response->setJsonContent([
+            "status" => $status,
+            "mensajes" => $this->_mensajes,
+            "data" => $this->_data,
+        ]);
+        $response->setStatusCode($status, $msnStatus);
+        $response->send();
+
+        $this->view->disable();
+
+    }
+
+    public function editPerfilAction(){
+
+        $response = $this->response;
+        $request = $this->request;
+        $token = $request->getPost('token');//obtiene el token de validacion via post y se asigna a una variable 'token'
+
+        if( !isset($token) || empty($token) ){//se verifica si no existe y si esta vacio
+
+            $status = 200;
+            $msnStatus = 'OK';
+            $this->_data = null;
+            $this->_mensajes = [
+                "msnConsult" => 'Consulta relizada con exito',
+                "msnToken" => false,//el token de autrización esta ausente
+                "msnInvalid" => null
+            ];
+
+        }else{//en caso de existir y no estar vacio
+
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);//desencripta el token y se asigna a una variable 'datos'
+
+            //comprobamos si existe el usuario mediante los datos obtenidos por el token
+            $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
+
+            //si no existe
+            if($auth->count() == 0)
+            {
+                //no es un token correcto
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = null;
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,
+                    "msnInvalid" => true//las credenciales del token de autorizacion son invalidas
+                ];
+            }else{
+
+                /*$busqueda = AcProveedoresExtranet::find([//obtiene el array de las clinicas mediante la variable 'val' obtenida via post
+                    'conditions' => 'estado_id = :idEstado: AND codigo_especialidad = :codEsp: AND nombre LIKE :value:',
+                    'bind' => [
+                        'value' => '%'.strtoupper($request->getPost('val')).'%',
+                        'idEstado' => $request->getPost('idEstado'),
+                        'codEsp' => $request->getPost('codEsp')
+                    ]
+                ]);*/
+
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = '$this->_list';
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,//el header de autrización esta ausente
+                    "msnInvalid" => false
+                ];
+
+            }
 
         }
 

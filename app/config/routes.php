@@ -51,6 +51,13 @@ $apiUrl->addPost(
 )->setName('loginTel');
 
 $apiUrl->addPost(
+    "/edit-perfil",
+    [
+        "action" => "editPerfil",
+    ]
+)->setName('editPerfil');
+
+$apiUrl->addPost(
     "/user-verificar",
     [
         "controller" => "users",
