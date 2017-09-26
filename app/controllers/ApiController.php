@@ -71,7 +71,7 @@ class ApiController extends \Phalcon\Mvc\Controller
                                 $token = [//array que sera encriptado para ser enviado a la app
                                     'user' => $user,
                                     'titular' => $titular,
-                                    'listEstados' => $listEstados
+                                    'listEstados' => $listEstados,
                                     'tipoDocuments' => $tipoDocuments,
                                     'documentos' => $documentos,
                                     'contactos' => $contactos,
@@ -345,7 +345,7 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                 $status = 200;
                 $msnStatus = 'OK';
-                $this->_data = '$this->_list';
+                $this->_data = $request->getPost();
                 $this->_mensajes = [
                     "msnConsult" => 'Consulta relizada con exito',
                     "msnHeaders" => true,//el header de autrización esta ausente
