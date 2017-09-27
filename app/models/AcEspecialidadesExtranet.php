@@ -59,6 +59,7 @@ class AcEspecialidadesExtranet extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
+        $this->setSchema("public");
         $this->hasMany('codigo_especialidad', 'AcCartaAvalDetalle', 'codigo_especialidad', ['alias' => 'AcCartaAvalDetalle']);
         $this->hasMany('codigo_especialidad', 'AcClavesDetalle', 'codigo_especialidad', ['alias' => 'AcClavesDetalle']);
         $this->hasMany('codigo_especialidad', 'AcCoberturaExtranet', 'id_especialidad', ['alias' => 'AcCoberturaExtranet']);

@@ -140,7 +140,7 @@ class AcProveedoresExtranet extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-      //  $this->setSchema("public");
+        $this->setSchema("public");
         $this->hasMany('codigo_proveedor', 'AcBaremos', 'id_proveedor', ['alias' => 'AcBaremos']);
         $this->hasMany('codigo_proveedor', 'AcCartaAvalDetalle', 'codigo_proveedor', ['alias' => 'AcCartaAvalDetalle']);
         $this->hasMany('codigo_proveedor', 'AcClavesDetalle', 'codigo_proveedor', ['alias' => 'AcClavesDetalle']);

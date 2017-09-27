@@ -66,7 +66,7 @@ class AcPlanesExtranet extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-      //  $this->setSchema("public");
+        $this->setSchema("public");
         $this->hasMany('codigo_plan', 'AcCoberturaExtranet', 'id_plan', ['alias' => 'AcCoberturaExtranet']);
         $this->hasMany('codigo_plan', 'AcCuentaplan', 'id_plan', ['alias' => 'AcCuentaplan']);
     }

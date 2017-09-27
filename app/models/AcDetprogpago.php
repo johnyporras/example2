@@ -87,7 +87,7 @@ class AcDetprogpago extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        //$this->setSchema("public");
+        $this->setSchema("public");
         $this->belongsTo('id_progpago', '\AcProgpago', 'id', ['alias' => 'AcProgpago']);
     }
 

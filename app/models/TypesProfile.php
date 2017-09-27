@@ -52,7 +52,7 @@ class TypesProfile extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-      //  $this->setSchema("public");
+        $this->setSchema("public");
         $this->belongsTo('id_module', '\Submodules', 'id', ['alias' => 'Submodules']);
         $this->belongsTo('id_type', '\UserTypes', 'id', ['alias' => 'UserTypes']);
     }

@@ -45,7 +45,7 @@ class AcTipoAutorizacion extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-      //  $this->setSchema("public");
+        $this->setSchema("public");
         $this->hasMany('id', 'AcPacientesAtendidos', 'tipo_autorizacion', ['alias' => 'AcPacientesAtendidos']);
     }
 

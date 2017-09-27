@@ -164,7 +164,7 @@ class AcClaves extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-      //  $this->setSchema("public");
+        $this->setSchema("public");
         $this->hasMany('id', 'AcClavesDetalle', 'id_clave', ['alias' => 'AcClavesDetalle']);
         $this->belongsTo('estatus_clave', '\AcEstatus', 'id', ['alias' => 'AcEstatus']);
     }

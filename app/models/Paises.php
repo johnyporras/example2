@@ -45,7 +45,7 @@ class Paises extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-      //  $this->setSchema("public");
+        $this->setSchema("public");
         $this->hasMany('id', 'AviDestino', 'pais_id', ['alias' => 'AviDestino']);
         $this->hasMany('id', 'Terminos', 'pais_id', ['alias' => 'Terminos']);
     }

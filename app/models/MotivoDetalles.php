@@ -108,7 +108,7 @@ class MotivoDetalles extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-      //  $this->setSchema("public");
+        $this->setSchema("public");
         $this->belongsTo('id_motivo', '\Motivos', 'id', ['alias' => 'Motivos']);
         $this->belongsTo('id_afiliado', '\AcAfiliados', 'id', ['alias' => 'AcAfiliados']);
     }

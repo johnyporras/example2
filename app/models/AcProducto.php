@@ -52,7 +52,7 @@ class AcProducto extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-      //  $this->setSchema("public");
+        $this->setSchema("public");
         $this->hasMany('id', 'AcCuenta', 'id_producto', ['alias' => 'AcCuenta']);
     }
 

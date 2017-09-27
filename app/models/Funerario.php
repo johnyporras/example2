@@ -115,7 +115,7 @@ class Funerario extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-      //  $this->setSchema("public");
+        $this->setSchema("public");
         $this->hasMany('id', 'FunerarioDetalle', 'funerario_id', ['alias' => 'FunerarioDetalle']);
         $this->belongsTo('estado_id', '\AcEstados', 'id', ['alias' => 'AcEstados']);
         $this->belongsTo('afiliado_id', '\AcAfiliados', 'id', ['alias' => 'AcAfiliados']);

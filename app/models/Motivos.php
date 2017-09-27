@@ -59,7 +59,7 @@ class Motivos extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-      //  $this->setSchema("public");
+        $this->setSchema("public");
         $this->hasMany('id', 'MotivoDetalles', 'id_motivo', ['alias' => 'MotivoDetalles']);
     }
 
