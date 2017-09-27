@@ -362,7 +362,7 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                     $status = 200;
                     $msnStatus = 'OK';
-                    $this->_data = 'bien';
+                    $this->_data = true;
                     $this->_mensajes = [
                         "msnConsult" => 'Consulta relizada con exito',
                         "msnHeaders" => true,//el header de autrización esta ausente
@@ -373,7 +373,7 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                     $status = 200;
                     $msnStatus = 'OK';
-                    $this->_data = 'mal';
+                    $this->_data = false;
                     $this->_mensajes = [
                         "msnConsult" => 'Consulta relizada con exito',
                         "msnHeaders" => true,//el header de autrización esta ausente
