@@ -343,14 +343,45 @@ class ApiController extends \Phalcon\Mvc\Controller
                     ]
                 ]);*/
 
-                $status = 200;
-                $msnStatus = 'OK';
-                $this->_data = $request->getPost();
-                $this->_mensajes = [
-                    "msnConsult" => 'Consulta relizada con exito',
-                    "msnHeaders" => true,//el header de autrización esta ausente
-                    "msnInvalid" => false
-                ];
+
+                $afiliado = AcAfiliados::findFirstById($request->getPost('id'));
+
+                if( $request->has('nombre') ){
+
+                    $afiliado->nombre = $request->getPost('nombre');
+
+                }
+
+                if( $request->has('apellido') ){
+
+                    $afiliado->apellido = $request->getPost('apellido');
+
+                }
+
+                if($afiliado->save()){
+
+                    $status = 200;
+                    $msnStatus = 'OK';
+                    $this->_data = 'bien';
+                    $this->_mensajes = [
+                        "msnConsult" => 'Consulta relizada con exito',
+                        "msnHeaders" => true,//el header de autrización esta ausente
+                        "msnInvalid" => false
+                    ];
+
+                }else{
+
+                    $status = 200;
+                    $msnStatus = 'OK';
+                    $this->_data = 'mal';
+                    $this->_mensajes = [
+                        "msnConsult" => 'Consulta relizada con exito',
+                        "msnHeaders" => true,//el header de autrización esta ausente
+                        "msnInvalid" => false
+                    ];
+
+                }
+
 
             }
 
