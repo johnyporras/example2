@@ -45,7 +45,7 @@ class TipoMedicamentos extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+      //  $this->setSchema("public");
         $this->hasMany('id', 'Medicamentos', 'id_tipo_medicamento', ['alias' => 'Medicamentos']);
     }
 

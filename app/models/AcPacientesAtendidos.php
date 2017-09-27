@@ -87,7 +87,7 @@ class AcPacientesAtendidos extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+      //  $this->setSchema("public");
         $this->belongsTo('tipo_autorizacion', '\AcTipoAutorizacion', 'id', ['alias' => 'AcTipoAutorizacion']);
     }
 

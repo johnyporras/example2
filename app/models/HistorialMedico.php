@@ -108,7 +108,7 @@ class HistorialMedico extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+      //  $this->setSchema("public");
         $this->hasMany('id', 'HistorialExamenes', 'id_historial', ['alias' => 'HistorialExamenes']);
         $this->belongsTo('id_user', '\Users', 'id', ['alias' => 'Users']);
         $this->belongsTo('id_afiliado', '\AcAfiliados', 'id', ['alias' => 'AcAfiliados']);

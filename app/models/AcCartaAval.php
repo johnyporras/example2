@@ -157,7 +157,7 @@ class AcCartaAval extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+        //$this->setSchema("public");
         $this->hasMany('id', 'AcCartaAvalDetalle', 'id_carta', ['alias' => 'AcCartaAvalDetalle']);
     }
 

@@ -66,7 +66,7 @@ class AcDocumentos extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+        //$this->setSchema("public");
         $this->belongsTo('id_afiliado', '\AcAfiliados', 'id', ['alias' => 'AcAfiliados']);
         $this->belongsTo('id_tipo_documento', '\AcTipoDocumentos', 'id', ['alias' => 'AcTipoDocumentos']);
     }

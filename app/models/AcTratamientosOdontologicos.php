@@ -122,7 +122,7 @@ class AcTratamientosOdontologicos extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+      //  $this->setSchema("public");
     }
 
     /**

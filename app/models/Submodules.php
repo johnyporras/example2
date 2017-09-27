@@ -94,7 +94,7 @@ class Submodules extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+      //  $this->setSchema("public");
         $this->hasMany('id', 'TypesProfile', 'id_module', ['alias' => 'TypesProfile']);
     }
 
