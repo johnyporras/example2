@@ -189,6 +189,9 @@ class ProcedimientosMedicosController extends \Phalcon\Mvc\Controller
         $this->view->disable();
 
     }
+    
+    
+      
 
 }
 
