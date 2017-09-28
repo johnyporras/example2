@@ -358,7 +358,241 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                 }
 
+                if( $request->has('email') ){
+
+                    $afiliado->email = $request->getPost('email');
+
+                }
+
+                if( $request->has('cedula') ){
+
+                    $afiliado->cedula = $request->getPost('cedula');
+
+                }
+
+                if( $request->has('fecha_nacimiento') ){
+
+                    $afiliado->fecha_nacimiento = $request->getPost('fecha_nacimiento');
+
+                }
+
+                if( $request->has('ciudad') ){
+
+                    $afiliado->ciudad = $request->getPost('ciudad');
+
+                }
+
+                if( $request->has('civil') ){
+
+                    $afiliado->civil = $request->getPost('civil');
+
+                }
+
+                if( $request->has('hijos') ){
+
+                    $afiliado->hijos = $request->getPost('hijos');
+
+                }
+
+                if( $request->has('telefono') ){
+
+                    $afiliado->telefono = $request->getPost('telefono');
+
+                }
+
+                if( $request->has('ocupacion') ){
+
+                    $afiliado->ocupacion = $request->getPost('ocupacion');
+
+                }
+
+                if( $request->has('idioma') ){
+
+                    $afiliado->idioma = $request->getPost('idioma');
+
+                }
+
                 if($afiliado->save()){
+
+                    $status = 200;
+                    $msnStatus = 'OK';
+                    $this->_data = true;
+                    $this->_mensajes = [
+                        "msnConsult" => 'Consulta relizada con exito',
+                        "msnHeaders" => true,//el header de autrización esta ausente
+                        "msnInvalid" => false
+                    ];
+
+                }else{
+
+                    $status = 200;
+                    $msnStatus = 'OK';
+                    $this->_data = false;
+                    $this->_mensajes = [
+                        "msnConsult" => 'Consulta relizada con exito',
+                        "msnHeaders" => true,//el header de autrización esta ausente
+                        "msnInvalid" => false
+                    ];
+
+                }
+
+
+            }
+
+        }
+
+        $response->setJsonContent([
+            "status" => $status,
+            "mensajes" => $this->_mensajes,
+            "data" => $this->_data,
+        ]);
+        $response->setStatusCode($status, $msnStatus);
+        $response->send();
+
+        $this->view->disable();
+
+    }
+
+    public function addContactAction(){
+
+        $response = $this->response;
+        $request = $this->request;
+        $token = $request->getPost('token');//obtiene el token de validacion via post y se asigna a una variable 'token'
+
+        if( !isset($token) || empty($token) ){//se verifica si no existe y si esta vacio
+
+            $status = 200;
+            $msnStatus = 'OK';
+            $this->_data = null;
+            $this->_mensajes = [
+                "msnConsult" => 'Consulta relizada con exito',
+                "msnToken" => false,//el token de autrización esta ausente
+                "msnInvalid" => null
+            ];
+
+        }else{//en caso de existir y no estar vacio
+
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);//desencripta el token y se asigna a una variable 'datos'
+
+            //comprobamos si existe el usuario mediante los datos obtenidos por el token
+            $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
+
+            //si no existe
+            if($auth->count() == 0)
+            {
+                //no es un token correcto
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = null;
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,
+                    "msnInvalid" => true//las credenciales del token de autorizacion son invalidas
+                ];
+            }else{
+
+
+                $contact = new Contactos();
+
+                $contact->nombre = $request->getPost('nombre');
+
+                $contact->telefono = $request->getPost('telefono');
+
+                $contact->parentesco = $request->getPost('parentesco');
+
+                $contact->id_afiliado = $request->getPost('idAfiliado');
+
+                if($contact->save()){
+
+                    $status = 200;
+                    $msnStatus = 'OK';
+                    $this->_data = true;
+                    $this->_mensajes = [
+                        "msnConsult" => 'Consulta relizada con exito',
+                        "msnHeaders" => true,//el header de autrización esta ausente
+                        "msnInvalid" => false
+                    ];
+
+                }else{
+
+                    $status = 200;
+                    $msnStatus = 'OK';
+                    $this->_data = false;
+                    $this->_mensajes = [
+                        "msnConsult" => 'Consulta relizada con exito',
+                        "msnHeaders" => true,//el header de autrización esta ausente
+                        "msnInvalid" => false
+                    ];
+
+                }
+
+
+            }
+
+        }
+
+        $response->setJsonContent([
+            "status" => $status,
+            "mensajes" => $this->_mensajes,
+            "data" => $this->_data,
+        ]);
+        $response->setStatusCode($status, $msnStatus);
+        $response->send();
+
+        $this->view->disable();
+
+    }
+
+    public function addPasatiempoAction(){
+
+        $response = $this->response;
+        $request = $this->request;
+        $token = $request->getPost('token');//obtiene el token de validacion via post y se asigna a una variable 'token'
+
+        if( !isset($token) || empty($token) ){//se verifica si no existe y si esta vacio
+
+            $status = 200;
+            $msnStatus = 'OK';
+            $this->_data = null;
+            $this->_mensajes = [
+                "msnConsult" => 'Consulta relizada con exito',
+                "msnToken" => false,//el token de autrización esta ausente
+                "msnInvalid" => null
+            ];
+
+        }else{//en caso de existir y no estar vacio
+
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);//desencripta el token y se asigna a una variable 'datos'
+
+            //comprobamos si existe el usuario mediante los datos obtenidos por el token
+            $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
+
+            //si no existe
+            if($auth->count() == 0)
+            {
+                //no es un token correcto
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = null;
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,
+                    "msnInvalid" => true//las credenciales del token de autorizacion son invalidas
+                ];
+            }else{
+
+
+                $contact = new Contactos();
+
+                $contact->nombre = $request->getPost('nombre');
+
+                $contact->telefono = $request->getPost('telefono');
+
+                $contact->parentesco = $request->getPost('parentesco');
+
+                $contact->id_afiliado = $request->getPost('idAfiliado');
+
+                if($contact->save()){
 
                     $status = 200;
                     $msnStatus = 'OK';

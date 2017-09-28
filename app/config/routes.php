@@ -58,6 +58,20 @@ $apiUrl->addPost(
 )->setName('editPerfil');
 
 $apiUrl->addPost(
+    "/add-contacto",
+    [
+        "action" => "addContact",
+    ]
+)->setName('addContact');
+
+$apiUrl->addPost(
+    "/add-pasatiempo",
+    [
+        "action" => "addPasatiempo",
+    ]
+)->setName('addPasatiempo');
+
+$apiUrl->addPost(
     "/user-verificar",
     [
         "controller" => "users",
