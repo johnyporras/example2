@@ -45,7 +45,7 @@ class HistorialExamenes extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+        $this->setSchema("atiempo_dev");
         $this->belongsTo('id_historial', '\HistorialMedico', 'id', ['alias' => 'HistorialMedico']);
     }
 
@@ -80,5 +80,6 @@ class HistorialExamenes extends \Phalcon\Mvc\Model
     {
         return parent::findFirst($parameters);
     }
-
+    
+   
 }

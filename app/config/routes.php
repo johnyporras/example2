@@ -292,6 +292,28 @@ $apiUrl->addGet(
     ]
 )->setName('allProcedimientosMedicos');
 
+
+$apiUrl->addGet(
+    "/historial-reporte",
+    [
+        "controller" => "historial-medico",
+        "action" => "search",
+        
+    ]
+    )->setName('search1ProcedimientosMedicos');
+    
+
+    
+    $apiUrl->addGet(
+        "/historial-examenes",
+        [
+            "controller" => "historial-medico",
+            "action" => "searchExamenes",
+            
+        ]
+        )->setName('search1ProcedimiendtosMedicos');
+        
+
 $apiUrl->addPost(
     "/procedimientos-medicos-list",
     [
