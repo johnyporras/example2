@@ -94,7 +94,7 @@ class AcClavesDetalle extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+        $this->setSchema("atiempo_prod");
         $this->belongsTo('codigo_servicio', '\AcServiciosExtranet', 'codigo_servicio', ['alias' => 'AcServiciosExtranet']);
         $this->belongsTo('codigo_especialidad', '\AcEspecialidadesExtranet', 'codigo_especialidad', ['alias' => 'AcEspecialidadesExtranet']);
         $this->belongsTo('id_clave', '\AcClaves', 'id', ['alias' => 'AcClaves']);

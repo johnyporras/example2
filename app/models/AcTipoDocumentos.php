@@ -45,7 +45,7 @@ class AcTipoDocumentos extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+        $this->setSchema("atiempo_prod");
         $this->hasMany('id', 'AcDocumentos', 'id_tipo_documento', ['alias' => 'AcDocumentos']);
     }
 

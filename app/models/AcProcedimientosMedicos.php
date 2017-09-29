@@ -73,7 +73,7 @@ class AcProcedimientosMedicos extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("atiempo_prod");
         $this->hasMany('id', 'AcBaremos', 'id_procedimiento', ['alias' => 'AcBaremos']);
         $this->hasMany('id', 'AcCartaAvalDetalle', 'id_procedimiento', ['alias' => 'AcCartaAvalDetalle']);
         $this->hasMany('id', 'AcClavesDetalle', 'id_procedimiento', ['alias' => 'AcClavesDetalle']);

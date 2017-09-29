@@ -45,7 +45,7 @@ class AcEstatusDetalle extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+        $this->setSchema("atiempo_prod");
         $this->hasMany('id', 'AcCartaAvalDetalle', 'estatus', ['alias' => 'AcCartaAvalDetalle']);
         $this->hasMany('id', 'AcClavesDetalle', 'estatus', ['alias' => 'AcClavesDetalle']);
     }

@@ -66,7 +66,7 @@ class AviDestino extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+        $this->setSchema("atiempo_prod");
         $this->belongsTo('avi_id', '\Avi', 'id', ['alias' => 'Avi']);
         $this->belongsTo('pais_id', '\Paises', 'id', ['alias' => 'Paises']);
     }

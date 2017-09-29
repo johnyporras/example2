@@ -87,7 +87,7 @@ class FunerarioDetalle extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+        $this->setSchema("atiempo_prod");
         $this->belongsTo('proveedor_id', '\ProveedorFunerario', 'id', ['alias' => 'ProveedorFunerario']);
         $this->belongsTo('funerario_id', '\Funerario', 'id', ['alias' => 'Funerario']);
     }

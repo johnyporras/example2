@@ -73,7 +73,7 @@ class AcCuenta extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+        $this->setSchema("atiempo_prod");
         $this->hasMany('id', 'AcAfiliados', 'id_cuenta', ['alias' => 'AcAfiliados']);
         $this->hasMany('id', 'AcCuentaplan', 'id_cuenta', ['alias' => 'AcCuentaplan']);
         $this->hasMany('id', 'Mascotas', 'cuenta_id', ['alias' => 'Mascotas']);

@@ -94,7 +94,7 @@ class AcCartaAvalDetalle extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+        $this->setSchema("atiempo_prod");
         $this->belongsTo('codigo_servicio', '\AcServiciosExtranet', 'codigo_servicio', ['alias' => 'AcServiciosExtranet']);
         $this->belongsTo('id_carta', '\AcCartaAval', 'id', ['alias' => 'AcCartaAval']);
         $this->belongsTo('codigo_proveedor', '\AcProveedoresExtranet', 'codigo_proveedor', ['alias' => 'AcProveedoresExtranet']);

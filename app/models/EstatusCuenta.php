@@ -38,7 +38,7 @@ class EstatusCuenta extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+        $this->setSchema("atiempo_prod");
         $this->hasMany('id', 'AcCuenta', 'estatus', ['alias' => 'AcCuenta']);
     }
 

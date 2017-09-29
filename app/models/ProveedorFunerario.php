@@ -73,7 +73,7 @@ class ProveedorFunerario extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+        $this->setSchema("atiempo_prod");
         $this->hasMany('id', 'FunerarioDetalle', 'proveedor_id', ['alias' => 'FunerarioDetalle']);
     }
 

@@ -66,7 +66,7 @@ class AcCoberturaExtranet extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+        $this->setSchema("atiempo_prod");
         $this->belongsTo('id_especialidad', '\AcEspecialidadesExtranet', 'codigo_especialidad', ['alias' => 'AcEspecialidadesExtranet']);
         $this->belongsTo('id_servicio', '\AcServiciosExtranet', 'codigo_servicio', ['alias' => 'AcServiciosExtranet']);
         $this->belongsTo('id_plan', '\AcPlanesExtranet', 'codigo_plan', ['alias' => 'AcPlanesExtranet']);

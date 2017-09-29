@@ -9,22 +9,22 @@ defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 return new \Phalcon\Config([
     'database' => [
         'adapter'     => 'Postgresql',
-        'host'        => '35.164.247.216',
-        'username'    => 'postgres',
-        'password'    => '17401182',
-        'dbname'      => 'brizer_atiempo_dev',
-        'schema'      => 'atiempo_dev'
+        'host'        => 'atiempo.czz0a4kakmcn.us-east-2.rds.amazonaws.com',
+        'username'    => 'atiempoaws',
+        'password'    => 'AT2017Amazon**',
+        'dbname'      => 'atiempo_anet',
+        'schema'      => 'atiempo_prod'
         //'charset'     => 'utf8',
     ],
     'mail' => [
-        'fromName' => 'A Tiempo Api',
-        'fromEmail' => 'no-reply@grupoatiempo.com.ve',
+        'fromName' => 'Corporacion Atiempo',
+        'fromEmail' => 'no-reply@corporacionatiempo.com',
         'smtp' => [
             'server'	=> 'cloud1013.hostgator.com',
             'port' 		=> 465,
             'security' => 'ssl',
-            'username' => 'no-reply@grupoatiempo.com.ve',
-            'password' => 'Atiempo2017**',
+            'username' => 'no-reply@corporacionatiempo.com',
+            'password' => ',v*rK0-61!;3',
         ]
     ],
     'application' => [

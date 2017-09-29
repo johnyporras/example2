@@ -45,7 +45,7 @@ class AcEstatus extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("public");
+        $this->setSchema("atiempo_prod");
         $this->hasMany('id', 'AcClaves', 'estatus_clave', ['alias' => 'AcClaves']);
         $this->hasMany('id', 'AcFacturas', 'codigo_estatus', ['alias' => 'AcFacturas']);
     }
