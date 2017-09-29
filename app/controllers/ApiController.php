@@ -590,7 +590,7 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                 $pasatiempo->id_afiliado = $request->getPost('idAfiliado');
 
-                if($contact->save()){
+                if($pasatiempo->save()){
 
                     $status = 200;
                     $msnStatus = 'OK';
