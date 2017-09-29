@@ -581,14 +581,15 @@ class ApiController extends \Phalcon\Mvc\Controller
                 ];
             }else{
 
+                $pasatiempo = new MotivoDetalles();
 
-                $pasatiempo = new Contactos();
-
-                $pasatiempo->pasatiempo = $request->getPost('pasatiempo');
+                $pasatiempo->tipo = $request->getPost('pasatiempo');
 
                 $pasatiempo->frecuencia = $request->getPost('frecuencia');
 
                 $pasatiempo->id_afiliado = $request->getPost('idAfiliado');
+
+                $pasatiempo->id_motivo = 3;
 
                 if($pasatiempo->save()){
 
