@@ -313,7 +313,41 @@ $apiUrl->addGet(
         ]
         )->setName('search1ProcedimiendtosMedicos');
         
+        
+$apiUrl->addPost(
+    "/registrarHistorial",
+    [
+        "controller" => "historial-medico",
+        "action" => "incHistorial",
+        
+    ]
+    )->setName('search1ProcdedimiendtosMedicos');
+        
 
+    
+$apiUrl->addPost(
+    "/actualizarHistorial",
+    [
+        "controller" => "historial-medico",
+        "action" => "actHistorial",
+        
+    ]
+    )->setName('search1PsrocdedimiendtosMedicos');
+        
+
+    
+    
+    $apiUrl->addPost(
+        "/elimExamen",
+        [
+            "controller" => "historial-medico",
+            "action" => "elimExamen",
+            
+        ]
+        )->setName('search1PsrocdedsimiendtosMedicos');
+        
+    
+    
 $apiUrl->addPost(
     "/procedimientos-medicos-list",
     [

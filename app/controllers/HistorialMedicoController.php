@@ -1,5 +1,5 @@
 <?php
-
+//use namespace as alias;
 class HistorialMedicoController extends \Phalcon\Mvc\Controller
 {
 
@@ -93,6 +93,169 @@ class HistorialMedicoController extends \Phalcon\Mvc\Controller
         
     }
     
+    public function incHistorialAction()
+    {
+        $response = $this->response;
+        $request = $this->request;
+        
+        //var_dump($request->get());die();
+        
+        $objDatos =  json_decode($request->get('obj'));
+        $oHistorial = new HistorialMedico();
+       // var_dump($objDatos);die();
+        $oHistorial->id_user = $objDatos->id_user;
+        $oHistorial->id_afiliado = $objDatos->id_afiliado;
+        $oHistorial->fecha = $objDatos->fecha;
+        $oHistorial->motivo = $objDatos->motivo;
+        $oHistorial->observaciones = $objDatos->observaciones;
+        $oHistorial->especialidad = $objDatos->especialidad;
+        $oHistorial->tratamiento = $objDatos->tratamiento;
+        $oHistorial->procedimiento = $objDatos->procedimiento;
+        $oHistorial->medico = $objDatos->medico;
+        $oHistorial->recomendaciones = $objDatos->recomendaciones;
+        $oHistorial->diagnostico = $objDatos->diagnostico;
+        $oHistorial->save();
+        
+        //aqui se mandan los detalles de los servicios que tienen que ver con la espacialidad, de igual forma estos valores los puedes chekr una vez se guarden
+        
+        foreach ($objDatos->detailExamen as $item )
+        {
+            
+            $Detalle = new HistorialExamenes();
+            $Detalle->id_historial = $oHistorial->id;
+            $Detalle->examen = $item->examen;
+            if($Detalle->save())
+            {            
+                $post = [
+                    'archivo' => $item->base64,
+                    'nombre' => $Detalle->examen
+                ];
+                
+                $ch = curl_init('http://34.210.249.162/archivos/procesarArchivo');
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+                $resp = curl_exec($ch);
+                curl_close($ch);
+            }
+            
+        }
+        
+              
+        $status = 200;
+        $msnStatus = 'OK';
+        $this->_data = $oHistorial->id;//se envia la clave generada para la cita
+        $this->_mensajes = [
+            "msnConsult" => 'proceso realizo con exito',
+            "msnHeaders" => true,//el header de autrización esta ausente
+            "msnInvalid" => false
+        ];
+        
+       // var_dump($response);die();
+
+        $response->setJsonContent([
+            "status" => $status,
+            "mensajes" => $this->_mensajes,
+            "data" => $this->_data,
+        ]);
+        $response->setStatusCode($status, $msnStatus);
+        $response->send();
+        $this->view->disable();
+
+        
+    }
+    
+    
+    public function actHistorialAction()
+    {
+        $response = $this->response;
+        $request = $this->request;
+        
+        //var_dump($request->get());die();
+        
+       
+        $objDatos =  json_decode($request->get('obj'));
+        $oHistorial =  HistorialMedico::findFirst($objDatos->idHistorial);
+     //   var_dump($oHistorial);die();
+        $oHistorial->id_user = $objDatos->id_user;
+        $oHistorial->id_afiliado = $objDatos->id_afiliado;
+        $oHistorial->fecha = $objDatos->fecha;
+        $oHistorial->motivo = $objDatos->motivo;
+        $oHistorial->observaciones = $objDatos->observaciones;
+        $oHistorial->especialidad = $objDatos->especialidad;
+        $oHistorial->tratamiento = $objDatos->tratamiento;
+        $oHistorial->procedimiento = $objDatos->procedimiento;
+        $oHistorial->medico = $objDatos->medico;
+        $oHistorial->recomendaciones = $objDatos->recomendaciones;
+        $oHistorial->diagnostico = $objDatos->diagnostico;
+        $oHistorial->update();
+        
+        //aqui se mandan los detalles de los servicios que tienen que ver con la espacialidad, de igual forma estos valores los puedes chekr una vez se guarden
+            
+        $status = 200;
+        $msnStatus = 'OK';
+        $this->_data = $oHistorial->id;//se envia la clave generada para la cita
+        $this->_mensajes = [
+            "msnConsult" => 'proceso realizo con exito',
+            "msnHeaders" => true,//el header de autrización esta ausente
+            "msnInvalid" => false
+        ];
+        
+        // var_dump($response);die();
+        
+        $response->setJsonContent([
+            "status" => $status,
+            "mensajes" => $this->_mensajes,
+            "data" => $this->_data,
+        ]);
+        $response->setStatusCode($status, $msnStatus);
+        $response->send();
+        $this->view->disable();
+        
+        
+    }
+    
+    public function elimExamenAction()
+    {
+        $response = $this->response;
+        $request = $this->request;
+        $examen = HistorialExamenes::findFirst($request->get("idExamen"));
+        if($examen->delete())
+        {
+            $status = 200;
+            $msnStatus = 'OK';
+            $this->_data = $oHistorial->id;//se envia la clave generada para la cita
+            $this->_mensajes = [
+                "msnConsult" => 'proceso realizo con exito',
+                "msnHeaders" => true,//el header de autrización esta ausente
+                "msnInvalid" => false
+            ];
+            
+            
+            
+        }
+        else
+        {
+            $status = 400;
+            $msnStatus = 'false';
+            $this->_data ="";//se envia la clave generada para la cita
+            $this->_mensajes = [
+                "msnConsult" => 'proceso no se realizo con exito',
+                "msnHeaders" => true,//el header de autrización esta ausente
+                "msnInvalid" => true
+            ];
+            
+        }
+        
+        $response->setJsonContent([
+            "status" => $status,
+            "mensajes" => $this->_mensajes,
+            "data" => $this->_data,
+        ]);
+        $response->setStatusCode($status, $msnStatus);
+        $response->send();
+        $this->view->disable();
+        
+    }
 
     
 }
