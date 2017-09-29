@@ -123,15 +123,17 @@ class HistorialMedicoController extends \Phalcon\Mvc\Controller
             
             $Detalle = new HistorialExamenes();
             $Detalle->id_historial = $oHistorial->id;
-            $Detalle->examen = $item->examen;
+            //$Detalle->examen = $item->examen;
             if($Detalle->save())
-            {            
+            {         
+                $Detalle->examen=$Detalle->id.".png";
+                $Detalle->update();
                 $post = [
                     'archivo' => $item->base64,
-                    'nombre' => $Detalle->examen
+                    'codexamen'=>$Detalle->id
                 ];
                 
-                $ch = curl_init('http://34.210.249.162/archivos/procesarArchivo');
+                $ch = curl_init('http://18.221.52.114/archivos/procesarArchivo');
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
                 $resp = curl_exec($ch);
