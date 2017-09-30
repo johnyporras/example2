@@ -56,30 +56,30 @@ class ApiController extends \Phalcon\Mvc\Controller
                             if( $user->active == 'S' ){//si esta activo creamos el token de sesión encriptado para el usuario con sus datos para ser enviados a la app
 
                                 $titular = AcAfiliados::findFirstById($user->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
-                                $listEstados = AcEstados::find();//retorna array con los estados
-                                $listMotivos = Motivos::find();//retorna array con los motivos
+                                $estado = AcEstados::findFirst($titular->id_estado);//retorna array con los estados
+                                /*$listMotivos = Motivos::find();//retorna array con los motivos
                                 $listPreferencias = Preferencias::find();//retorna array con los preferencias
                                 $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
                                 $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
                                 $documentos = $titular->AcDocumentos;//retorna array con los documentos
                                 $contactos = $titular->Contactos;//retorna array con los contactos
                                 $listMotivosDetalles = $titular->MotivoDetalles;//retorna array con los motivos detalles
-                                $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+                                $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos*/
 
                               //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
                                 $token = [//array que sera encriptado para ser enviado a la app
                                     'user' => $user,
                                     'titular' => $titular,
-                                    'listEstados' => $listEstados,
-                                    'tipoDocuments' => $tipoDocuments,
+                                    'estado' => $estado,
+                                    /*'tipoDocuments' => $tipoDocuments,
                                     'documentos' => $documentos,
                                     'contactos' => $contactos,
                                     'listMotivosDetalles' => $listMotivosDetalles,
                                     'listMotivos' => $listMotivos,
                                     'listPreferencias' => $listPreferencias,
                                     'listTipoMedicamentos' => $listTipoMedicamentos,
-                                    'listMedicamentos' => $listMedicamentos
+                                    'listMedicamentos' => $listMedicamentos*/
                                 ];
 
                                 $status = 200;
@@ -334,17 +334,7 @@ class ApiController extends \Phalcon\Mvc\Controller
                 ];
             }else{
 
-                /*$busqueda = AcProveedoresExtranet::find([//obtiene el array de las clinicas mediante la variable 'val' obtenida via post
-                    'conditions' => 'estado_id = :idEstado: AND codigo_especialidad = :codEsp: AND nombre LIKE :value:',
-                    'bind' => [
-                        'value' => '%'.strtoupper($request->getPost('val')).'%',
-                        'idEstado' => $request->getPost('idEstado'),
-                        'codEsp' => $request->getPost('codEsp')
-                    ]
-                ]);*/
-
-
-                $afiliado = AcAfiliados::findFirstById($request->getPost('id'));
+                $afiliado = AcAfiliados::findFirstById($auth->detalles_usuario_id);
 
                 if( $request->has('nombre') ){
 
@@ -414,9 +404,36 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                 if($afiliado->save()){
 
+                    $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
+                    $estado = AcEstados::findFirstById($titular->id_estado);//retorna array con los estados
+                    $listMotivos = Motivos::find();//retorna array con los motivos
+                    $listPreferencias = Preferencias::find();//retorna array con los preferencias
+                    $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
+                    $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
+                    $documentos = $titular->AcDocumentos;//retorna array con los documentos
+                    $contactos = $titular->Contactos;//retorna array con los contactos
+                    $listMotivosDetalles = $titular->MotivoDetalles;//retorna array con los motivos detalles
+                    $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+
+                    //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+
+                    $newToken = [//array que sera encriptado para ser enviado a la app
+                        'user' => $auth,
+                        'titular' => $titular,
+                        'estado' => $estado,
+                        'tipoDocuments' => $tipoDocuments,
+                        'documentos' => $documentos,
+                        'contactos' => $contactos,
+                        'listMotivosDetalles' => $listMotivosDetalles,
+                        'listMotivos' => $listMotivos,
+                        'listPreferencias' => $listPreferencias,
+                        'listTipoMedicamentos' => $listTipoMedicamentos,
+                        'listMedicamentos' => $listMedicamentos
+                    ];
+
                     $status = 200;
                     $msnStatus = 'OK';
-                    $this->_data = true;
+                    $this->_data = ["consulta" => true, "token" => JWT::encode($newToken,"Atiempo-api-rest")];
                     $this->_mensajes = [
                         "msnConsult" => 'Consulta relizada con exito',
                         "msnHeaders" => true,//el header de autrización esta ausente
@@ -427,7 +444,7 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                     $status = 200;
                     $msnStatus = 'OK';
-                    $this->_data = false;
+                    $this->_data = ["consulta" => false, "token" => null];
                     $this->_mensajes = [
                         "msnConsult" => 'Consulta relizada con exito',
                         "msnHeaders" => true,//el header de autrización esta ausente
@@ -500,13 +517,40 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                 $contact->parentesco = $request->getPost('parentesco');
 
-                $contact->id_afiliado = $request->getPost('idAfiliado');
+                $contact->id_afiliado = $datos->titular->id;
 
                 if($contact->save()){
 
+                    $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
+                    $estado = AcEstados::findFirstById($titular->id_estado);//retorna array con los estados
+                    $listMotivos = Motivos::find();//retorna array con los motivos
+                    $listPreferencias = Preferencias::find();//retorna array con los preferencias
+                    $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
+                    $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
+                    $documentos = $titular->AcDocumentos;//retorna array con los documentos
+                    $contactos = $titular->Contactos;//retorna array con los contactos
+                    $listMotivosDetalles = $titular->MotivoDetalles;//retorna array con los motivos detalles
+                    $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+
+                    //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+
+                    $newToken = [//array que sera encriptado para ser enviado a la app
+                        'user' => $auth,
+                        'titular' => $titular,
+                        'estado' => $estado,
+                        'tipoDocuments' => $tipoDocuments,
+                        'documentos' => $documentos,
+                        'contactos' => $contactos,
+                        'listMotivosDetalles' => $listMotivosDetalles,
+                        'listMotivos' => $listMotivos,
+                        'listPreferencias' => $listPreferencias,
+                        'listTipoMedicamentos' => $listTipoMedicamentos,
+                        'listMedicamentos' => $listMedicamentos
+                    ];
+
                     $status = 200;
                     $msnStatus = 'OK';
-                    $this->_data = true;
+                    $this->_data = ["consulta" => true, "token" => JWT::encode($newToken,"Atiempo-api-rest")];
                     $this->_mensajes = [
                         "msnConsult" => 'Consulta relizada con exito',
                         "msnHeaders" => true,//el header de autrización esta ausente
@@ -517,7 +561,7 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                     $status = 200;
                     $msnStatus = 'OK';
-                    $this->_data = false;
+                    $this->_data = ["consulta" => false, "token" => null];
                     $this->_mensajes = [
                         "msnConsult" => 'Consulta relizada con exito',
                         "msnHeaders" => true,//el header de autrización esta ausente
@@ -543,7 +587,7 @@ class ApiController extends \Phalcon\Mvc\Controller
 
     }
 
-    public function addPasatiempoAction(){
+    public function addMotivoDetalleAction(){
 
         $response = $this->response;
         $request = $this->request;
@@ -579,23 +623,97 @@ class ApiController extends \Phalcon\Mvc\Controller
                     "msnHeaders" => true,
                     "msnInvalid" => true//las credenciales del token de autorizacion son invalidas
                 ];
+
             }else{
+
+                $motivo = Motivos::findFirstBySlug($request->getPost('slug'));
 
                 $pasatiempo = new MotivoDetalles();
 
-                $pasatiempo->tipo = $request->getPost('pasatiempo');
+                if( $request->has('tipo') ){
 
-                $pasatiempo->frecuencia = $request->getPost('frecuencia');
+                    $pasatiempo->tipo = $request->getPost('tipo');
 
-                $pasatiempo->id_afiliado = $request->getPost('idAfiliado');
+                }
 
-                $pasatiempo->id_motivo = 3;
+                if( $request->has('cantidad') ){
+
+                    $pasatiempo->cantidad = $request->getPost('cantidad');
+
+                }
+
+                if( $request->has('frecuencia') ){
+
+                    $pasatiempo->frecuencia = $request->getPost('frecuencia');
+
+                }
+
+                if( $request->has('causa') ){
+
+                    $pasatiempo->causa = $request->getPost('causa');
+
+                }
+
+                if( $request->has('fecha') ){
+
+                    $pasatiempo->fecha = $request->getPost('fecha');
+
+                }
+
+                if( $request->has('tratamiento') ){
+
+                    $pasatiempo->tratamiento = $request->getPost('tratamiento');
+
+                }
+
+                if( $request->has('profecional') ){
+
+                    $pasatiempo->profecional = $request->getPost('profecional');
+
+                }
+
+                if( $request->has('comentarios') ){
+
+                    $pasatiempo->comentarios = $request->getPost('comentarios');
+
+                }
+
+                $pasatiempo->id_afiliado = $datos->titular->id;
+
+                $pasatiempo->id_motivo = $motivo->id;
 
                 if($pasatiempo->save()){
 
+                    $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
+                    $estado = AcEstados::findFirstById($titular->id_estado);//retorna array con los estados
+                    $listMotivos = Motivos::find();//retorna array con los motivos
+                    $listPreferencias = Preferencias::find();//retorna array con los preferencias
+                    $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
+                    $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
+                    $documentos = $titular->AcDocumentos;//retorna array con los documentos
+                    $contactos = $titular->Contactos;//retorna array con los contactos
+                    $listMotivosDetalles = $titular->MotivoDetalles;//retorna array con los motivos detalles
+                    $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+
+                    //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+
+                    $newToken = [//array que sera encriptado para ser enviado a la app
+                        'user' => $auth,
+                        'titular' => $titular,
+                        'estado' => $estado,
+                        'tipoDocuments' => $tipoDocuments,
+                        'documentos' => $documentos,
+                        'contactos' => $contactos,
+                        'listMotivosDetalles' => $listMotivosDetalles,
+                        'listMotivos' => $listMotivos,
+                        'listPreferencias' => $listPreferencias,
+                        'listTipoMedicamentos' => $listTipoMedicamentos,
+                        'listMedicamentos' => $listMedicamentos
+                    ];
+
                     $status = 200;
                     $msnStatus = 'OK';
-                    $this->_data = true;
+                    $this->_data = ["consulta" => true, "token" => JWT::encode($newToken,"Atiempo-api-rest")];
                     $this->_mensajes = [
                         "msnConsult" => 'Consulta relizada con exito',
                         "msnHeaders" => true,//el header de autrización esta ausente
@@ -606,7 +724,7 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                     $status = 200;
                     $msnStatus = 'OK';
-                    $this->_data = false;
+                    $this->_data = ["consulta" => false, "token" => null];
                     $this->_mensajes = [
                         "msnConsult" => 'Consulta relizada con exito',
                         "msnHeaders" => true,//el header de autrización esta ausente

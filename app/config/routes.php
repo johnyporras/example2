@@ -65,9 +65,9 @@ $apiUrl->addPost(
 )->setName('addContact');
 
 $apiUrl->addPost(
-    "/add-pasatiempo",
+    "/add-detalle-motivo",
     [
-        "action" => "addPasatiempo",
+        "action" => "addMotivoDetalle",
     ]
 )->setName('addPasatiempo');
 
