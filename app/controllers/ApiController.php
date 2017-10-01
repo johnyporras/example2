@@ -59,15 +59,16 @@ class ApiController extends \Phalcon\Mvc\Controller
                                 $estados = AcEstados::find();//retorna array con los estados
                                 $estado = $titular->AcEstados;//retorna datos del estado
                                 $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
-                                /*$documentos = $titular->AcDocumentos;//retorna array con los documentos
+                                $documentos = $titular->AcDocumentos;//retorna array con los documentos
                                 $listMotivos = Motivos::find();//retorna array con los motivos
                                 $listPreferencias = Preferencias::find();//retorna array con los preferencias
                                 $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
                                 $contactos = $titular->Contactos;//retorna array con los contactos
                                 $listMotivosDetalles = $titular->MotivoDetalles;//retorna array con los motivos detalles
-                                $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos*/
+                                $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+                                $cuenta = $titular->AcCuenta;
 
-                              //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+                                //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
                                 $token = [//array que sera encriptado para ser enviado a la app
                                     'user' => $user,
@@ -75,13 +76,14 @@ class ApiController extends \Phalcon\Mvc\Controller
                                     'estados' => $estados,
                                     'estado' => $estado,
                                     'tipoDocuments' => $tipoDocuments,
-                                    /*'documentos' => $documentos,
-                                    /*'contactos' => $contactos,
+                                    'documentos' => $documentos,
+                                    'contactos' => $contactos,
                                     'listMotivosDetalles' => $listMotivosDetalles,
                                     'listMotivos' => $listMotivos,
                                     'listPreferencias' => $listPreferencias,
                                     'listTipoMedicamentos' => $listTipoMedicamentos,
-                                    'listMedicamentos' => $listMedicamentos*/
+                                    'listMedicamentos' => $listMedicamentos,
+                                    'cuenta' => $cuenta
                                 ];
 
                                 $status = 200;
@@ -215,13 +217,14 @@ class ApiController extends \Phalcon\Mvc\Controller
                                 $estados = AcEstados::find();//retorna array con los estados
                                 $estado = $titular->AcEstados;//retorna datos del estado
                                 $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
-                                /*$documentos = $titular->AcDocumentos;//retorna array con los documentos
+                                $documentos = $titular->AcDocumentos;//retorna array con los documentos
                                 $listMotivos = Motivos::find();//retorna array con los motivos
                                 $listPreferencias = Preferencias::find();//retorna array con los preferencias
                                 $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
                                 $contactos = $titular->Contactos;//retorna array con los contactos
                                 $listMotivosDetalles = $titular->MotivoDetalles;//retorna array con los motivos detalles
-                                $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos*/
+                                $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+                                $cuenta = $titular->AcCuenta;
 
                                 //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
@@ -231,13 +234,14 @@ class ApiController extends \Phalcon\Mvc\Controller
                                     'estados' => $estados,
                                     'estado' => $estado,
                                     'tipoDocuments' => $tipoDocuments,
-                                    /*'documentos' => $documentos,
-                                    /*'contactos' => $contactos,
+                                    'documentos' => $documentos,
+                                    'contactos' => $contactos,
                                     'listMotivosDetalles' => $listMotivosDetalles,
                                     'listMotivos' => $listMotivos,
                                     'listPreferencias' => $listPreferencias,
                                     'listTipoMedicamentos' => $listTipoMedicamentos,
-                                    'listMedicamentos' => $listMedicamentos*/
+                                    'listMedicamentos' => $listMedicamentos,
+                                    'cuenta' => $cuenta
                                 ];
 
                                 $status = 200;
@@ -468,14 +472,14 @@ class ApiController extends \Phalcon\Mvc\Controller
                     $estados = AcEstados::find();//retorna array con los estados
                     $estado = $titular->AcEstados;//retorna datos del estado
                     $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
-                    /*$documentos = $titular->AcDocumentos;//retorna array con los documentos
+                    $documentos = $titular->AcDocumentos;//retorna array con los documentos
                     $listMotivos = Motivos::find();//retorna array con los motivos
                     $listPreferencias = Preferencias::find();//retorna array con los preferencias
                     $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
                     $contactos = $titular->Contactos;//retorna array con los contactos
                     $listMotivosDetalles = $titular->MotivoDetalles;//retorna array con los motivos detalles
-                    $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos*/
-
+                    $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+                    $cuenta = $titular->AcCuenta;
                     //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
                     $newToken = [//array que sera encriptado para ser enviado a la app
@@ -484,13 +488,14 @@ class ApiController extends \Phalcon\Mvc\Controller
                         'estados' => $estados,
                         'estado' => $estado,
                         'tipoDocuments' => $tipoDocuments,
-                        /*'documentos' => $documentos,
-                        /*'contactos' => $contactos,
+                        'documentos' => $documentos,
+                        'contactos' => $contactos,
                         'listMotivosDetalles' => $listMotivosDetalles,
                         'listMotivos' => $listMotivos,
                         'listPreferencias' => $listPreferencias,
                         'listTipoMedicamentos' => $listTipoMedicamentos,
-                        'listMedicamentos' => $listMedicamentos*/
+                        'listMedicamentos' => $listMedicamentos,
+                        'cuenta' => $cuenta
                     ];
 
                     $status = 200;
@@ -587,14 +592,14 @@ class ApiController extends \Phalcon\Mvc\Controller
                     $estados = AcEstados::find();//retorna array con los estados
                     $estado = $titular->AcEstados;//retorna datos del estado
                     $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
-                    /*$documentos = $titular->AcDocumentos;//retorna array con los documentos
+                    $documentos = $titular->AcDocumentos;//retorna array con los documentos
                     $listMotivos = Motivos::find();//retorna array con los motivos
                     $listPreferencias = Preferencias::find();//retorna array con los preferencias
                     $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
                     $contactos = $titular->Contactos;//retorna array con los contactos
                     $listMotivosDetalles = $titular->MotivoDetalles;//retorna array con los motivos detalles
-                    $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos*/
-
+                    $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+                    $cuenta = $titular->AcCuenta;
                     //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
                     $newToken = [//array que sera encriptado para ser enviado a la app
@@ -603,13 +608,14 @@ class ApiController extends \Phalcon\Mvc\Controller
                         'estados' => $estados,
                         'estado' => $estado,
                         'tipoDocuments' => $tipoDocuments,
-                        /*'documentos' => $documentos,
-                        /*'contactos' => $contactos,
+                        'documentos' => $documentos,
+                        'contactos' => $contactos,
                         'listMotivosDetalles' => $listMotivosDetalles,
                         'listMotivos' => $listMotivos,
                         'listPreferencias' => $listPreferencias,
                         'listTipoMedicamentos' => $listTipoMedicamentos,
-                        'listMedicamentos' => $listMedicamentos*/
+                        'listMedicamentos' => $listMedicamentos,
+                        'cuenta' => $cuenta
                     ];
 
                     $status = 200;
@@ -752,14 +758,14 @@ class ApiController extends \Phalcon\Mvc\Controller
                     $estados = AcEstados::find();//retorna array con los estados
                     $estado = $titular->AcEstados;//retorna datos del estado
                     $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
-                    /*$documentos = $titular->AcDocumentos;//retorna array con los documentos
+                    $documentos = $titular->AcDocumentos;//retorna array con los documentos
                     $listMotivos = Motivos::find();//retorna array con los motivos
                     $listPreferencias = Preferencias::find();//retorna array con los preferencias
                     $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
                     $contactos = $titular->Contactos;//retorna array con los contactos
                     $listMotivosDetalles = $titular->MotivoDetalles;//retorna array con los motivos detalles
-                    $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos*/
-
+                    $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+                    $cuenta = $titular->AcCuenta;
                     //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
                     $newToken = [//array que sera encriptado para ser enviado a la app
@@ -768,13 +774,14 @@ class ApiController extends \Phalcon\Mvc\Controller
                         'estados' => $estados,
                         'estado' => $estado,
                         'tipoDocuments' => $tipoDocuments,
-                        /*'documentos' => $documentos,
-                        /*'contactos' => $contactos,
+                        'documentos' => $documentos,
+                        'contactos' => $contactos,
                         'listMotivosDetalles' => $listMotivosDetalles,
                         'listMotivos' => $listMotivos,
                         'listPreferencias' => $listPreferencias,
                         'listTipoMedicamentos' => $listTipoMedicamentos,
-                        'listMedicamentos' => $listMedicamentos*/
+                        'listMedicamentos' => $listMedicamentos,
+                        'cuenta' => $cuenta
                     ];
 
                     $status = 200;
@@ -879,14 +886,14 @@ class ApiController extends \Phalcon\Mvc\Controller
                     $estados = AcEstados::find();//retorna array con los estados
                     $estado = $titular->AcEstados;//retorna datos del estado
                     $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
-                    /*$documentos = $titular->AcDocumentos;//retorna array con los documentos
+                    $documentos = $titular->AcDocumentos;//retorna array con los documentos
                     $listMotivos = Motivos::find();//retorna array con los motivos
                     $listPreferencias = Preferencias::find();//retorna array con los preferencias
                     $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
                     $contactos = $titular->Contactos;//retorna array con los contactos
                     $listMotivosDetalles = $titular->MotivoDetalles;//retorna array con los motivos detalles
-                    $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos*/
-
+                    $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+                    $cuenta = $titular->AcCuenta;
                     //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
                     $newToken = [//array que sera encriptado para ser enviado a la app
@@ -895,13 +902,14 @@ class ApiController extends \Phalcon\Mvc\Controller
                         'estados' => $estados,
                         'estado' => $estado,
                         'tipoDocuments' => $tipoDocuments,
-                        /*'documentos' => $documentos,
-                        /*'contactos' => $contactos,
+                        'documentos' => $documentos,
+                        'contactos' => $contactos,
                         'listMotivosDetalles' => $listMotivosDetalles,
                         'listMotivos' => $listMotivos,
                         'listPreferencias' => $listPreferencias,
                         'listTipoMedicamentos' => $listTipoMedicamentos,
-                        'listMedicamentos' => $listMedicamentos*/
+                        'listMedicamentos' => $listMedicamentos,
+                        'cuenta' => $cuenta
                     ];
 
                     $status = 200;
