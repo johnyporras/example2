@@ -72,6 +72,13 @@ $apiUrl->addPost(
 )->setName('addPasatiempo');
 
 $apiUrl->addPost(
+    "/add-medicamento",
+    [
+        "action" => "addMedicamento",
+    ]
+)->setName('addPasatiempo');
+
+$apiUrl->addPost(
     "/user-verificar",
     [
         "controller" => "users",
