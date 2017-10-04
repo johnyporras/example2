@@ -100,7 +100,8 @@ class HistorialMedicoController extends \Phalcon\Mvc\Controller
         
         //var_dump($request->get());die();
         
-        $objDatos =  json_decode($request->get('obj'));
+        //$objDatos =  json_decode($request->get('obj'));
+        $objDatos =  $request->get('obj');
         $oHistorial = new HistorialMedico();
        // var_dump($objDatos);die();
         $oHistorial->id_user = $objDatos->id_user;
