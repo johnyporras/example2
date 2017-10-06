@@ -329,6 +329,17 @@ $apiUrl->addPost(
         
     ]
     )->setName('search1ProcdedimiendtosMedicos');
+    
+
+    
+    $apiUrl->addPost(
+        "/checkTarjeta",
+        [
+            "controller" => "registro",
+            "action" => "checkTarjeta",
+            
+        ]
+        )->setName('checkTarjeta');
         
 
     
