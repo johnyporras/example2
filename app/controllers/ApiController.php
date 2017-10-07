@@ -91,6 +91,7 @@ class ApiController extends \Phalcon\Mvc\Controller
                                     'listMotivos' => $listMotivos,
                                     'listPreferencias' => $listPreferencias,
                                     'list' => $listTipoMedicamentos,
+                                    'listMedicamentos' => $listMedicamentos,
                                     'habitos' => $habitos,
                                     'actividad' => $actividad,
                                     'pasatiempos' => $pasatiempo,
