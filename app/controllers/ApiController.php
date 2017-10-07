@@ -64,7 +64,16 @@ class ApiController extends \Phalcon\Mvc\Controller
                                 $listPreferencias = Preferencias::find();//retorna array con los preferencias
                                 $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
                                 $contactos = $titular->Contactos;//retorna array con los contactos
-                                $listMotivosDetalles = $titular->MotivoDetalles;//retorna array con los motivos detalles
+                                $habitos = $titular->getMotivoDetalles("id_motivo = '1'");//retorna array con los motivos detalles
+                                $actividad = $titular->getMotivoDetalles("id_motivo = '2'");//retorna array con los motivos detalles
+                                $pasatiempo = $titular->getMotivoDetalles("id_motivo = '3'");//retorna array con los motivos detalles
+                                $alimentacion = $titular->getMotivoDetalles("id_motivo = '4'");//retorna array con los motivos detalles
+                                $alergias = $titular->getMotivoDetalles("id_motivo = '5'");//retorna array con los motivos detalles
+                                $vacunas = $titular->getMotivoDetalles("id_motivo = '6'");//retorna array con los motivos detalles
+                                $discapacidad = $titular->getMotivoDetalles("id_motivo = '7'");//retorna array con los motivos detalles
+                                $hospitalizacion = $titular->getMotivoDetalles("id_motivo = '8'");//retorna array con los motivos detalles
+                                $operacion = $titular->getMotivoDetalles("id_motivo = '9'");//retorna array con los motivos detalles
+                                $enfermedad = $titular->getMotivoDetalles("id_motivo = '10'");//retorna array con los motivos detalles
                                 $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
                                 $cuenta = $titular->AcCuenta;
 
@@ -81,8 +90,17 @@ class ApiController extends \Phalcon\Mvc\Controller
                                     'listMotivosDetalles' => $listMotivosDetalles,
                                     'listMotivos' => $listMotivos,
                                     'listPreferencias' => $listPreferencias,
-                                    'listTipoMedicamentos' => $listTipoMedicamentos,
-                                    'listMedicamentos' => $listMedicamentos,
+                                    'list' => $listTipoMedicamentos,
+                                    'habitos' => $habitos,
+                                    'actividad' => $actividad,
+                                    'pasatiempos' => $pasatiempo,
+                                    'alimentacion' => $alimentacion,
+                                    'alergias' => $alergias,
+                                    'vacunas' => $vacunas,
+                                    'discapacidad' => $discapacidad,
+                                    'hospitalizacion' => $hospitalizacion,
+                                    'operacion' => $operacion,
+                                    'enfermedad' => $enfermedad,
                                     'cuenta' => $cuenta
                                 ];
 
