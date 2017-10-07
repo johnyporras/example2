@@ -14,34 +14,41 @@ class RegistroController extends \Phalcon\Mvc\Controller
     {
         $response = $this->response;
         $request = $this->request;
-        if($codigo->codTarjeta!="")
+        
+        //var_dump($request->get('codTarjeta'));die();
+        
+        if($request->get('codTarjeta')!="")
         {    
-            $tarjeta = hash('sha256',sha1(md5($codigo->codTarjeta)));
+            $tarjeta = hash('sha256',sha1(md5($request->get('codTarjeta'))));
+           // die($tarjeta);
             $rsTarjeta = Tarjetas::findFirst([//obtiene el array filtrado
                 'conditions' => 'codigo_tarjeta = :value:',
                 'bind' => [
                     'value' =>$tarjeta
                 ]
             ]);
+           // var_dump($rsTarjeta);die();
             
-            if($rsTarjeta->count()>0)
+            if($rsTarjeta!==false)
             {
                 if($rsTarjeta->activada=="N")
                 {
                     $rsCuenta = AcCuenta::findFirst([//obtiene el array filtrado
-                        'conditions' => 'codigo_tarjeta = :value:',
+                        'conditions' => 'codigo_cuenta = :value:',
                         'bind' => [
-                            'value' =>$codigo->codTarjeta
+                            'value' =>$request->get('codTarjeta')
                         ]
                     ]);
                     
-                    if($rsCuenta->count()>0)
+                    if($rsCuenta!==false)
                     {
                         if ($rsCuenta->estatus == 5 ) {
                             // Verifico que tenga algun afiliado
-                            if ($rsCuenta->afiliado !== null) {
+                            if ($rsCuenta->AcAfiliados !== false) {
+                                
+                              //  var_dump($rsCuenta->AcAfiliados->id);die();
                                 // Elimino usuario si tiene un usuario generado
-                                $user = User::findFirst([//obtiene el array filtrado
+                                $user = Users::findFirst([//obtiene el array filtrado
                                     'conditions' => 'detalles_usuario_id = :value:',
                                     'bind' => [
                                         'value' =>$rsCuenta->AcAfiliados->id
@@ -52,18 +59,22 @@ class RegistroController extends \Phalcon\Mvc\Controller
                                     $user->delete();
                                 }
                                 // Elimino el afiliado
-                                $cuenta->AcAfiliados->delete();
+                                $rsCuenta->AcAfiliados->delete();
                             }
                             // Elimino la cuenta y planes asociados
-                            $cuenta->cuentaPlan->delete();
-                            $cuenta->delete();
+                            if($rsCuenta->AcCuentaplan!==false)
+                            {
+                                $rsCuenta->AcCuentaplan->delete();
+                            }
+                            
+                            $rsCuenta->delete();
                             // Guardo la session codigo
                           
                             
                             // Guardo el valor del formulario para comparar
-                            $code = substr($codigo->codTarjeta, 2, 3);
+                            $code = substr($request->get('codTarjeta'), 2, 3);
                             // tipo de plan dependiendo de codigo
-                            $plan = substr($codigo->codTarjeta, 0, 2);
+                            $plan = substr($request->get('codTarjeta'), 0, 2);
                             
                             // Selecciono producto dependiendo del codigo
                             if ($plan == 90 || $plan == 40) {
@@ -84,7 +95,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
                             
                             $mensaje="cuenta creada";
                             $arrDatos["terminos"]=$terminos;
-                            $arrDatos["tplan"]=$tplan;
+                            $arrDatos["plan"]=$tplan;
                             
                           /*  Session::set('terminos', [
                                 'code' => $terminos->codigo,
@@ -94,7 +105,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
                             
                           }
                             
-                            if ( $cuenta->estatus == 2 ) {
+                          if ( $rsCuenta->estatus == 2 ) {
                                 $mensaje="cuenta creada";
                                 $arrDatos="";
                                 //$arrDatos["terminos"]=$terminos;
@@ -109,9 +120,9 @@ class RegistroController extends \Phalcon\Mvc\Controller
                     }
                     else
                     {
-                        $code = substr($codigo->codTarjeta, 2, 3);
+                        $code = substr($request->get('codTarjeta'), 2, 3);
                         // tipo de plan dependiendo de codigo
-                        $plan = substr($codigo->codTarjeta, 0, 2);
+                        $plan = substr($request->get('codTarjeta'), 0, 2);
                         
                         // Selecciono producto dependiendo del codigo
                         if ($plan == 90 || $plan == 40) {
@@ -132,7 +143,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
                         
                         $mensaje="cuenta creada";
                         $arrDatos["terminos"]=$terminos;
-                        $arrDatos["tplan"]=$tplan;
+                        $arrDatos["plan"]=$tplan;
                         
                     }
                     
@@ -182,33 +193,30 @@ class RegistroController extends \Phalcon\Mvc\Controller
     	
     }
     
-    public function searchExamenesAction()//metodo del controlador que retorna un array filtrado a traves de la variable post 'id', no requiere token de validacion...ruta de acceso '/estado-search' via post
+    
+    public function checkTerminos()
     {
-       
+        
         $response = $this->response;
         $request = $this->request;
-        
-        $historial = HistorialMedico::findFirst($request->get('idHistorial'));
-        
-        $examenes = $historial->HistorialExamenes;
-        //var_dump($res);
-        foreach ($examenes as $item ){
+        // Envio codigo de tarjeta seleccionada
+           // $codigo = chunk_split(Session::get('codigo'),4);
+            // Retorno los terminos..
+            //return response()->json(['codigo' => $codigo, 'plan' => Session::get('plan')]);  
             
-            $this->_listExam[] = $item;
-            
-        }
-        
-        
+        $mensaje="operacion realizada con exito";
         $status = 200;
         $msnStatus = 'OK';
         $this->_data = [
-            "examanes" => $this->_listExam
+           ""
         ];//arra enviado a la app
+        
         $this->_mensajes = [
-            "msnConsult" => 'Consulta relizada con exito',
+            "msnConsult" => $mensaje,
             "msnHeaders" => true,//el header de autrización esta ausente
             "msnInvalid" => false
         ];
+        
         
         $response->setJsonContent([
             "status" => $status,
@@ -218,8 +226,238 @@ class RegistroController extends \Phalcon\Mvc\Controller
         $response->setStatusCode($status, $msnStatus);
         $response->send();
         
-        $this->view->disable();
+            $this->view->disable();
+    }
+    
+    
+    
+    
+    public function crearCuenta()
+    {
         
+        $response = $this->response;
+        $request = $this->request;
+        
+        $datos="";
+        if ($request->get('codigo')!="")
+        {
+            // 4 sera el producto a-member y el 9 sera el producto a-card
+            $code = substr($request->get('codigo'), 0, 2);
+            // Selecciono producto dependiendo del codigo
+            if ($code == 90 || $code == 40) {
+                // Producto a-card / a-member
+                $producto = ($code == 90)?1:3;
+            } else {
+                // producto a-doctor
+                $producto = 2;
+            }
+        }
+        
+        
+        try
+        {
+            $oCuenta = new AcCuenta();
+            $oCuenta->codigo_cuenta=$request->get('codigo');
+            $oCuenta->fecha= date("Y-m-d");
+            $oCuenta->producto= $producto;
+            $oCuenta->producto= 5;
+            $oCuenta->acepto_terminos=date("Y-m-d");;
+            if($oCuenta->save())
+            {
+                $oCuentaPlan = new AcCuentaPlan();
+                $oCuentaPlan->id_cuenta=$oCuenta->id;
+                $oCuentaPlan->id_plan=substr($request->get('codigo'), 0, 2);
+                $oCuentaPlan->save();
+                
+                if($request->plan==8)
+                {
+                    
+                    $oMascota=new Mascota();
+                    $oMascota->cuenta_id=$oCuenta->id;
+                    $oMascota->tamano_id=$request->get("tamano");
+                    $oMascota->nombre=$request->get("nombre");
+                    $oMascota->raza=$request->get("raza");
+                    $oMascota->color_pelage=$request->get("color");
+                    $oMascota->edad=$request->get("edad");
+                    $oMascota->fecha=$request->get("fmascota");
+                    $oMascota->tipo=$request->get("tipo");
+                    $oMascota->save();  
+                }
+                
+  
+                $datos["idcuenta"]=$oCuenta->id;
+                
+                
+                $mensaje="operacion realizada con exito";
+            }
+            
+        }
+        catch(QueryException $e)
+        {
+            return response()->json(['error' => '¡Ocurrio un error al generar cuenta!',
+                'data' => $e ]);
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        $status = 200;
+        $msnStatus = 'OK';
+        $this->_data = [
+            $datos
+        ];//arra enviado a la app
+        
+        $this->_mensajes = [
+            "msnConsult" => $mensaje,
+            "msnHeaders" => true,//el header de autrización esta ausente
+            "msnInvalid" => false
+        ];
+        
+        
+        $response->setJsonContent([
+            "status" => $status,
+            "mensajes" => $this->_mensajes,
+            "data" => $this->_data,
+        ]);
+        $response->setStatusCode($status, $msnStatus);
+        $response->send();
+        $this->view->disable();
+    }
+    
+    public function crearAfiliado()
+    {
+        
+        $response = $this->response;
+        $request = $this->request;
+        
+        if ($request->get('cuenta')!="")
+        {
+            
+            $datos="";
+            $emailAf = AcAfiliado::where('email','=', $request->correo)->first();
+            $emailUser = User::where('email','=', $request->correo)->first();
+            $cedulaAf = AcAfiliado::where('cedula','=', $request->cedula)->first();
+            //Guardo variables para embarazo
+            $embarazo = $request->get('embarazo');
+            
+            if ($emailAf != null || $emailUser != null){
+                return response()->json(['error' => 'El Correo que ingreso ya esta en uso']);
+            }
+            
+            if($cedulaAf != null){
+                return response()->json(['error' => 'La cédula que ingreso ya existe en el sistema']);
+            }
+            
+            
+            $emailAf = AcAfiliado::findFirst([//obtiene el array filtrado
+                'conditions' => 'email = :value:',
+                'bind' => [
+                    'value' =>$request->get("correo")
+                ]
+            ]);
+            
+            $emailUser = User::findFirst([//obtiene el array filtrado
+                'conditions' => 'email = :value:',
+                'bind' => [
+                    'value' =>$request->get("correo")
+                ]
+            ]);
+            
+            
+            $cedulaAf = AcAfiliado::findFirst([//obtiene el array filtrado
+                'conditions' => 'cedula = :value:',
+                'bind' => [
+                    'value' =>$request->get("cedula")
+                ]
+            ]);
+            
+            $embarazo = ($request->get("cedula")) ? Session::get('embarazo') : 'N';
+            
+            if ($emailAf != false || $emailUser != false)
+            {
+                $mensaje = 'El Correo que ingreso ya esta en uso';
+            }
+            elseif($cedulaAf != false)
+            {
+                $mensaje = 'La cédula que ingreso ya existe en el sistema';
+            }
+            else
+            {
+            
+                try
+                {
+                    $afiliado = AcAfiliado::create([
+                        'cedula'    => $request->cedula,
+                        'nombre'    => $request->nombre,
+                        'apellido'  => $request->apellido,
+                        'fecha_nacimiento' => $request->nacimiento,
+                        'email'     => $request->correo,
+                        'sexo'      => $request->sexo,
+                        'telefono'  => $request->telefono,
+                        'id_cuenta' => Session::get('cuenta')->id,
+                        'id_estado' => $request->estado,
+                        'ciudad'    => $request->ciudad,
+                        'embarazada' => $embarazo,
+                        'tiempo_gestacion' => Session::get('semanas')
+                    ]);
+                    
+                    // Guardo la session cuenta
+                    Session::set('afiliado', $afiliado);
+                    // borro la session cuenta
+                    Session::forget('embarazo');
+                    Session::forget('semanas');
+                    // Retorno mensaje de sastifactorio
+                    return response()->json(['success' => 'Afiliado creado Sastifactorimente']);
+                    $oAfiliado= new AcAfiliado();
+                    $oAfiliado->cedula = $request->get('cedula');
+                    $oAfiliado->nombre = $request->get('nombre');
+                    $oAfiliado->apellido = $request->get('apellido');
+                    $oAfiliado->fecha_nacimiento = $request->get('nacimiento');
+                    $oAfiliado->email = $request->get('email');
+                    $oAfiliado->sexo = $request->get('sexo');
+                    $oAfiliado->telefono = $request->get('telefono');
+                    $oAfiliado->id_cuenta = $request->get('cuenta');
+                    $oAfiliado->id_estado = $request->get('estado');
+                    $oAfiliado->ciudad = $request->get('ciudad');
+                    $oAfiliado->embarazada = $request->get('embarazo');
+                    $oAfiliado->tiempo_gestacion = $request->get('semanas');
+                    $oAfiliado->save();
+                    $datos["afiliado"] =$oAfiliado->id;
+                    $mensaje="La operacion se realiz� conexito";
+                }
+                catch(QueryException $e)
+                {
+                    $mensaje='¡Ocurrio un error al generar cuenta!';
+                }
+        
+           }
+        
+        
+        $status = 200;
+        $msnStatus = 'OK';
+        $this->_data = [
+            $datos
+        ];//arra enviado a la app
+        
+        $this->_mensajes = [
+            "msnConsult" => $mensaje,
+            "msnHeaders" => true,//el header de autrización esta ausente
+            "msnInvalid" => false
+        ];
+        
+        
+        $response->setJsonContent([
+            "status" => $status,
+            "mensajes" => $this->_mensajes,
+            "data" => $this->_data,
+        ]);
+        $response->setStatusCode($status, $msnStatus);
+        $response->send();
+        $this->view->disable();
     }
     
     public function incHistorialAction()
