@@ -123,7 +123,7 @@ class ApiController extends \Phalcon\Mvc\Controller
                                     "msnConsult" => 'Usted se encuentra en estado inactivo',
                                 ];
 
-                            } 
+                            }
 
                         }else{//en caso de que el password enviado por el usuario no coincida con el de la base de datos
 
@@ -530,7 +530,7 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                   //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
-                  $token = [//array que sera encriptado para ser enviado a la app
+                  $newToken = [//array que sera encriptado para ser enviado a la app
                       'user' => $auth,
                       'titular' => $titular,
                       'estados' => $estados,
@@ -670,7 +670,7 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                   //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
-                  $token = [//array que sera encriptado para ser enviado a la app
+                  $newToken = [//array que sera encriptado para ser enviado a la app
                       'user' => $auth,
                       'titular' => $titular,
                       'estados' => $estados,
@@ -856,7 +856,7 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                   //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
-                  $token = [//array que sera encriptado para ser enviado a la app
+                  $newToken = [//array que sera encriptado para ser enviado a la app
                       'user' => $auth,
                       'titular' => $titular,
                       'estados' => $estados,
@@ -1003,7 +1003,7 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                   //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
-                  $token = [//array que sera encriptado para ser enviado a la app
+                  $newToken = [//array que sera encriptado para ser enviado a la app
                       'user' => $auth,
                       'titular' => $titular,
                       'estados' => $estados,
