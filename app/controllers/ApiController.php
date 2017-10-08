@@ -123,7 +123,7 @@ class ApiController extends \Phalcon\Mvc\Controller
                                     "msnConsult" => 'Usted se encuentra en estado inactivo',
                                 ];
 
-                            }
+                            } 
 
                         }else{//en caso de que el password enviado por el usuario no coincida con el de la base de datos
 
@@ -232,36 +232,55 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                             if( $user->active == 'S' ){//si esta activo creamos el token de sesión encriptado para el usuario con sus datos para ser enviados a la app
 
-                                $titular = AcAfiliados::findFirstById($user->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
-                                $estados = AcEstados::find();//retorna array con los estados
-                                $estado = $titular->AcEstados;//retorna datos del estado
-                                $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
-                                $documentos = $titular->AcDocumentos;//retorna array con los documentos
-                                $listMotivos = Motivos::find();//retorna array con los motivos
-                                $listPreferencias = Preferencias::find();//retorna array con los preferencias
-                                $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
-                                $contactos = $titular->Contactos;//retorna array con los contactos
-                                $listMotivosDetalles = $titular->MotivoDetalles;//retorna array con los motivos detalles
-                                $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
-                                $cuenta = $titular->AcCuenta;
+                              $titular = AcAfiliados::findFirstById($user->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
+                              $estados = AcEstados::find();//retorna array con los estados
+                              $estado = $titular->AcEstados;//retorna datos del estado
+                              $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
+                              $documentos = $titular->AcDocumentos;//retorna array con los documentos
+                              $listMotivos = Motivos::find();//retorna array con los motivos
+                              $listPreferencias = Preferencias::find();//retorna array con los preferencias
+                              $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
+                              $contactos = $titular->Contactos;//retorna array con los contactos
+                              $habitos = $titular->getMotivoDetalles("id_motivo = '1'");//retorna array con los motivos detalles
+                              $actividad = $titular->getMotivoDetalles("id_motivo = '2'");//retorna array con los motivos detalles
+                              $pasatiempo = $titular->getMotivoDetalles("id_motivo = '3'");//retorna array con los motivos detalles
+                              $alimentacion = $titular->getMotivoDetalles("id_motivo = '4'");//retorna array con los motivos detalles
+                              $alergias = $titular->getMotivoDetalles("id_motivo = '5'");//retorna array con los motivos detalles
+                              $vacunas = $titular->getMotivoDetalles("id_motivo = '6'");//retorna array con los motivos detalles
+                              $discapacidad = $titular->getMotivoDetalles("id_motivo = '7'");//retorna array con los motivos detalles
+                              $hospitalizacion = $titular->getMotivoDetalles("id_motivo = '8'");//retorna array con los motivos detalles
+                              $operacion = $titular->getMotivoDetalles("id_motivo = '9'");//retorna array con los motivos detalles
+                              $enfermedad = $titular->getMotivoDetalles("id_motivo = '10'");//retorna array con los motivos detalles
+                              $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+                              $cuenta = $titular->AcCuenta;
 
-                                //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+                              //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
-                                $token = [//array que sera encriptado para ser enviado a la app
-                                    'user' => $user,
-                                    'titular' => $titular,
-                                    'estados' => $estados,
-                                    'estado' => $estado,
-                                    'tipoDocuments' => $tipoDocuments,
-                                    'documentos' => $documentos,
-                                    'contactos' => $contactos,
-                                    'listMotivosDetalles' => $listMotivosDetalles,
-                                    'listMotivos' => $listMotivos,
-                                    'listPreferencias' => $listPreferencias,
-                                    'listTipoMedicamentos' => $listTipoMedicamentos,
-                                    'listMedicamentos' => $listMedicamentos,
-                                    'cuenta' => $cuenta
-                                ];
+                              $token = [//array que sera encriptado para ser enviado a la app
+                                  'user' => $user,
+                                  'titular' => $titular,
+                                  'estados' => $estados,
+                                  'estado' => $estado,
+                                  'tipoDocuments' => $tipoDocuments,
+                                  'documentos' => $documentos,
+                                  'contactos' => $contactos,
+                                  'listMotivosDetalles' => $listMotivosDetalles,
+                                  'listMotivos' => $listMotivos,
+                                  'listPreferencias' => $listPreferencias,
+                                  'list' => $listTipoMedicamentos,
+                                  'listMedicamentos' => $listMedicamentos,
+                                  'habitos' => $habitos,
+                                  'actividad' => $actividad,
+                                  'pasatiempos' => $pasatiempo,
+                                  'alimentacion' => $alimentacion,
+                                  'alergias' => $alergias,
+                                  'vacunas' => $vacunas,
+                                  'discapacidad' => $discapacidad,
+                                  'hospitalizacion' => $hospitalizacion,
+                                  'operacion' => $operacion,
+                                  'enfermedad' => $enfermedad,
+                                  'cuenta' => $cuenta
+                              ];
 
                                 $status = 200;
                                 $msnStatus = 'OK';
@@ -487,35 +506,55 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                 if($afiliado->save()){
 
-                    $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
-                    $estados = AcEstados::find();//retorna array con los estados
-                    $estado = $titular->AcEstados;//retorna datos del estado
-                    $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
-                    $documentos = $titular->AcDocumentos;//retorna array con los documentos
-                    $listMotivos = Motivos::find();//retorna array con los motivos
-                    $listPreferencias = Preferencias::find();//retorna array con los preferencias
-                    $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
-                    $contactos = $titular->Contactos;//retorna array con los contactos
-                    $listMotivosDetalles = $titular->MotivoDetalles;//retorna array con los motivos detalles
-                    $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
-                    $cuenta = $titular->AcCuenta;
-                    //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+                  $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
+                  $estados = AcEstados::find();//retorna array con los estados
+                  $estado = $titular->AcEstados;//retorna datos del estado
+                  $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
+                  $documentos = $titular->AcDocumentos;//retorna array con los documentos
+                  $listMotivos = Motivos::find();//retorna array con los motivos
+                  $listPreferencias = Preferencias::find();//retorna array con los preferencias
+                  $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
+                  $contactos = $titular->Contactos;//retorna array con los contactos
+                  $habitos = $titular->getMotivoDetalles("id_motivo = '1'");//retorna array con los motivos detalles
+                  $actividad = $titular->getMotivoDetalles("id_motivo = '2'");//retorna array con los motivos detalles
+                  $pasatiempo = $titular->getMotivoDetalles("id_motivo = '3'");//retorna array con los motivos detalles
+                  $alimentacion = $titular->getMotivoDetalles("id_motivo = '4'");//retorna array con los motivos detalles
+                  $alergias = $titular->getMotivoDetalles("id_motivo = '5'");//retorna array con los motivos detalles
+                  $vacunas = $titular->getMotivoDetalles("id_motivo = '6'");//retorna array con los motivos detalles
+                  $discapacidad = $titular->getMotivoDetalles("id_motivo = '7'");//retorna array con los motivos detalles
+                  $hospitalizacion = $titular->getMotivoDetalles("id_motivo = '8'");//retorna array con los motivos detalles
+                  $operacion = $titular->getMotivoDetalles("id_motivo = '9'");//retorna array con los motivos detalles
+                  $enfermedad = $titular->getMotivoDetalles("id_motivo = '10'");//retorna array con los motivos detalles
+                  $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+                  $cuenta = $titular->AcCuenta;
 
-                    $newToken = [//array que sera encriptado para ser enviado a la app
-                        'user' => $auth,
-                        'titular' => $titular,
-                        'estados' => $estados,
-                        'estado' => $estado,
-                        'tipoDocuments' => $tipoDocuments,
-                        'documentos' => $documentos,
-                        'contactos' => $contactos,
-                        'listMotivosDetalles' => $listMotivosDetalles,
-                        'listMotivos' => $listMotivos,
-                        'listPreferencias' => $listPreferencias,
-                        'listTipoMedicamentos' => $listTipoMedicamentos,
-                        'listMedicamentos' => $listMedicamentos,
-                        'cuenta' => $cuenta
-                    ];
+                  //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+
+                  $token = [//array que sera encriptado para ser enviado a la app
+                      'user' => $auth,
+                      'titular' => $titular,
+                      'estados' => $estados,
+                      'estado' => $estado,
+                      'tipoDocuments' => $tipoDocuments,
+                      'documentos' => $documentos,
+                      'contactos' => $contactos,
+                      'listMotivosDetalles' => $listMotivosDetalles,
+                      'listMotivos' => $listMotivos,
+                      'listPreferencias' => $listPreferencias,
+                      'list' => $listTipoMedicamentos,
+                      'listMedicamentos' => $listMedicamentos,
+                      'habitos' => $habitos,
+                      'actividad' => $actividad,
+                      'pasatiempos' => $pasatiempo,
+                      'alimentacion' => $alimentacion,
+                      'alergias' => $alergias,
+                      'vacunas' => $vacunas,
+                      'discapacidad' => $discapacidad,
+                      'hospitalizacion' => $hospitalizacion,
+                      'operacion' => $operacion,
+                      'enfermedad' => $enfermedad,
+                      'cuenta' => $cuenta
+                  ];
 
                     $status = 200;
                     $msnStatus = 'OK';
@@ -607,35 +646,55 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                 if($contact->save()){
 
-                    $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
-                    $estados = AcEstados::find();//retorna array con los estados
-                    $estado = $titular->AcEstados;//retorna datos del estado
-                    $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
-                    $documentos = $titular->AcDocumentos;//retorna array con los documentos
-                    $listMotivos = Motivos::find();//retorna array con los motivos
-                    $listPreferencias = Preferencias::find();//retorna array con los preferencias
-                    $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
-                    $contactos = $titular->Contactos;//retorna array con los contactos
-                    $listMotivosDetalles = $titular->MotivoDetalles;//retorna array con los motivos detalles
-                    $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
-                    $cuenta = $titular->AcCuenta;
-                    //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+                  $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
+                  $estados = AcEstados::find();//retorna array con los estados
+                  $estado = $titular->AcEstados;//retorna datos del estado
+                  $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
+                  $documentos = $titular->AcDocumentos;//retorna array con los documentos
+                  $listMotivos = Motivos::find();//retorna array con los motivos
+                  $listPreferencias = Preferencias::find();//retorna array con los preferencias
+                  $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
+                  $contactos = $titular->Contactos;//retorna array con los contactos
+                  $habitos = $titular->getMotivoDetalles("id_motivo = '1'");//retorna array con los motivos detalles
+                  $actividad = $titular->getMotivoDetalles("id_motivo = '2'");//retorna array con los motivos detalles
+                  $pasatiempo = $titular->getMotivoDetalles("id_motivo = '3'");//retorna array con los motivos detalles
+                  $alimentacion = $titular->getMotivoDetalles("id_motivo = '4'");//retorna array con los motivos detalles
+                  $alergias = $titular->getMotivoDetalles("id_motivo = '5'");//retorna array con los motivos detalles
+                  $vacunas = $titular->getMotivoDetalles("id_motivo = '6'");//retorna array con los motivos detalles
+                  $discapacidad = $titular->getMotivoDetalles("id_motivo = '7'");//retorna array con los motivos detalles
+                  $hospitalizacion = $titular->getMotivoDetalles("id_motivo = '8'");//retorna array con los motivos detalles
+                  $operacion = $titular->getMotivoDetalles("id_motivo = '9'");//retorna array con los motivos detalles
+                  $enfermedad = $titular->getMotivoDetalles("id_motivo = '10'");//retorna array con los motivos detalles
+                  $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+                  $cuenta = $titular->AcCuenta;
 
-                    $newToken = [//array que sera encriptado para ser enviado a la app
-                        'user' => $auth,
-                        'titular' => $titular,
-                        'estados' => $estados,
-                        'estado' => $estado,
-                        'tipoDocuments' => $tipoDocuments,
-                        'documentos' => $documentos,
-                        'contactos' => $contactos,
-                        'listMotivosDetalles' => $listMotivosDetalles,
-                        'listMotivos' => $listMotivos,
-                        'listPreferencias' => $listPreferencias,
-                        'listTipoMedicamentos' => $listTipoMedicamentos,
-                        'listMedicamentos' => $listMedicamentos,
-                        'cuenta' => $cuenta
-                    ];
+                  //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+
+                  $token = [//array que sera encriptado para ser enviado a la app
+                      'user' => $auth,
+                      'titular' => $titular,
+                      'estados' => $estados,
+                      'estado' => $estado,
+                      'tipoDocuments' => $tipoDocuments,
+                      'documentos' => $documentos,
+                      'contactos' => $contactos,
+                      'listMotivosDetalles' => $listMotivosDetalles,
+                      'listMotivos' => $listMotivos,
+                      'listPreferencias' => $listPreferencias,
+                      'list' => $listTipoMedicamentos,
+                      'listMedicamentos' => $listMedicamentos,
+                      'habitos' => $habitos,
+                      'actividad' => $actividad,
+                      'pasatiempos' => $pasatiempo,
+                      'alimentacion' => $alimentacion,
+                      'alergias' => $alergias,
+                      'vacunas' => $vacunas,
+                      'discapacidad' => $discapacidad,
+                      'hospitalizacion' => $hospitalizacion,
+                      'operacion' => $operacion,
+                      'enfermedad' => $enfermedad,
+                      'cuenta' => $cuenta
+                  ];
 
                     $status = 200;
                     $msnStatus = 'OK';
@@ -773,36 +832,55 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                 if($pasatiempo->save()){
 
-                    $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
-                    $estados = AcEstados::find();//retorna array con los estados
-                    $estado = $titular->AcEstados;//retorna datos del estado
-                    $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
-                    $documentos = $titular->AcDocumentos;//retorna array con los documentos
-                    $listMotivos = Motivos::find();//retorna array con los motivos
-                    $listPreferencias = Preferencias::find();//retorna array con los preferencias
-                    $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
-                    $contactos = $titular->Contactos;//retorna array con los contactos
-                    $listMotivosDetalles = $titular->MotivoDetalles;//retorna array con los motivos detalles
-                    $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
-                    $cuenta = $titular->AcCuenta;
-                    //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+                  $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
+                  $estados = AcEstados::find();//retorna array con los estados
+                  $estado = $titular->AcEstados;//retorna datos del estado
+                  $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
+                  $documentos = $titular->AcDocumentos;//retorna array con los documentos
+                  $listMotivos = Motivos::find();//retorna array con los motivos
+                  $listPreferencias = Preferencias::find();//retorna array con los preferencias
+                  $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
+                  $contactos = $titular->Contactos;//retorna array con los contactos
+                  $habitos = $titular->getMotivoDetalles("id_motivo = '1'");//retorna array con los motivos detalles
+                  $actividad = $titular->getMotivoDetalles("id_motivo = '2'");//retorna array con los motivos detalles
+                  $pasatiempo = $titular->getMotivoDetalles("id_motivo = '3'");//retorna array con los motivos detalles
+                  $alimentacion = $titular->getMotivoDetalles("id_motivo = '4'");//retorna array con los motivos detalles
+                  $alergias = $titular->getMotivoDetalles("id_motivo = '5'");//retorna array con los motivos detalles
+                  $vacunas = $titular->getMotivoDetalles("id_motivo = '6'");//retorna array con los motivos detalles
+                  $discapacidad = $titular->getMotivoDetalles("id_motivo = '7'");//retorna array con los motivos detalles
+                  $hospitalizacion = $titular->getMotivoDetalles("id_motivo = '8'");//retorna array con los motivos detalles
+                  $operacion = $titular->getMotivoDetalles("id_motivo = '9'");//retorna array con los motivos detalles
+                  $enfermedad = $titular->getMotivoDetalles("id_motivo = '10'");//retorna array con los motivos detalles
+                  $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+                  $cuenta = $titular->AcCuenta;
 
-                    $newToken = [//array que sera encriptado para ser enviado a la app
-                        'user' => $auth,
-                        'titular' => $titular,
-                        'estados' => $estados,
-                        'estado' => $estado,
-                        'tipoDocuments' => $tipoDocuments,
-                        'documentos' => $documentos,
-                        'contactos' => $contactos,
-                        'listMotivosDetalles' => $listMotivosDetalles,
-                        'listMotivos' => $listMotivos,
-                        'listPreferencias' => $listPreferencias,
-                        'listTipoMedicamentos' => $listTipoMedicamentos,
-                        'listMedicamentos' => $listMedicamentos,
-                        'cuenta' => $cuenta
-                    ];
+                  //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
+                  $token = [//array que sera encriptado para ser enviado a la app
+                      'user' => $auth,
+                      'titular' => $titular,
+                      'estados' => $estados,
+                      'estado' => $estado,
+                      'tipoDocuments' => $tipoDocuments,
+                      'documentos' => $documentos,
+                      'contactos' => $contactos,
+                      'listMotivosDetalles' => $listMotivosDetalles,
+                      'listMotivos' => $listMotivos,
+                      'listPreferencias' => $listPreferencias,
+                      'list' => $listTipoMedicamentos,
+                      'listMedicamentos' => $listMedicamentos,
+                      'habitos' => $habitos,
+                      'actividad' => $actividad,
+                      'pasatiempos' => $pasatiempo,
+                      'alimentacion' => $alimentacion,
+                      'alergias' => $alergias,
+                      'vacunas' => $vacunas,
+                      'discapacidad' => $discapacidad,
+                      'hospitalizacion' => $hospitalizacion,
+                      'operacion' => $operacion,
+                      'enfermedad' => $enfermedad,
+                      'cuenta' => $cuenta
+                  ];
                     $status = 200;
                     $msnStatus = 'OK';
                     $this->_data = ["consulta" => true, "token" => JWT::encode($newToken,"Atiempo-api-rest")];
@@ -901,35 +979,55 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                 if($medicamento->save()){
 
-                    $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
-                    $estados = AcEstados::find();//retorna array con los estados
-                    $estado = $titular->AcEstados;//retorna datos del estado
-                    $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
-                    $documentos = $titular->AcDocumentos;//retorna array con los documentos
-                    $listMotivos = Motivos::find();//retorna array con los motivos
-                    $listPreferencias = Preferencias::find();//retorna array con los preferencias
-                    $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
-                    $contactos = $titular->Contactos;//retorna array con los contactos
-                    $listMotivosDetalles = $titular->MotivoDetalles;//retorna array con los motivos detalles
-                    $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
-                    $cuenta = $titular->AcCuenta;
-                    //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+                  $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
+                  $estados = AcEstados::find();//retorna array con los estados
+                  $estado = $titular->AcEstados;//retorna datos del estado
+                  $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
+                  $documentos = $titular->AcDocumentos;//retorna array con los documentos
+                  $listMotivos = Motivos::find();//retorna array con los motivos
+                  $listPreferencias = Preferencias::find();//retorna array con los preferencias
+                  $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
+                  $contactos = $titular->Contactos;//retorna array con los contactos
+                  $habitos = $titular->getMotivoDetalles("id_motivo = '1'");//retorna array con los motivos detalles
+                  $actividad = $titular->getMotivoDetalles("id_motivo = '2'");//retorna array con los motivos detalles
+                  $pasatiempo = $titular->getMotivoDetalles("id_motivo = '3'");//retorna array con los motivos detalles
+                  $alimentacion = $titular->getMotivoDetalles("id_motivo = '4'");//retorna array con los motivos detalles
+                  $alergias = $titular->getMotivoDetalles("id_motivo = '5'");//retorna array con los motivos detalles
+                  $vacunas = $titular->getMotivoDetalles("id_motivo = '6'");//retorna array con los motivos detalles
+                  $discapacidad = $titular->getMotivoDetalles("id_motivo = '7'");//retorna array con los motivos detalles
+                  $hospitalizacion = $titular->getMotivoDetalles("id_motivo = '8'");//retorna array con los motivos detalles
+                  $operacion = $titular->getMotivoDetalles("id_motivo = '9'");//retorna array con los motivos detalles
+                  $enfermedad = $titular->getMotivoDetalles("id_motivo = '10'");//retorna array con los motivos detalles
+                  $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+                  $cuenta = $titular->AcCuenta;
 
-                    $newToken = [//array que sera encriptado para ser enviado a la app
-                        'user' => $auth,
-                        'titular' => $titular,
-                        'estados' => $estados,
-                        'estado' => $estado,
-                        'tipoDocuments' => $tipoDocuments,
-                        'documentos' => $documentos,
-                        'contactos' => $contactos,
-                        'listMotivosDetalles' => $listMotivosDetalles,
-                        'listMotivos' => $listMotivos,
-                        'listPreferencias' => $listPreferencias,
-                        'listTipoMedicamentos' => $listTipoMedicamentos,
-                        'listMedicamentos' => $listMedicamentos,
-                        'cuenta' => $cuenta
-                    ];
+                  //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+
+                  $token = [//array que sera encriptado para ser enviado a la app
+                      'user' => $auth,
+                      'titular' => $titular,
+                      'estados' => $estados,
+                      'estado' => $estado,
+                      'tipoDocuments' => $tipoDocuments,
+                      'documentos' => $documentos,
+                      'contactos' => $contactos,
+                      'listMotivosDetalles' => $listMotivosDetalles,
+                      'listMotivos' => $listMotivos,
+                      'listPreferencias' => $listPreferencias,
+                      'list' => $listTipoMedicamentos,
+                      'listMedicamentos' => $listMedicamentos,
+                      'habitos' => $habitos,
+                      'actividad' => $actividad,
+                      'pasatiempos' => $pasatiempo,
+                      'alimentacion' => $alimentacion,
+                      'alergias' => $alergias,
+                      'vacunas' => $vacunas,
+                      'discapacidad' => $discapacidad,
+                      'hospitalizacion' => $hospitalizacion,
+                      'operacion' => $operacion,
+                      'enfermedad' => $enfermedad,
+                      'cuenta' => $cuenta
+                  ];
 
                     $status = 200;
                     $msnStatus = 'OK';
