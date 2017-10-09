@@ -505,7 +505,7 @@ class ApiController extends \Phalcon\Mvc\Controller
                       $af = 1;
                 }
 
-                if($request->has('password')){
+                /*if($request->has('password')){
                   $auth->password = $this->security->hash($request->getPost('password'));
                   $us = 1;
                 }
@@ -520,7 +520,7 @@ class ApiController extends \Phalcon\Mvc\Controller
                 if($request->has('pregunta_2')){
                   $auth->respuesta_2 = $this->security->hash($request->getPost('pregunta_2'));
                   $us = 1;
-                }
+                }*/
                 /*if($us == 1){
                   $auth->save();
                   $saved = 1;
