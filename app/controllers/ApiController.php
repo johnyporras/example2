@@ -505,19 +505,19 @@ class ApiController extends \Phalcon\Mvc\Controller
                 }
 
                 if($request->has('password')){
-                  $auth->password = $this->security->hash($request->has('password'));
+                  $auth->password = $this->security->hash($request->getPost('password'));
 
                 }
                 if($request->has('clave')){
-                  $auth->clave = $this->security->hash($request->has('clave'));
+                  $auth->clave = $this->security->hash($request->getPost('clave'));
 
                 }
                 if($request->has('pregunta_1')){
-                  $auth->pregunta_1 = $this->security->hash($request->has('pregunta_1'));
+                  $auth->pregunta_1 = $this->security->hash($request->getPost('pregunta_1'));
 
                 }
                 if($request->has('pregunta_2')){
-                  $auth->pregunta_2 = $this->security->hash($request->has('pregunta_2'));
+                  $auth->pregunta_2 = $this->security->hash($request->getPost('pregunta_2'));
 
                 }
 
