@@ -514,22 +514,22 @@ class ApiController extends \Phalcon\Mvc\Controller
                   $us = 1;
                 }
                 if($request->has('pregunta_1')){
-                  $auth->pregunta_1 = $this->security->hash($request->getPost('pregunta_1'));
+                  $auth->respuesta_1 = $this->security->hash($request->getPost('pregunta_1'));
                   $us = 1;
                 }
                 if($request->has('pregunta_2')){
-                  $auth->pregunta_2 = $this->security->hash($request->getPost('pregunta_2'));
+                  $auth->respuesta_2 = $this->security->hash($request->getPost('pregunta_2'));
                   $us = 1;
                 }
-                if($us == 1){
+                /*if($us == 1){
                   $auth->save();
                   $saved = 1;
                 }elseif($af == 1){
                   $afiliado->save();
                   $saved = 1;
                 }
-                if( $saved == 1 ){
-
+                if( $saved == 1 ){*/
+                if( $afiliado->save() ){
                   $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
                   $estados = AcEstados::find();//retorna array con los estados
                   $estado = $titular->AcEstados;//retorna datos del estado
