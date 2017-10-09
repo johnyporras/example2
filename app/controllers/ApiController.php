@@ -504,7 +504,24 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                 }
 
-                if($afiliado->save()){
+                if($request->has('password')){
+                  $auth->password = $this->security->hash($request->has('password'));
+
+                }
+                if($request->has('clave')){
+                  $auth->clave = $this->security->hash($request->has('clave'));
+
+                }
+                if($request->has('pregunta_1')){
+                  $auth->pregunta_1 = $this->security->hash($request->has('pregunta_1'));
+
+                }
+                if($request->has('pregunta_2')){
+                  $auth->pregunta_2 = $this->security->hash($request->has('pregunta_2'));
+
+                }
+
+                if($afiliado->save() || $auth->save(); ){
 
                   $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
                   $estados = AcEstados::find();//retorna array con los estados
