@@ -521,7 +521,7 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                 }
 
-                if($afiliado->save() || $auth->save() ){
+                if($afiliado->save() && $auth->save() ){
 
                   $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
                   $estados = AcEstados::find();//retorna array con los estados
