@@ -399,72 +399,71 @@ class ApiController extends \Phalcon\Mvc\Controller
             }else{
 
                 $afiliado = AcAfiliados::findFirstById($auth->detalles_usuario_id);
-                  $af = 0;
-                  $us = 0;
+
                 if( $request->has('nombre') ){
 
                     $afiliado->nombre = $request->getPost('nombre');
-                    $af = 1;
+
                 }
 
                 if( $request->has('apellido') ){
 
                     $afiliado->apellido = $request->getPost('apellido');
-                      $af = 1;
+
                 }
 
                 if( $request->has('email') ){
 
                     $afiliado->email = $request->getPost('email');
-                      $af = 1;
+
                 }
 
                 if( $request->has('cedula') ){
 
                     $afiliado->cedula = $request->getPost('cedula');
-                      $af = 1;
+
                 }
 
                 if( $request->has('fecha_nacimiento') ){
 
                     $afiliado->fecha_nacimiento = $request->getPost('fecha_nacimiento');
-                      $af = 1;
+
                 }
 
                 if( $request->has('ciudad') ){
 
                     $afiliado->ciudad = $request->getPost('ciudad');
-                      $af = 1;
+
                 }
 
                 if( $request->has('civil') ){
 
                     $afiliado->civil = $request->getPost('civil');
-                      $af = 1;
+
                 }
 
                 if( $request->has('hijos') ){
 
                     $afiliado->hijos = $request->getPost('hijos');
-                      $af = 1;
+
                 }
 
                 if( $request->has('telefono') ){
 
                     $afiliado->telefono = $request->getPost('telefono');
-                      $af = 1;
+
                 }
 
                 if( $request->has('ocupacion') ){
 
                     $afiliado->ocupacion = $request->getPost('ocupacion');
-                      $af = 1;
+
                 }
 
                 if( $request->has('idioma') ){
 
                     $afiliado->idioma = $request->getPost('idioma');
-                      $af = 1;
+
                 }
 
                 if( $request->has('id_estado') ){
@@ -472,64 +471,38 @@ class ApiController extends \Phalcon\Mvc\Controller
                     $std = AcEstados::findFirstByEstado($request->getPost('id_estado'));
 
                     $afiliado->id_estado = $std->id;
-                      $af = 1;
+
                 }
 
                 if( $request->has('sexo') ){
 
                     $afiliado->sexo = $request->getPost('sexo');
-                      $af = 1;
+
                 }
 
                 if( $request->has('altura') ){
 
                     $afiliado->altura = $request->getPost('altura');
-                      $af = 1;
+
                 }
 
                 if( $request->has('peso') ){
 
                     $afiliado->peso = $request->getPost('peso');
-                      $af = 1;
+
                 }
 
                 if( $request->has('lentes') ){
 
                     $afiliado->lentes = $request->getPost('lentes');
-                      $af = 1;
+
                 }
 
                 if( $request->has('grupo_sangre') ){
 
                     $afiliado->grupo_sangre = $request->getPost('grupo_sangre');
-                      $af = 1;
-                }
+                if($afiliado->save()){
 
-                /*if($request->has('password')){
-                  $auth->password = $this->security->hash($request->getPost('password'));
-                  $us = 1;
-                }
-                if($request->has('clave')){
-                  $auth->clave = $this->security->hash($request->getPost('clave'));
-                  $us = 1;
-                }
-                if($request->has('pregunta_1')){
-                  $auth->respuesta_1 = $this->security->hash($request->getPost('pregunta_1'));
-                  $us = 1;
-                }
-                if($request->has('pregunta_2')){
-                  $auth->respuesta_2 = $this->security->hash($request->getPost('pregunta_2'));
-                  $us = 1;
-                }*/
-                /*if($us == 1){
-                  $auth->save();
-                  $saved = 1;
-                }elseif($af == 1){
-                  $afiliado->save();
-                  $saved = 1;
-                }
-                if( $saved == 1 ){*/
-                if( $afiliado->save() ){
                   $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
                   $estados = AcEstados::find();//retorna array con los estados
                   $estado = $titular->AcEstados;//retorna datos del estado
