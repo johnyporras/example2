@@ -129,8 +129,13 @@ class HistorialMedicoController extends \Phalcon\Mvc\Controller
             {
                 $Detalle->examen=$Detalle->id.".png";
                 $Detalle->update();
+								if(strpos($image,"base64,") > 0){
+									$img_base64 = substr($item->base64,strpos($item->base64,"base64,")+7,strlen($item->base64));
+								}else{
+									$img_base64 = $item->base64;
+								}
                 $post = [
-                    'archivo' => $item->base64,
+                    'archivo' => $img_base64,
                     'codexamen'=>$Detalle->id
                 ];
 
