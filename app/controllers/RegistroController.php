@@ -390,28 +390,6 @@ class RegistroController extends \Phalcon\Mvc\Controller
             
                 try
                 {
-                    $afiliado = AcAfiliado::create([
-                        'cedula'    => $request->cedula,
-                        'nombre'    => $request->nombre,
-                        'apellido'  => $request->apellido,
-                        'fecha_nacimiento' => $request->nacimiento,
-                        'email'     => $request->correo,
-                        'sexo'      => $request->sexo,
-                        'telefono'  => $request->telefono,
-                        'id_cuenta' => Session::get('cuenta')->id,
-                        'id_estado' => $request->estado,
-                        'ciudad'    => $request->ciudad,
-                        'embarazada' => $embarazo,
-                        'tiempo_gestacion' => Session::get('semanas')
-                    ]);
-                    
-                    // Guardo la session cuenta
-                    Session::set('afiliado', $afiliado);
-                    // borro la session cuenta
-                    Session::forget('embarazo');
-                    Session::forget('semanas');
-                    // Retorno mensaje de sastifactorio
-                    return response()->json(['success' => 'Afiliado creado Sastifactorimente']);
                     $oAfiliado= new AcAfiliado();
                     $oAfiliado->cedula = $request->get('cedula');
                     $oAfiliado->nombre = $request->get('nombre');
@@ -459,111 +437,106 @@ class RegistroController extends \Phalcon\Mvc\Controller
         $response->send();
         $this->view->disable();
     }
+ }
+ 
     
-    public function incHistorialAction()
+    
+    public function crearUsuario()
     {
         $response = $this->response;
         $request = $this->request;
         
-        //var_dump($request->get());die();
-        
-        //$objDatos =  json_decode($request->get('obj'));
-        $objDatos =  $request->get('obj');
-        $oHistorial = new HistorialMedico();
-       // var_dump($objDatos);die();
-        $oHistorial->id_user = $objDatos->id_user;
-        $oHistorial->id_afiliado = $objDatos->id_afiliado;
-        $oHistorial->fecha = $objDatos->fecha;
-        $oHistorial->motivo = $objDatos->motivo;
-        $oHistorial->observaciones = $objDatos->observaciones;
-        $oHistorial->especialidad = $objDatos->especialidad;
-        $oHistorial->tratamiento = $objDatos->tratamiento;
-        $oHistorial->procedimiento = $objDatos->procedimiento;
-        $oHistorial->medico = $objDatos->medico;
-        $oHistorial->recomendaciones = $objDatos->recomendaciones;
-        $oHistorial->diagnostico = $objDatos->diagnostico;
-        $oHistorial->save();
-        
-        //aqui se mandan los detalles de los servicios que tienen que ver con la espacialidad, de igual forma estos valores los puedes chekr una vez se guarden
-        
-        foreach ($objDatos->detailExamen as $item )
+        if ($request->get('cuenta')!="" && $request->get('afiliado')!="")
         {
             
-            $Detalle = new HistorialExamenes();
-            $Detalle->id_historial = $oHistorial->id;
-            //$Detalle->examen = $item->examen;
-            if($Detalle->save())
-            {         
-                $Detalle->examen=$Detalle->id.".png";
-                $Detalle->update();
-                $post = [
-                    'archivo' => $item->base64,
-                    'codexamen'=>$Detalle->id
-                ];
+        
+       $oAfiliado = AcAfiliado::findFirstById($request->get('afiliado'));
+       $oCuenta = AcCuenta::findFirstById($request->get('cuenta'));
+ 
+       $user = User::findFirst([//obtiene el array filtrado
+           'conditions' => 'user = :value:',
+           'bind' => [
+               'value' =>$oAfiliado->email
+           ]
+       ]);
+       
+       
+       
+       
+        // Selecciono tipo de usuario dependiento del producto de la cuenta
+       $typeUser = ($oCuenta->id_producto == 1)?5:8;
+        
+        if($user == false)
+        {
+            
+            $name = $oAfiliado->nombre.' '.$oAfiliado->apellido;
+            
+            try{
+                //Genero el usuario
+                $oUser= User();
+                $oUser->name=$name;
+                $oUser->email=$oAfiliado->email;
+                $oUser->user=$oAfiliado->email;
+                $oUser->password=password_hash($request->get('password'), PASSWORD_BCRYPT);
+                $oUser->password=password_hash($request->get('clave'), PASSWORD_BCRYPT);
+                $oUser->department='cliente';
+                $oUser->type=$typeUser;
+                $oUser->active=false;
+                $oUser->pregunta1=false;
+                $oUser->pregunta1=request->get('pregunta1');
+                $oUser->pregunta2=request->get('pregunta2');
+                $oUser->respuesta1=password_hash($request->get('respuesta1'), PASSWORD_BCRYPT);
+                $oUser->respuesta2=password_hash($request->get('respuesta2'), PASSWORD_BCRYPT);
+                $oUser->confirm_token=str_random(100);
+                $oUser->confirm_token=str_random(100);
+                $oUser->detalles_usuario_id=request->get('afiliado');
+              
+                // Cambio estatus a pendiente de la cuenta a la espera de confirmación de correo
                 
-                $ch = curl_init('http://18.221.52.114/archivos/procesarArchivo');
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-                $resp = curl_exec($ch);
-                curl_close($ch);
+                $afiliado->cuenta->AcCuenta(['estatus' => 2]);
+                
+                //Guardo data para enviar el correo
+      
+                    $this->getDI()->getMail()->send(
+                        [
+                            $oAfiliado->email => $nombre
+                        ],
+                        "Registro",//subject
+                        'confirmRegistro',//templatename
+                        [
+                            'data' => [
+                                'name' => $oUser->->name,
+                                'email' => $oUser->->email,
+                                'confirm_token' => $oUser->confirm_token
+                            ]
+                        ]
+                    );
+                
+                
+                    $mensaje='proceso realizado con exito';
+                
+                    
+                    // Retorno mensaje de sastifactorio
+                    
+                    
+            }catch(QueryException $e){
+                $mensaje='proceso fallido';;
             }
             
         }
+        else
+        {
+            $mensaje='El usuario ya existe en el sistema';
         
-              
+        }
+        else
+        {
+            $mensaje='Afiliado Invalido intente nuevamente';
+        }
+        
         $status = 200;
         $msnStatus = 'OK';
-        $this->_data = $oHistorial->id;//se envia la clave generada para la cita
-        $this->_mensajes = [
-            "msnConsult" => 'proceso realizo con exito',
-            "msnHeaders" => true,//el header de autrización esta ausente
-            "msnInvalid" => false
-        ];
-        
-       // var_dump($response);die();
-
-        $response->setJsonContent([
-            "status" => $status,
-            "mensajes" => $this->_mensajes,
-            "data" => $this->_data,
-        ]);
-        $response->setStatusCode($status, $msnStatus);
-        $response->send();
-        $this->view->disable();
-
-        
-    }
-    
-    
-    public function actHistorialAction()
-    {
-        $response = $this->response;
-        $request = $this->request;
-        
-        //var_dump($request->get());die();
-        
-       
-        $objDatos =  json_decode($request->get('obj'));
-        $oHistorial =  HistorialMedico::findFirst($objDatos->idHistorial);
-     //   var_dump($oHistorial);die();
-        $oHistorial->id_user = $objDatos->id_user;
-        $oHistorial->id_afiliado = $objDatos->id_afiliado;
-        $oHistorial->fecha = $objDatos->fecha;
-        $oHistorial->motivo = $objDatos->motivo;
-        $oHistorial->observaciones = $objDatos->observaciones;
-        $oHistorial->especialidad = $objDatos->especialidad;
-        $oHistorial->tratamiento = $objDatos->tratamiento;
-        $oHistorial->procedimiento = $objDatos->procedimiento;
-        $oHistorial->medico = $objDatos->medico;
-        $oHistorial->recomendaciones = $objDatos->recomendaciones;
-        $oHistorial->diagnostico = $objDatos->diagnostico;
-        $oHistorial->update();
-        
-        //aqui se mandan los detalles de los servicios que tienen que ver con la espacialidad, de igual forma estos valores los puedes chekr una vez se guarden
-            
-        $status = 200;
-        $msnStatus = 'OK';
-        $this->_data = $oHistorial->id;//se envia la clave generada para la cita
+        $this->_data = "";//se envia la clave generada para la cita
         $this->_mensajes = [
             "msnConsult" => 'proceso realizo con exito',
             "msnHeaders" => true,//el header de autrización esta ausente
@@ -581,40 +554,76 @@ class RegistroController extends \Phalcon\Mvc\Controller
         $response->send();
         $this->view->disable();
         
-        
     }
     
-    public function elimExamenAction()
+    
+    public function confirmRegister($email, $confirm_token)
     {
-        $response = $this->response;
-        $request = $this->request;
-        $examen = HistorialExamenes::findFirst($request->get("idExamen"));
-        if($examen->delete())
-        {
-            $status = 200;
-            $msnStatus = 'OK';
-            $this->_data = $oHistorial->id;//se envia la clave generada para la cita
-            $this->_mensajes = [
-                "msnConsult" => 'proceso realizo con exito',
-                "msnHeaders" => true,//el header de autrización esta ausente
-                "msnInvalid" => false
-            ];
+        $user = Users::findFirst('email = "'.$email.'" AND confirm_token = "'.$confirm_token.'"');
+        
+        if ($user){
             
+            if ($user->active == true)
+            {
+                $mensaje= 'Cuenta de usuario ya se encuentra activa';
+            }
             
+            // Actualizo usuario activo
+            $user->active = true;
+            $user->save();
+            // Selecciono afiliado para seleccionar cuenta
+            //$afiliado =  AcAfiliado::where('email','=',$email)->first();
+            $afiliado = AcAfiliado::findFirst([//obtiene el array filtrado
+                'conditions' => 'email = :value:',
+                'bind' => [
+                    'value' =>$email
+                ]
+            ]);
+            // Guardo codigo de cuanta para comparar con tarjetas
+            $idcuenta = $afiliado->AcAfiliados->id_cuenta;
+            // Selecciono tarjeta
+            /*$tarjeta = Tarjeta::get()->filter(function($record) use($codigo) {
+                if (Hash::check($codigo, $record->codigo_tarjeta)) {
+                    return $record;
+                }else{
+                    return null;
+                }
+            })->first();*/
             
+            $cuenta = AcCuenta::findById($idcuenta);
+            $cuenta->estatus = 1;
+            $cuenta->save();
+            $criptTarjeta = hash('sha256',sha1(md5($cuenta->codigo_cuenta)));
+            $tarjeta  = Tarjeta::findFirst([//obtiene el array filtrado
+                'conditions' => 'codigo_tarjeta = :value:',
+                'bind' => [
+                    'value' =>$criptTarjeta
+                ]
+            ]);
+            // Modifico estatus de tarjeta a usada
+            $tarjeta->activada = 'S';
+            $tarjeta->save();
+            // Actualizo estatus de cuenta
+            
+            // Retorno msn de felicitaciones
+            $mensaje = 'Felicitaciones ya puede iniciar sesión';
         }
         else
         {
-            $status = 400;
-            $msnStatus = 'false';
-            $this->_data ="";//se envia la clave generada para la cita
-            $this->_mensajes = [
-                "msnConsult" => 'proceso no se realizo con exito',
-                "msnHeaders" => true,//el header de autrización esta ausente
-                "msnInvalid" => true
-            ];
-            
+            // retorno msn de error
+            $mensaje = 'Cuenta de usuario Incorrecta Intente Nuevamente';
         }
+        
+        $status = 200;
+        $msnStatus = 'OK';
+        $this->_data = "";//se envia la clave generada para la cita
+        $this->_mensajes = [
+            "msnConsult" => 'proceso realizo con exito',
+            "msnHeaders" => true,//el header de autrización esta ausente
+            "msnInvalid" => false
+        ];
+        
+        // var_dump($response);die();
         
         $response->setJsonContent([
             "status" => $status,
@@ -624,9 +633,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
         $response->setStatusCode($status, $msnStatus);
         $response->send();
         $this->view->disable();
-        
-    }
-
+    }    
     
 }
 
