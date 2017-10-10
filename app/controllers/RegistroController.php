@@ -194,7 +194,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
     }
     
     
-    public function checkTerminos()
+    public function checkTerminosAction()
     {
         
         $response = $this->response;
@@ -232,7 +232,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
     
     
     
-    public function crearCuenta()
+    public function crearCuentaAction()
     {
         
         $response = $this->response;
@@ -555,7 +555,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
         $this->view->disable();
         
     }
-    
+   }
     
     public function confirmRegister($email, $confirm_token)
     {

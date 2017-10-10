@@ -300,6 +300,7 @@ $apiUrl->addGet(
 )->setName('allProcedimientosMedicos');
 
 
+
 $apiUrl->addGet(
     "/historial-reporte",
     [
@@ -340,6 +341,72 @@ $apiUrl->addPost(
             
         ]
         )->setName('checkTarjeta');
+        
+        
+    $apiUrl->addPost(
+        "/checkTarjeta",
+        [
+            "controller" => "registro",
+            "action" => "checkTarjeta",
+            
+        ]
+     )->setName('checkTarjeta');
+        
+     
+     $apiUrl->addPost(
+         "/checkTerminos",
+         [
+             "controller" => "registro",
+             "action" => "checkTerminos",
+             
+         ]
+    )->setName('checkTerminos');
+        
+    
+    $apiUrl->addPost(
+        "/crearCuenta",
+        [
+            "controller" => "registro",
+            "action" => "crearCuenta",
+            
+        ]
+    )->setName('crearCuenta');
+        
+    
+    $apiUrl->addPost(
+        "/crearAfiliado",
+        [
+            "controller" => "registro",
+            "action" => "crearAfiliado",
+            
+        ]
+        )->setName('crearAfiliad');
+        
+  
+        
+    $apiUrl->addPost(
+        "/crearUsuario",
+        [
+            "controller" => "registro",
+            "action" => "crearUsuario",
+            
+        ]
+   )->setName('crearUsuario');
+        
+   
+   $apiUrl->addPost(
+       "/checkToken",
+       [
+           "controller" => "acttoken",
+           "action" => "checktoken",
+           
+       ]
+       )->setName('checkToken');
+        
+        
+    
+         
+            
         
 
     
