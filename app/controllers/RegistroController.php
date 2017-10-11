@@ -93,7 +93,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
                                 ]
                             ]);
                             
-                            $mensaje="cuenta creada";
+                            $mensaje="tarjeta valida";
                             $arrDatos["terminos"]=$terminos;
                             $arrDatos["plan"]=$tplan;
                             
@@ -106,7 +106,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
                           }
                             
                           if ( $rsCuenta->estatus == 2 ) {
-                                $mensaje="cuenta creada";
+                                $mensaje="tarjeta valida";
                                 $arrDatos="";
                                 //$arrDatos["terminos"]=$terminos;
                                // $arrDatos["tplan"]=$tplan;
@@ -209,6 +209,8 @@ class RegistroController extends \Phalcon\Mvc\Controller
         $msnStatus = 'OK';
         $this->_data = [
            ""
+            
+            
         ];//arra enviado a la app
         
         $this->_mensajes = [
@@ -231,76 +233,145 @@ class RegistroController extends \Phalcon\Mvc\Controller
     
     
     
+    public function cambiarEstatusCuentaAction()
+    {
+        
+        $response = $this->response;
+        $request = $this->request;
+        if($request->get('cuenta')!="" && $request->get('oper')!="")
+        {
+            $oCuenta = AcCuenta::findFirstById($request->get('cuenta'));
+            $idAfiliado =$oCuenta->AcAfiliado->id;
+            
+            $oUsuario = Users::findFirst([//obtiene el array filtrado
+                'conditions' => 'detalles_usuario_id = :value:',
+                'bind' => [
+                    'value' =>$idAfiliado
+                ]
+            ]);
+            
+            
+            if($request->get('oper')=='desactivar')
+            {
+                $oCuenta->estatus=0;
+                $oUsuario->active=false;
+            }
+            elseif($request->get('oper')=='activar')
+            {
+                $oCuenta->estatus=1;
+                $oUsuario->active=true;
+            }
+            
+        }
+        
+        if($oCuenta->save() && $oUsuario->save())
+        {
+            $mensaje="operacion realizada con exito";
+            $status = 200;
+        }
+        else
+        {
+            $mensaje="no se realizó la operación";
+            $status = 400;
+        }        
+        $msnStatus = 'OK';
+        $this->_data = [
+            ""
+        ];//arra enviado a la app
+        
+        $this->_mensajes = [
+            "msnConsult" => $mensaje,
+            "msnHeaders" => true,//el header de autrizaciÃ³n esta ausente
+            "msnInvalid" => false
+        ];
+        
+        
+        $response->setJsonContent([
+            "status" => $status,
+            "mensajes" => $this->_mensajes,
+            "data" => $this->_data,
+        ]);
+        $response->setStatusCode($status, $msnStatus);
+        $response->send();
+        
+        $this->view->disable();
+    }
+    
     
     public function crearCuentaAction()
     {
         
         $response = $this->response;
         $request = $this->request;
-        
         $datos="";
         if ($request->get('codigo')!="")
         {
-            // 4 sera el producto a-member y el 9 sera el producto a-card
-            $code = substr($request->get('codigo'), 0, 2);
-            // Selecciono producto dependiendo del codigo
-            if ($code == 90 || $code == 40) {
-                // Producto a-card / a-member
-                $producto = ($code == 90)?1:3;
-            } else {
-                // producto a-doctor
-                $producto = 2;
-            }
-        }
-        
-        
-        try
-        {
-            $oCuenta = new AcCuenta();
-            $oCuenta->codigo_cuenta=$request->get('codigo');
-            $oCuenta->fecha= date("Y-m-d");
-            $oCuenta->producto= $producto;
-            $oCuenta->producto= 5;
-            $oCuenta->acepto_terminos=date("Y-m-d");;
-            if($oCuenta->save())
-            {
-                $oCuentaPlan = new AcCuentaPlan();
-                $oCuentaPlan->id_cuenta=$oCuenta->id;
-                $oCuentaPlan->id_plan=substr($request->get('codigo'), 0, 2);
-                $oCuentaPlan->save();
+                $tarjeta = hash('sha256',sha1(md5($request->get('codigo'))));
+                // die($tarjeta);
+                $rsTarjeta = Tarjetas::findFirst([//obtiene el array filtrado
+                    'conditions' => 'codigo_tarjeta = :value:',
+                    'bind' => [
+                        'value' =>$tarjeta
+                    ]
+                ]);
+                // var_dump($rsTarjeta);die();
                 
-                if($request->plan==8)
+                if($rsTarjeta!==false)
                 {
-                    
-                    $oMascota=new Mascota();
-                    $oMascota->cuenta_id=$oCuenta->id;
-                    $oMascota->tamano_id=$request->get("tamano");
-                    $oMascota->nombre=$request->get("nombre");
-                    $oMascota->raza=$request->get("raza");
-                    $oMascota->color_pelage=$request->get("color");
-                    $oMascota->edad=$request->get("edad");
-                    $oMascota->fecha=$request->get("fmascota");
-                    $oMascota->tipo=$request->get("tipo");
-                    $oMascota->save();  
-                }
-                
-  
-                $datos["idcuenta"]=$oCuenta->id;
-                
-                
-                $mensaje="operacion realizada con exito";
+                // 4 sera el producto a-member y el 9 sera el producto a-card
+                    $code = substr($request->get('codigo'), 0, 2);
+                    // Selecciono producto dependiendo del codigo
+                    if ($code == 90 || $code == 40) {
+                        // Producto a-card / a-member
+                        $producto = ($code == 90)?1:3;
+                    } else {
+                        // producto a-doctor
+                        $producto = 2;
+                    }        
+                    try
+                    {
+                        $oCuenta = new AcCuenta();
+                        $oCuenta->codigo_cuenta=$request->get('codigo');
+                        $oCuenta->fecha= date("Y-m-d");
+                        $oCuenta->producto= $producto;
+                        $oCuenta->producto= 5;
+                        $oCuenta->acepto_terminos=date("Y-m-d");;
+                        if($oCuenta->save())
+                        {
+                            $oCuentaPlan = new AcCuentaPlan();
+                            $oCuentaPlan->id_cuenta=$oCuenta->id;
+                            $oCuentaPlan->id_plan=substr($request->get('codigo'), 0, 2);
+                            $oCuentaPlan->save();
+                            
+                            if($request->plan==8)
+                            {
+                                
+                                $oMascota=new Mascota();
+                                $oMascota->cuenta_id=$oCuenta->id;
+                                $oMascota->tamano_id=$request->get("tamano");
+                                $oMascota->nombre=$request->get("nombre");
+                                $oMascota->raza=$request->get("raza");
+                                $oMascota->color_pelage=$request->get("color");
+                                $oMascota->edad=$request->get("edad");
+                                $oMascota->fecha=$request->get("fmascota");
+                                $oMascota->tipo=$request->get("tipo");
+                                $oMascota->save();  
+                            }
+                            
+                            $datos["idcuenta"]=$oCuenta->id;
+                            $mensaje="operacion realizada con exito";
+                        }
+                    }
+                    catch(QueryException $e)
+                    {
+                        $mensaje = 'Â¡Ocurrio un error al generar cuenta!';
+                    }    
             }
-            
+            else
+            {
+                $mensaje = 'Tarjeta invalida';
+            }
         }
-        catch(QueryException $e)
-        {
-            return response()->json(['error' => 'Â¡Ocurrio un error al generar cuenta!',
-                'data' => $e ]);
-        }
-        
-        
-        
-        
         
         
         
@@ -338,21 +409,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
         {
             
             $datos="";
-            $emailAf = AcAfiliado::where('email','=', $request->correo)->first();
-            $emailUser = User::where('email','=', $request->correo)->first();
-            $cedulaAf = AcAfiliado::where('cedula','=', $request->cedula)->first();
-            //Guardo variables para embarazo
-            $embarazo = $request->get('embarazo');
-            
-            if ($emailAf != null || $emailUser != null){
-                return response()->json(['error' => 'El Correo que ingreso ya esta en uso']);
-            }
-            
-            if($cedulaAf != null){
-                return response()->json(['error' => 'La cÃ©dula que ingreso ya existe en el sistema']);
-            }
-            
-            
+           
             $emailAf = AcAfiliado::findFirst([//obtiene el array filtrado
                 'conditions' => 'email = :value:',
                 'bind' => [
@@ -375,7 +432,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
                 ]
             ]);
             
-            $embarazo = ($request->get("cedula")) ? Session::get('embarazo') : 'N';
+            $embarazo = $request->get("cedula");
             
             if ($emailAf != false || $emailUser != false)
             {
@@ -387,29 +444,36 @@ class RegistroController extends \Phalcon\Mvc\Controller
             }
             else
             {
-            
-                try
+                $oCuenta = AcCuenta::findFirstById($request->get('cuenta'));
+                if($oCuenta!==false)
                 {
-                    $oAfiliado= new AcAfiliado();
-                    $oAfiliado->cedula = $request->get('cedula');
-                    $oAfiliado->nombre = $request->get('nombre');
-                    $oAfiliado->apellido = $request->get('apellido');
-                    $oAfiliado->fecha_nacimiento = $request->get('nacimiento');
-                    $oAfiliado->email = $request->get('email');
-                    $oAfiliado->sexo = $request->get('sexo');
-                    $oAfiliado->telefono = $request->get('telefono');
-                    $oAfiliado->id_cuenta = $request->get('cuenta');
-                    $oAfiliado->id_estado = $request->get('estado');
-                    $oAfiliado->ciudad = $request->get('ciudad');
-                    $oAfiliado->embarazada = $request->get('embarazo');
-                    $oAfiliado->tiempo_gestacion = $request->get('semanas');
-                    $oAfiliado->save();
-                    $datos["afiliado"] =$oAfiliado->id;
-                    $mensaje="La operacion se realizó conexito";
+                    try
+                    {
+                        $oAfiliado= new AcAfiliado();
+                        $oAfiliado->cedula = $request->get('cedula');
+                        $oAfiliado->nombre = $request->get('nombre');
+                        $oAfiliado->apellido = $request->get('apellido');
+                        $oAfiliado->fecha_nacimiento = $request->get('nacimiento');
+                        $oAfiliado->email = $request->get('email');
+                        $oAfiliado->sexo = $request->get('sexo');
+                        $oAfiliado->telefono = $request->get('telefono');
+                        $oAfiliado->id_cuenta = $request->get('cuenta');
+                        $oAfiliado->id_estado = $request->get('estado');
+                        $oAfiliado->ciudad = $request->get('ciudad');
+                        $oAfiliado->embarazada = $request->get('embarazo');
+                        $oAfiliado->tiempo_gestacion = $request->get('semanas');
+                        $oAfiliado->save();
+                        $datos["afiliado"] =$oAfiliado->id;
+                        $mensaje="La operacion se realizó conexito";
+                    }
+                    catch(QueryException $e)
+                    {
+                        $mensaje='Â¡Ocurrio un error al crear el afiliado!';
+                    }
                 }
-                catch(QueryException $e)
+                else
                 {
-                    $mensaje='Â¡Ocurrio un error al generar cuenta!';
+                    $mensaje='No existe la cuenta';
                 }
         
            }
@@ -478,18 +542,18 @@ class RegistroController extends \Phalcon\Mvc\Controller
                 $oUser->email=$oAfiliado->email;
                 $oUser->user=$oAfiliado->email;
                 $oUser->password=password_hash($request->get('password'), PASSWORD_BCRYPT);
-                $oUser->password=password_hash($request->get('clave'), PASSWORD_BCRYPT);
+                $oUser->clave=password_hash($request->get('clave'), PASSWORD_BCRYPT);
                 $oUser->department='cliente';
                 $oUser->type=$typeUser;
                 $oUser->active=false;
                 $oUser->pregunta1=false;
-                $oUser->pregunta1=request->get('pregunta1');
-                $oUser->pregunta2=request->get('pregunta2');
+                $oUser->pregunta1=$request->get('pregunta1');
+                $oUser->pregunta2=$request->get('pregunta2');
                 $oUser->respuesta1=password_hash($request->get('respuesta1'), PASSWORD_BCRYPT);
                 $oUser->respuesta2=password_hash($request->get('respuesta2'), PASSWORD_BCRYPT);
                 $oUser->confirm_token=str_random(100);
                 $oUser->confirm_token=str_random(100);
-                $oUser->detalles_usuario_id=request->get('afiliado');
+                $oUser->detalles_usuario_id=$request->get('afiliado');
               
                 // Cambio estatus a pendiente de la cuenta a la espera de confirmaciÃ³n de correo
                 
@@ -505,8 +569,8 @@ class RegistroController extends \Phalcon\Mvc\Controller
                         'confirmRegistro',//templatename
                         [
                             'data' => [
-                                'name' => $oUser->->name,
-                                'email' => $oUser->->email,
+                                'name' => $oUser->name,
+                                'email' => $oUser->email,
                                 'confirm_token' => $oUser->confirm_token
                             ]
                         ]
@@ -528,6 +592,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
         {
             $mensaje='El usuario ya existe en el sistema';
         
+        }
         }
         else
         {
@@ -555,7 +620,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
         $this->view->disable();
         
     }
-   }
+   
     
     public function confirmRegister($email, $confirm_token)
     {

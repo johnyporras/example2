@@ -402,6 +402,16 @@ $apiUrl->addPost(
            
        ]
        )->setName('checkToken');
+       
+
+   $apiUrl->addPost(
+       "/cambiarEstatusCuenta",
+       [
+           "controller" => "cambiarestatuscuenta",
+           "action" => "registro",
+           
+       ]
+       )->setName('checkTokenq');
         
         
     
