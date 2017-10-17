@@ -442,7 +442,7 @@ class ApiController extends \Phalcon\Mvc\Controller
                 
                 $post = [
                     'archivo' => $request->getPost('imagebase64'),
-                    'codimagen'=>$auth->id,
+                    'codexamen'=>$auth->id,
                     'tipoarchivo'=>"avatar"
                 ];
                 
