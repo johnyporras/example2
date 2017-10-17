@@ -260,8 +260,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
             {
                 $oCuenta->estatus=1;
                 $oUsuario->active=true;
-            }
-            
+            }   
         }
         
         if($oCuenta->save() && $oUsuario->save())
