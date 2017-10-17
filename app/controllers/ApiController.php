@@ -397,186 +397,257 @@ class ApiController extends \Phalcon\Mvc\Controller
                     "msnInvalid" => true//las credenciales del token de autorizacion son invalidas
                 ];
             }else{
-
-                $afiliado = AcAfiliados::findFirstById($auth->detalles_usuario_id);
-
-                if( $request->has('nombre') ){
-
-                    $afiliado->nombre = $request->getPost('nombre');
-
+                
+                if( $request->has('pregunta1') )
+                {
+                    
+                    $auth->pregunta1 = $request->getPost('pregunta1');
+                    
                 }
-
-                if( $request->has('apellido') ){
-
-                    $afiliado->apellido = $request->getPost('apellido');
-
+                
+                if( $request->has('respuesta1') )
+                {
+                    
+                    $auth->respuesta1 =password_hash($request->getPost('respuesta1'), PASSWORD_BCRYPT);
                 }
-
-                if( $request->has('email') ){
-
-                    $afiliado->email = $request->getPost('email');
-
+                
+                if( $request->has('pregunta2') )
+                {
+                    
+                    $auth->pregunta1 = $request->getPost('pregunta2');
+                    
                 }
-
-                if( $request->has('cedula') ){
-
-                    $afiliado->cedula = $request->getPost('cedula');
-
+                
+                if( $request->has('respuesta2') )
+                {
+                    
+                    $auth->respuesta1 = password_hash($request->getPost('respuesta2'), PASSWORD_BCRYPT);
+                    
                 }
-
-                if( $request->has('fecha_nacimiento') ){
-
-                    $afiliado->fecha_nacimiento = $request->getPost('fecha_nacimiento');
-
+                
+                if( $request->has('password') )
+                {
+                    
+                    $auth->respuesta1 = password_hash($request->getPost('password'), PASSWORD_BCRYPT);
+                    
                 }
-
-                if( $request->has('ciudad') ){
-
-                    $afiliado->ciudad = $request->getPost('ciudad');
-
+                
+                if( $request->has('clave') )
+                {
+                    
+                    $auth->respuesta1 = password_hash($request->getPost('clave'), PASSWORD_BCRYPT);
+                    
                 }
-
-                if( $request->has('civil') ){
-
-                    $afiliado->civil = $request->getPost('civil');
-
-                }
-
-                if( $request->has('hijos') ){
-
-                    $afiliado->hijos = $request->getPost('hijos');
-
-                }
-
-                if( $request->has('telefono') ){
-
-                    $afiliado->telefono = $request->getPost('telefono');
-
-                }
-
-                if( $request->has('ocupacion') ){
-
-                    $afiliado->ocupacion = $request->getPost('ocupacion');
-
-                }
-
-                if( $request->has('idioma') ){
-
-                    $afiliado->idioma = $request->getPost('idioma');
-
-                }
-
-                if( $request->has('id_estado') ){
-
-                    $std = AcEstados::findFirstByEstado($request->getPost('id_estado'));
-
-                    $afiliado->id_estado = $std->id;
-
-                }
-
-                if( $request->has('sexo') ){
-
-                    $afiliado->sexo = $request->getPost('sexo');
-
-                }
-
-                if( $request->has('altura') ){
-
-                    $afiliado->altura = $request->getPost('altura');
-
-                }
-
-                if( $request->has('peso') ){
-
-                    $afiliado->peso = $request->getPost('peso');
-
-                }
-
-                if( $request->has('lentes') ){
-
-                    $afiliado->lentes = $request->getPost('lentes');
-
-                }
-
-                if( $request->has('grupo_sangre') ){
-
-                    $afiliado->grupo_sangre = $request->getPost('grupo_sangre');
-
-                }
-
-                if($afiliado->save()){
-
-                  $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
-                  $estados = AcEstados::find();//retorna array con los estados
-                  $estado = $titular->AcEstados;//retorna datos del estado
-                  $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
-                  $documentos = $titular->AcDocumentos;//retorna array con los documentos
-                  $listMotivos = Motivos::find();//retorna array con los motivos
-                  $listPreferencias = Preferencias::find();//retorna array con los preferencias
-                  $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
-                  $contactos = $titular->Contactos;//retorna array con los contactos
-                  $habitos = $titular->getMotivoDetalles("id_motivo = '1'");//retorna array con los motivos detalles
-                  $actividad = $titular->getMotivoDetalles("id_motivo = '2'");//retorna array con los motivos detalles
-                  $pasatiempo = $titular->getMotivoDetalles("id_motivo = '3'");//retorna array con los motivos detalles
-                  $alimentacion = $titular->getMotivoDetalles("id_motivo = '4'");//retorna array con los motivos detalles
-                  $alergias = $titular->getMotivoDetalles("id_motivo = '5'");//retorna array con los motivos detalles
-                  $vacunas = $titular->getMotivoDetalles("id_motivo = '6'");//retorna array con los motivos detalles
-                  $discapacidad = $titular->getMotivoDetalles("id_motivo = '7'");//retorna array con los motivos detalles
-                  $hospitalizacion = $titular->getMotivoDetalles("id_motivo = '8'");//retorna array con los motivos detalles
-                  $operacion = $titular->getMotivoDetalles("id_motivo = '9'");//retorna array con los motivos detalles
-                  $enfermedad = $titular->getMotivoDetalles("id_motivo = '10'");//retorna array con los motivos detalles
-                  $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
-                  $cuenta = $titular->AcCuenta;
-
-                  //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
-
-                  $newToken = [//array que sera encriptado para ser enviado a la app
-                      'user' => $auth,
-                      'titular' => $titular,
-                      'estados' => $estados,
-                      'estado' => $estado,
-                      'tipoDocuments' => $tipoDocuments,
-                      'documentos' => $documentos,
-                      'contactos' => $contactos,
-                      'listMotivosDetalles' => $listMotivosDetalles,
-                      'listMotivos' => $listMotivos,
-                      'listPreferencias' => $listPreferencias,
-                      'list' => $listTipoMedicamentos,
-                      'listMedicamentos' => $listMedicamentos,
-                      'habitos' => $habitos,
-                      'actividad' => $actividad,
-                      'pasatiempos' => $pasatiempo,
-                      'alimentacion' => $alimentacion,
-                      'alergias' => $alergias,
-                      'vacunas' => $vacunas,
-                      'discapacidad' => $discapacidad,
-                      'hospitalizacion' => $hospitalizacion,
-                      'operacion' => $operacion,
-                      'enfermedad' => $enfermedad,
-                      'cuenta' => $cuenta
-                  ];
-
-                    $status = 200;
-                    $msnStatus = 'OK';
-                    $this->_data = ["consulta" => true, "token" => JWT::encode($newToken,"Atiempo-api-rest")];
-                    $this->_mensajes = [
-                        "msnConsult" => 'Consulta relizada con exito',
-                        "msnHeaders" => true,//el header de autrización esta ausente
-                        "msnInvalid" => false
-                    ];
-
-                }else{
-
-                    $status = 200;
-                    $msnStatus = 'OK';
-                    $this->_data = ["consulta" => false, "token" => null];
-                    $this->_mensajes = [
-                        "msnConsult" => 'Consulta relizada con exito',
-                        "msnHeaders" => true,//el header de autrización esta ausente
-                        "msnInvalid" => false
-                    ];
-
-                }
+                $res  = $auth->save();
+                
+                $post = [
+                    'archivo' => $request->getPost('imagebase64'),
+                    'codimagen'=>$auth->id,
+                    'tipoarchivo'=>"avatar"
+                ];
+                
+                $ch = curl_init('http://18.221.52.114/archivos/procesarArchivo');
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+                $resp = curl_exec($ch);
+                curl_close($ch);
+                
+                
+                if($res)
+                {
+                        $afiliado = AcAfiliados::findFirstById($auth->detalles_usuario_id);
+        
+                        if( $request->has('nombre') ){
+        
+                            $afiliado->nombre = $request->getPost('nombre');
+        
+                        }
+        
+                        if( $request->has('apellido') ){
+        
+                            $afiliado->apellido = $request->getPost('apellido');
+        
+                        }
+        
+                        if( $request->has('email') ){
+        
+                            $afiliado->email = $request->getPost('email');
+        
+                        }
+        
+                        if( $request->has('cedula') ){
+        
+                            $afiliado->cedula = $request->getPost('cedula');
+        
+                        }
+        
+                        if( $request->has('fecha_nacimiento') ){
+        
+                            $afiliado->fecha_nacimiento = $request->getPost('fecha_nacimiento');
+        
+                        }
+        
+                        if( $request->has('ciudad') ){
+        
+                            $afiliado->ciudad = $request->getPost('ciudad');
+        
+                        }
+        
+                        if( $request->has('civil') ){
+        
+                            $afiliado->civil = $request->getPost('civil');
+        
+                        }
+        
+                        if( $request->has('hijos') ){
+        
+                            $afiliado->hijos = $request->getPost('hijos');
+        
+                        }
+        
+                        if( $request->has('telefono') ){
+        
+                            $afiliado->telefono = $request->getPost('telefono');
+        
+                        }
+        
+                        if( $request->has('ocupacion') ){
+        
+                            $afiliado->ocupacion = $request->getPost('ocupacion');
+        
+                        }
+        
+                        if( $request->has('idioma') ){
+        
+                            $afiliado->idioma = $request->getPost('idioma');
+        
+                        }
+        
+                        if( $request->has('id_estado') ){
+        
+                            $std = AcEstados::findFirstByEstado($request->getPost('id_estado'));
+        
+                            $afiliado->id_estado = $std->id;
+        
+                        }
+        
+                        if( $request->has('sexo') ){
+        
+                            $afiliado->sexo = $request->getPost('sexo');
+        
+                        }
+        
+                        if( $request->has('altura') ){
+        
+                            $afiliado->altura = $request->getPost('altura');
+        
+                        }
+        
+                        if( $request->has('peso') ){
+        
+                            $afiliado->peso = $request->getPost('peso');
+        
+                        }
+        
+                        if( $request->has('lentes') ){
+        
+                            $afiliado->lentes = $request->getPost('lentes');
+        
+                        }
+        
+                        if( $request->has('grupo_sangre') ){
+        
+                            $afiliado->grupo_sangre = $request->getPost('grupo_sangre');
+        
+                        }
+        
+                        if($afiliado->save()){
+        
+                          $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
+                          $estados = AcEstados::find();//retorna array con los estados
+                          $estado = $titular->AcEstados;//retorna datos del estado
+                          $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
+                          $documentos = $titular->AcDocumentos;//retorna array con los documentos
+                          $listMotivos = Motivos::find();//retorna array con los motivos
+                          $listPreferencias = Preferencias::find();//retorna array con los preferencias
+                          $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
+                          $contactos = $titular->Contactos;//retorna array con los contactos
+                          $habitos = $titular->getMotivoDetalles("id_motivo = '1'");//retorna array con los motivos detalles
+                          $actividad = $titular->getMotivoDetalles("id_motivo = '2'");//retorna array con los motivos detalles
+                          $pasatiempo = $titular->getMotivoDetalles("id_motivo = '3'");//retorna array con los motivos detalles
+                          $alimentacion = $titular->getMotivoDetalles("id_motivo = '4'");//retorna array con los motivos detalles
+                          $alergias = $titular->getMotivoDetalles("id_motivo = '5'");//retorna array con los motivos detalles
+                          $vacunas = $titular->getMotivoDetalles("id_motivo = '6'");//retorna array con los motivos detalles
+                          $discapacidad = $titular->getMotivoDetalles("id_motivo = '7'");//retorna array con los motivos detalles
+                          $hospitalizacion = $titular->getMotivoDetalles("id_motivo = '8'");//retorna array con los motivos detalles
+                          $operacion = $titular->getMotivoDetalles("id_motivo = '9'");//retorna array con los motivos detalles
+                          $enfermedad = $titular->getMotivoDetalles("id_motivo = '10'");//retorna array con los motivos detalles
+                          $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+                          $cuenta = $titular->AcCuenta;
+        
+                          //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+        
+                          $newToken = [//array que sera encriptado para ser enviado a la app
+                              'user' => $auth,
+                              'titular' => $titular,
+                              'estados' => $estados,
+                              'estado' => $estado,
+                              'tipoDocuments' => $tipoDocuments,
+                              'documentos' => $documentos,
+                              'contactos' => $contactos,
+                              'listMotivosDetalles' => $listMotivosDetalles,
+                              'listMotivos' => $listMotivos,
+                              'listPreferencias' => $listPreferencias,
+                              'list' => $listTipoMedicamentos,
+                              'listMedicamentos' => $listMedicamentos,
+                              'habitos' => $habitos,
+                              'actividad' => $actividad,
+                              'pasatiempos' => $pasatiempo,
+                              'alimentacion' => $alimentacion,
+                              'alergias' => $alergias,
+                              'vacunas' => $vacunas,
+                              'discapacidad' => $discapacidad,
+                              'hospitalizacion' => $hospitalizacion,
+                              'operacion' => $operacion,
+                              'enfermedad' => $enfermedad,
+                              'cuenta' => $cuenta
+                          ];
+        
+                            $status = 200;
+                            $msnStatus = 'OK';
+                            $this->_data = ["consulta" => true, "token" => JWT::encode($newToken,"Atiempo-api-rest")];
+                            $this->_mensajes = [
+                                "msnConsult" => 'Consulta relizada con exito',
+                                "msnHeaders" => true,//el header de autrización esta ausente
+                                "msnInvalid" => false
+                            ];
+        
+                        }else{
+        
+                            $status = 200;
+                            $msnStatus = 'OK';
+                            $this->_data = ["consulta" => false, "token" => null];
+                            $this->_mensajes = [
+                                "msnConsult" => 'Consulta relizada con exito',
+                                "msnHeaders" => true,//el header de autrización esta ausente
+                                "msnInvalid" => false
+                            ];
+        
+                        }
+            }
+            else
+            {
+                
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = ["consulta" => false, "token" => null];
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,//el header de autrización esta ausente
+                    "msnInvalid" => false
+                ];
+                
+            }
 
 
             }
