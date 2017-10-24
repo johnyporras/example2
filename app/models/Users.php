@@ -182,7 +182,7 @@ class Users extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("atiempo_prod");
         $this->hasMany('id', 'Funerario', 'creador', ['alias' => 'Funerario']);
         $this->hasMany('id', 'HistorialMedico', 'id_user', ['alias' => 'HistorialMedico']);
     }
