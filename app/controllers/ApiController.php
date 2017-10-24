@@ -367,7 +367,7 @@ class ApiController extends \Phalcon\Mvc\Controller
         $token = $request->getPost('token');//obtiene el token de validacion via post y se asigna a una variable 'token'
 
         //var_dump($token);die();
-        
+
         if( !isset($token) || empty($token) ){//se verifica si no existe y si esta vacio
 
             $status = 200;
@@ -382,9 +382,9 @@ class ApiController extends \Phalcon\Mvc\Controller
         }else{//en caso de existir y no estar vacio
 
             $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);//desencripta el token y se asigna a una variable 'datos'
-            
-            
-            
+
+
+
             //comprobamos si existe el usuario mediante los datos obtenidos por el token
            // $auth = Users::findFirst('user = "afiliado@gmail.com" AND password = "$2y$10$6UGCeP8T8/04SIJ4pJ03Cu3Nu2f7/P2eAWXBy/5FynuBNwlQT2Zfu"');
 
@@ -404,23 +404,23 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                 if( $request->has('pregunta_1'))
                 {
-                    
+
                     $auth->pregunta_1 = $request->getPost('pregunta_1');
-                    
+
 
                 }
 
                 if( $request->has('respuesta_1') )
                 {
-                    
+
                     $auth->respuesta_1 =password_hash($request->getPost('respuesta_1'), PASSWORD_BCRYPT);
 
                 }
 
                 if( $request->has('pregunta_2') )
                 {
-                    
-                    $auth->pregunta_1 = $request->getPost('pregunta_2');
+
+                    $auth->pregunta_2 = $request->getPost('pregunta_2');
                 }
 
                 if( $request->has('respuesta_2') )
@@ -441,7 +441,7 @@ class ApiController extends \Phalcon\Mvc\Controller
                     $auth->clave = password_hash($request->getPost('clave'), PASSWORD_BCRYPT);
 
                 }
-               
+
                 $res  = $auth->save();
                // die();
 
@@ -451,9 +451,9 @@ class ApiController extends \Phalcon\Mvc\Controller
                     'tipoarchivo'=>"avatar"
                 ];
 
-               
+
                 //die("fadssad11");
-                
+
 
                 $ch = curl_init('http://18.221.52.114/archivos/procesarArchivo');
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
