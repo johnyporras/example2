@@ -386,7 +386,7 @@ class ApiController extends \Phalcon\Mvc\Controller
 
 
             //comprobamos si existe el usuario mediante los datos obtenidos por el token
-           // $auth = Users::findFirst('user = "afiliado@gmail.com" AND password = "$2y$10$6UGCeP8T8/04SIJ4pJ03Cu3Nu2f7/P2eAWXBy/5FynuBNwlQT2Zfu"');
+            $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
 
             //si no existe
             if($auth->count() == 0)
