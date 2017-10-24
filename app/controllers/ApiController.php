@@ -445,7 +445,7 @@ class ApiController extends \Phalcon\Mvc\Controller
                 $res  = $auth->save();
                // die();
 
-                $post = [
+                /*$post = [
                     'archivo' => $request->getPost('imagebase64'),
                     'codexamen'=>$auth->id,
                     'tipoarchivo'=>"avatar"
@@ -465,7 +465,7 @@ class ApiController extends \Phalcon\Mvc\Controller
                     $auth->imagen_perfil= $auth->id.".png";
                     $auth->save();
                 }
-
+*/
                 if($res)
                 {
                         $afiliado = AcAfiliados::findFirstById($auth->detalles_usuario_id);
