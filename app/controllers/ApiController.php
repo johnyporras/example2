@@ -381,12 +381,12 @@ class ApiController extends \Phalcon\Mvc\Controller
 
         }else{//en caso de existir y no estar vacio
 
-           // $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);//desencripta el token y se asigna a una variable 'datos'
-            //$datos->user->user='afiliado@gmail.com';
-            //$datos->user->password = '$2y$10$6UGCeP8T8/04SIJ4pJ03Cu3Nu2f7/P2eAWXBy/5FynuBNwlQT2Zfu';
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);//desencripta el token y se asigna a una variable 'datos'
+            
+            
             
             //comprobamos si existe el usuario mediante los datos obtenidos por el token
-            $auth = Users::findFirst('user = "afiliado@gmail.com" AND password = "$2y$10$6UGCeP8T8/04SIJ4pJ03Cu3Nu2f7/P2eAWXBy/5FynuBNwlQT2Zfu"');
+           // $auth = Users::findFirst('user = "afiliado@gmail.com" AND password = "$2y$10$6UGCeP8T8/04SIJ4pJ03Cu3Nu2f7/P2eAWXBy/5FynuBNwlQT2Zfu"');
 
             //si no existe
             if($auth->count() == 0)
@@ -402,56 +402,35 @@ class ApiController extends \Phalcon\Mvc\Controller
                 ];
             }else{
 
-                if( $request->has('pregunta_1') )
+                if( $request->has('pregunta_1'))
                 {
-<<<<<<< 262fe58dc6eaf24c906c6305d1fa7b863f133938
-
+                    
                     $auth->pregunta_1 = $request->getPost('pregunta_1');
+                    
 
-=======
-                    
-                    $auth->pregunta_1 = $request->getPost('pregunta1');
-                    
->>>>>>> 989fdfafd097e6c338c5a5192f79fa6204398584
                 }
 
                 if( $request->has('respuesta_1') )
                 {
-<<<<<<< 262fe58dc6eaf24c906c6305d1fa7b863f133938
-
-                    $auth->respuesta_1 =password_hash($request->getPost('respuesta_1'), PASSWORD_BCRYPT);
-=======
                     
-                    $auth->respuesta_1 =password_hash($request->getPost('respuesta1'), PASSWORD_BCRYPT);
->>>>>>> 989fdfafd097e6c338c5a5192f79fa6204398584
+                    $auth->respuesta_1 =password_hash($request->getPost('respuesta_1'), PASSWORD_BCRYPT);
+
                 }
 
                 if( $request->has('pregunta_2') )
                 {
-
-
-
-
-
                     
-                    $auth->pregunta_1 = $request->getPost('pregunta2');
-                    
-
+                    $auth->pregunta_1 = $request->getPost('pregunta_2');
                 }
 
                 if( $request->has('respuesta_2') )
                 {
 
-
                     $auth->respuesta_2 = password_hash($request->getPost('respuesta_2'), PASSWORD_BCRYPT);
-
-
                 }
 
                 if( $request->has('password') )
                 {
-
-
                     $auth->password = password_hash($request->getPost('password'), PASSWORD_BCRYPT);
 
                 }
@@ -462,22 +441,6 @@ class ApiController extends \Phalcon\Mvc\Controller
                     $auth->clave = password_hash($request->getPost('clave'), PASSWORD_BCRYPT);
 
                 }
-                $res  = $auth->save();
-
-
-                    
-                    $auth->password = password_hash($request->getPost('password'), PASSWORD_BCRYPT);
-                    
-                }
-                
-                if( $request->has('clave'))
-                {
-                    
-                    $auth->clave = password_hash($request->getPost('clave'), PASSWORD_BCRYPT);
-                    
-                }
-               // var_dump($auth);die();
-                
                
                 $res  = $auth->save();
                // die();
