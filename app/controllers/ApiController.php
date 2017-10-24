@@ -428,33 +428,29 @@ class ApiController extends \Phalcon\Mvc\Controller
 
                 if( $request->has('pregunta_2') )
                 {
-<<<<<<< 262fe58dc6eaf24c906c6305d1fa7b863f133938
 
-                    $auth->pregunta_2 = $request->getPost('pregunta_2');
 
-=======
+
+
+
                     
                     $auth->pregunta_1 = $request->getPost('pregunta2');
                     
->>>>>>> 989fdfafd097e6c338c5a5192f79fa6204398584
+
                 }
 
                 if( $request->has('respuesta_2') )
                 {
-<<<<<<< 262fe58dc6eaf24c906c6305d1fa7b863f133938
+
 
                     $auth->respuesta_2 = password_hash($request->getPost('respuesta_2'), PASSWORD_BCRYPT);
 
-=======
-                    
-                    $auth->respuesta_1 = password_hash($request->getPost('respuesta2'), PASSWORD_BCRYPT);
-                    
->>>>>>> 989fdfafd097e6c338c5a5192f79fa6204398584
+
                 }
 
                 if( $request->has('password') )
                 {
-<<<<<<< 262fe58dc6eaf24c906c6305d1fa7b863f133938
+
 
                     $auth->password = password_hash($request->getPost('password'), PASSWORD_BCRYPT);
 
@@ -468,7 +464,7 @@ class ApiController extends \Phalcon\Mvc\Controller
                 }
                 $res  = $auth->save();
 
-=======
+
                     
                     $auth->password = password_hash($request->getPost('password'), PASSWORD_BCRYPT);
                     
@@ -485,34 +481,28 @@ class ApiController extends \Phalcon\Mvc\Controller
                
                 $res  = $auth->save();
                // die();
->>>>>>> 989fdfafd097e6c338c5a5192f79fa6204398584
+
                 $post = [
                     'archivo' => $request->getPost('imagebase64'),
                     'codexamen'=>$auth->id,
                     'tipoarchivo'=>"avatar"
                 ];
-<<<<<<< 262fe58dc6eaf24c906c6305d1fa7b863f133938
 
-=======
                
                 //die("fadssad11");
                 
->>>>>>> 989fdfafd097e6c338c5a5192f79fa6204398584
+
                 $ch = curl_init('http://18.221.52.114/archivos/procesarArchivo');
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
                 $resp = curl_exec($ch);
                 curl_close($ch);
-<<<<<<< 262fe58dc6eaf24c906c6305d1fa7b863f133938
-
-
-=======
                 if($resp!==false)
                 {
                     $auth->imagen_perfil= $auth->id.".png";
                     $auth->save();
                 }
->>>>>>> 989fdfafd097e6c338c5a5192f79fa6204398584
+
                 if($res)
                 {
                         $afiliado = AcAfiliados::findFirstById($auth->detalles_usuario_id);
