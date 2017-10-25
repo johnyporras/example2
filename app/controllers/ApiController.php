@@ -445,27 +445,30 @@ class ApiController extends \Phalcon\Mvc\Controller
                 $res  = $auth->save();
                // die();
 
-                /*$post = [
-                    'archivo' => $request->getPost('imagebase64'),
-                    'codexamen'=>$auth->id,
-                    'tipoarchivo'=>"avatar"
-                ];
-
-
-                //die("fadssad11");
-
-
-                $ch = curl_init('http://18.221.52.114/archivos/procesarArchivo');
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-                $resp = curl_exec($ch);
-                curl_close($ch);
-                if($resp!==false)
-                {
-                    $auth->imagen_perfil= $auth->id.".png";
-                    $auth->save();
+                if( $request->has('imagebase64') )
+                {     
+                    $post = [
+                        'archivo' => $request->getPost('imagebase64'),
+                        'codexamen'=>$auth->id,
+                        'tipoarchivo'=>"avatar"
+                    ];
+    
+    
+                    //die("fadssad11");
+    
+    
+                    $ch = curl_init('http://18.221.52.114/archivos/procesarArchivo');
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+                    $resp = curl_exec($ch);
+                    curl_close($ch);
+                    if($resp!==false)
+                    {
+                        $auth->imagen_perfil= $auth->id.".png";
+                        $auth->save();
+                    }
                 }
-*/
+                
                 if($res)
                 {
                         $afiliado = AcAfiliados::findFirstById($auth->detalles_usuario_id);
