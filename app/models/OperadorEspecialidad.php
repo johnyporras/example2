@@ -41,6 +41,7 @@ class Especialidad extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
+        $this->belongsTo('id_especialidad', '\Especialidad', 'id', ['alias' => 'Especialidad']);
         return 'operador_especialidad';
     }
 
