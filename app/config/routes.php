@@ -458,6 +458,23 @@ $apiUrl->addPost(
         "action" => "monto",
     ]
 )->setName('monto');
+    
+
+/***************************************************
+ ******************rutas viajes**********************
+ ***************************************************/
+
+
+
+$apiUrl->addGet(
+    "/especialidad-list",
+    [
+        "controller" => "citasvideo",
+        "action" => "listEsp",
+    ]
+    )->setName('listEspecialidad');
+
+
 
 /***************************************************
 ******************rutas viajes**********************
