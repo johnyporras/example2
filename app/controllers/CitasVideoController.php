@@ -8,18 +8,18 @@ class CitasController extends \Phalcon\Mvc\Controller
     private $_data = '';
     private $_detailClaves = [];
 
-    public function listEspAction()//metodo del controlador que no requiere token..retorna un array con citas..ruta de acceso '/citas-list' via post
+    public function listEspAction()
     {
 
         $response = $this->response;
         $request = $this->request;
 
-        $lista = Especialidad::find();
-        foreach ($lista as $item )
+        $lista = OperadorEspecialidad::find();
+        foreach ($lista as $item)
         {
-            
-            $this->_list[] = $item;
-            
+            $Auxarray["id"] =$item->id;
+            $Auxarray["id"] =$item->Especialidad->nombre;
+            $this->_list[] = $item;            
         }
         
 
@@ -42,13 +42,53 @@ class CitasController extends \Phalcon\Mvc\Controller
         $this->view->disable();
 
     }
+    
+    
+    public function listHoraAction()//metodo del controlador que no requiere token..retorna un array con citas..ruta de acceso '/citas-list' via post
+    {
+        
+        $response = $this->response;
+        $request = $this->request;
+        
+        $lista = BloqueHorario::find();
+        foreach ($lista as $item )
+        {
+            
+            $this->_list[] = $item;
+            
+        }
+        
+        
+        $status = 200;
+        $msnStatus = 'OK';
+        //$this->_data = $this->_list;
+        $this->_data = $this->_list;
+        $this->_mensajes = [
+            "msnConsult" => 'Consulta relizada con exito',
+        ];
+        
+        $response->setJsonContent([
+            "status" => $status,
+            "mensajes" => $this->_mensajes,
+            "data" => $this->_data,
+        ]);
+        $response->setStatusCode($status, $msnStatus);
+        $response->send();
+        
+        $this->view->disable();
+        
+    }
+    
 
-    public function incluirAction()//metodo del controlador que retorna un array de clinicas, requiere de token de validacion... ruta de acceso '/list-clinicas' via post
+    public function incluirAction()
     {
         $oCita = new Citas();
         
+        $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);
+        $user = Users::findFirstById($datos->user->id); 
+        $titular = AcAfiliados::findFirstById($user->detalles_usuario_id); 
         $oCita->id_operador_especialidad = $request->getPost('idesp');
-        $oCita->id_afiliado = $request->getPost('afi');
+        $oCita->id_afiliado =  $titular->id;
         $oCita->fecha = $request->getPost('fecha');
         $oCita->hora = $request->getPost('hora');  
         $oCita->save();
@@ -75,7 +115,7 @@ class CitasController extends \Phalcon\Mvc\Controller
     
     }
 
-    public function validarAction()//metodo del controlador que genera la clave y crea el registro para las citas, requiere token de autorizacion...ruta de acceso '/generar-claves' via post
+    public function validarAction()
     {
 
         $response = $this->response;
