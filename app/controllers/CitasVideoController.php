@@ -19,6 +19,7 @@ class CitasVideoController extends \Phalcon\Mvc\Controller
         {
             $Auxarray["id"] =$item->id;
             $Auxarray["nombre"] =$item->Especialidad->nombre;
+            $Auxarray["horario"] =json_encode($item->Especialidad->horario);
             $this->_list[] = $Auxarray;            
         }
         
@@ -221,7 +222,7 @@ class CitasVideoController extends \Phalcon\Mvc\Controller
     
     }
 
-    public function validar($id,$fecha,$hora)
+    public function estaDisponible($id,$fecha,$hora)
     {
 
         $response = $this->response;
@@ -238,9 +239,12 @@ class CitasVideoController extends \Phalcon\Mvc\Controller
             ] 
             );
                
-
+       if($res->count()>0)
+       {
+           return true;
+       }
           
-       return true;
+       
     }
 
 
