@@ -461,7 +461,7 @@ $apiUrl->addPost(
     
 
 /***************************************************
- ******************rutas viajes**********************
+ ******************citas para videollamadas**********************
  ***************************************************/
 
 
@@ -473,7 +473,49 @@ $apiUrl->addGet(
         "action" => "listEsp",
     ]
     )->setName('listEspecialidad');
+    
+    
+    
+$apiUrl->addGet(
+    "/hora-list",
+    [
+        "controller" => "citasvideo",
+        "action" => "listHora",
+    ]
+    )->setName('listEspecialida1d');
+        
 
+$apiUrl->addPost(
+    "/incCita",
+    [
+        "controller" => "citasvideo",
+        "action" => "incluirCita",
+    ]
+    )->setName('listEspecialida1d');
+
+    
+ 
+$apiUrl->addGet(
+    "/cita-list",
+    [
+        "controller" => "citasvideo",
+        "action" => "listcitas",
+    ]
+    )->setName('listEspecialidsa1d');
+    
+    
+    
+    $apiUrl->addGet(
+        "/citafecha-list",
+        [
+            "controller" => "citasvideo",
+            "action" => "listfechacitas",
+        ]
+        )->setName('listEspecialidsa1d');
+        
+        
+    
+    
 
 
 /***************************************************

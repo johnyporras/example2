@@ -1,6 +1,6 @@
 <?php
 
-class OperadorEspecialidad extends \Phalcon\Mvc\Model
+class Operador extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -17,14 +17,17 @@ class OperadorEspecialidad extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=32, nullable=true)
      */
-    public $id_operador;
+    public $nombre;
 
     /**
      *
      * @var string
      * @Column(type="string", nullable=true)
      */
-    public $id_epecialidad;
+    public $apellido;
+    
+    
+    public $email;
 
     /**
      * Initialize method for model.
@@ -41,9 +44,7 @@ class OperadorEspecialidad extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        $this->belongsTo('id_especialidad', '\Especialidad', 'id', ['alias' => 'Especialidad']);
-        $this->belongsTo('id_operador', '\Operador', 'id', ['alias' => 'Operador']);
-        return 'operador_especialidad';
+        return 'operador';
     }
 
     /**

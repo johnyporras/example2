@@ -24,7 +24,7 @@ class Citas extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", length=255, nullable=true)
      */
-    public id_operador_especialidad;
+    public $id_operador_especialidad;
 
     /**
      *
@@ -61,7 +61,8 @@ class Citas extends \Phalcon\Mvc\Model
     {
         $this->setSchema("atiempo_dev");
         $this->belongsTo('id_afiliado', '\AcAfiliados', 'id', ['alias' => 'AcAfiliados']);
-        $this->belongsTo('id_operador_especialidad', '\OperadorEspecialidad', 'id', ['alias' => 'Operador']);
+        $this->belongsTo('id_bloque', '\BloqueHorario', 'id', ['alias' => 'BloqueHorario']);
+        $this->belongsTo('id_operador_especialidad', '\OperadorEspecialidad', 'id', ['alias' => 'OperadorEspecialidad']);
     }
 
     /**
