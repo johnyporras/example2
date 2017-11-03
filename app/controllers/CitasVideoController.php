@@ -221,32 +221,26 @@ class CitasVideoController extends \Phalcon\Mvc\Controller
     
     }
 
-    public function validarAction()
+    public function validar($id,$fecha,$hora)
     {
 
         $response = $this->response;
         $request = $this->request;
-
-                $status = 200;
-                $msnStatus = 'OK';
-                $this->_data = $clave->clave;//se envia la clave generada para la cita
-                $this->_mensajes = [
-                    "msnConsult" => 'Consulta relizada con exito',
-                    "msnHeaders" => true,//el header de autrización esta ausente
-                    "msnInvalid" => false
-                ];
+        
+       $res =Citas::find(
+            [
+                "name = :id_operador_especialidad: AND id_bloque = :hora: AND fecha = :fecha:",
+                "bind" => [
+                    "id_operador_especialidad" => $id,
+                    "hora" => $hora,
+                    "fecha" => $fecha
+                ]
+            ] 
+            );
+               
 
           
-        $response->setJsonContent([
-            "status" => $status,
-            "mensajes" => $this->_mensajes,
-            "data" => $this->_data,
-        ]);
-        $response->setStatusCode($status, $msnStatus);
-        $response->send();
-
-        $this->view->disable();
-
+       return true;
     }
 
 
