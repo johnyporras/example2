@@ -26,10 +26,10 @@ class BloqueHorario extends \Phalcon\Mvc\Model
      */
     public $turno;
 
-    
+
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("atiempo_prod");
     }
 
     /**

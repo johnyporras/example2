@@ -223,7 +223,7 @@ class AcAfiliados extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("atiempo_prod");
         $this->hasMany('id', 'AcDocumentos', 'id_afiliado', ['alias' => 'AcDocumentos']);
         $this->hasMany('id', 'Avi', 'afiliado_id', ['alias' => 'Avi']);
         $this->hasMany('id', 'Contactos', 'id_afiliado', ['alias' => 'Contactos']);

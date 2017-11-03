@@ -31,13 +31,13 @@ class Citas extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", length=255, nullable=true)
      */
-    
+
     public $fecha;
 
     public $id_bloque;
-    
+
     public $estatus;
-    
+
     public $created_at;
 
     /**
@@ -52,14 +52,14 @@ class Citas extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", nullable=true)
      */
-    
+
 
     /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->setSchema("atiempo_dev");
+        $this->setSchema("atiempo_prod");
         $this->belongsTo('id_afiliado', '\AcAfiliados', 'id', ['alias' => 'AcAfiliados']);
         $this->belongsTo('id_bloque', '\BloqueHorario', 'id', ['alias' => 'BloqueHorario']);
         $this->belongsTo('id_operador_especialidad', '\OperadorEspecialidad', 'id', ['alias' => 'OperadorEspecialidad']);
