@@ -40,8 +40,7 @@ class AfiliadosController extends \Phalcon\Mvc\Controller
         ]);
         $response->setStatusCode($status, $msnStatus);
         $response->send();
-
+				$this->view->disable();
     }
 
 }
-
