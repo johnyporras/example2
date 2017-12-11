@@ -16,7 +16,7 @@ class OperadorController extends \Phalcon\Mvc\Controller
         $listUser = Users::find([//obtiene el array filtrado
             'conditions' => 'type = :value:',
             'bind' => [
-                'value' =>8
+                'value' =>9
             ]
         ]);//obtiene el array con todos los usuarios
 
