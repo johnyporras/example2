@@ -306,143 +306,143 @@ $apiUrl->addGet(
     [
         "controller" => "historial-medico",
         "action" => "search",
-
+        
     ]
     )->setName('search1ProcedimientosMedicos');
+    
 
-
-
+    
     $apiUrl->addGet(
         "/historial-examenes",
         [
             "controller" => "historial-medico",
             "action" => "searchExamenes",
-
+            
         ]
         )->setName('search1ProcedimiendtosMedicos');
-
-
+        
+        
 $apiUrl->addPost(
     "/registrarHistorial",
     [
         "controller" => "historial-medico",
         "action" => "incHistorial",
-
+        
     ]
     )->setName('search1ProcdedimiendtosMedicos');
+    
 
-
-
+    
     $apiUrl->addPost(
         "/checkTarjeta",
         [
             "controller" => "registro",
             "action" => "checkTarjeta",
-
+            
         ]
         )->setName('checkTarjeta');
-
-
+        
+        
     $apiUrl->addPost(
         "/checkTarjeta",
         [
             "controller" => "registro",
             "action" => "checkTarjeta",
-
+            
         ]
      )->setName('checkTarjeta');
-
-
+        
+     
      $apiUrl->addPost(
          "/checkTerminos",
          [
              "controller" => "registro",
              "action" => "checkTerminos",
-
+             
          ]
     )->setName('checkTerminos');
-
-
+        
+    
     $apiUrl->addPost(
         "/crearCuenta",
         [
             "controller" => "registro",
             "action" => "crearCuenta",
-
+            
         ]
     )->setName('crearCuenta');
-
-
+        
+    
     $apiUrl->addPost(
         "/crearAfiliado",
         [
             "controller" => "registro",
             "action" => "crearAfiliado",
-
+            
         ]
         )->setName('crearAfiliad');
-
-
-
+        
+  
+        
     $apiUrl->addPost(
         "/crearUsuario",
         [
             "controller" => "registro",
             "action" => "crearUsuario",
-
+            
         ]
    )->setName('crearUsuario');
-
-
+        
+   
    $apiUrl->addPost(
        "/checkToken",
        [
            "controller" => "acttoken",
            "action" => "checktoken",
-
+           
        ]
        )->setName('checkToken');
-
+       
 
    $apiUrl->addPost(
        "/cambiarEstatusCuenta",
        [
            "controller" => "cambiarestatuscuenta",
            "action" => "registro",
-
+           
        ]
        )->setName('checkTokenq');
+        
+        
+    
+         
+            
+        
 
-
-
-
-
-
-
-
+    
 $apiUrl->addPost(
     "/actualizarHistorial",
     [
         "controller" => "historial-medico",
         "action" => "actHistorial",
-
+        
     ]
     )->setName('search1PsrocdedimiendtosMedicos');
+        
 
-
-
-
+    
+    
     $apiUrl->addPost(
         "/elimExamen",
         [
             "controller" => "historial-medico",
             "action" => "elimExamen",
-
+            
         ]
         )->setName('search1PsrocdedsimiendtosMedicos');
-
-
-
+        
+    
+    
 $apiUrl->addPost(
     "/procedimientos-medicos-list",
     [
@@ -458,7 +458,7 @@ $apiUrl->addPost(
         "action" => "monto",
     ]
 )->setName('monto');
-
+    
 
 /***************************************************
  ******************citas para videollamadas**********************
@@ -469,54 +469,66 @@ $apiUrl->addPost(
 $apiUrl->addGet(
     "/especialidad-list",
     [
-        "controller" => "citas-video",
+        "controller" => "citasvideo",
         "action" => "listEsp",
     ]
     )->setName('listEspecialidad');
-
-
-
+    
+    
+    
 $apiUrl->addGet(
     "/hora-list",
     [
-        "controller" => "citas-video",
+        "controller" => "citasvideo",
         "action" => "listHora",
     ]
     )->setName('listEspecialida1d');
-
+        
 
 $apiUrl->addPost(
     "/incCita",
     [
-        "controller" => "citas-video",
+        "controller" => "citasvideo",
         "action" => "incluirCita",
     ]
     )->setName('listEspecialida1d');
 
-
-
+    
+ 
 $apiUrl->addGet(
     "/cita-list",
     [
-        "controller" => "citas-video",
+        "controller" => "citasvideo",
         "action" => "listcitas",
     ]
     )->setName('listEspecialidsa1d');
-
-
-
+    
+    
+    
     $apiUrl->addGet(
         "/citafecha-list",
         [
-            "controller" => "citas-video",
+            "controller" => "citasvideo",
             "action" => "listfechacitas",
         ]
         )->setName('listEspecialidsa1d');
-
-
-
-
-
+        
+        
+    
+    
+/***************************************************
+ ******************tipo medico**********************
+ ***************************************************/
+        
+$apiUrl->addGet(
+    "/getmedicos",
+    [
+        "controller" => "operador",
+        "action" => "listOper",
+    ]
+    )->setName('listOper');
+            
+        
 
 /***************************************************
 ******************rutas viajes**********************

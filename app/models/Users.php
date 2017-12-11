@@ -185,6 +185,7 @@ class Users extends \Phalcon\Mvc\Model
         $this->setSchema("atiempo_prod");
         $this->hasMany('id', 'Funerario', 'creador', ['alias' => 'Funerario']);
         $this->hasMany('id', 'HistorialMedico', 'id_user', ['alias' => 'HistorialMedico']);
+        $this->belongsTo('detalles_usuario_id', 'Operador', 'id', ['alias' => 'Operador']);
     }
 
     /**
