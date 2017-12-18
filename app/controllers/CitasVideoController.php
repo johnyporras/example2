@@ -50,7 +50,7 @@ class CitasVideoController extends \Phalcon\Mvc\Controller
         //die("1111");
         $response = $this->response;
         $request = $this->request;
-        $token = $request->get("token");
+        $token = $request->post("token");
         $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);
         $user = Users::findById_afiliado($datos->user->id);
        // $codigo = "30000";

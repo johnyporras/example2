@@ -509,7 +509,7 @@ $apiUrl->addGet(
         "/citafecha-list",
         [
             "controller" => "citasvideo",
-            "action" => "listfechacitas",
+            "action" => "listcitasfecha",
         ]
         )->setName('listEspecialidsa1d');
         
