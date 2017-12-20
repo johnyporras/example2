@@ -98,38 +98,48 @@ class CitasVideoController extends \Phalcon\Mvc\Controller
     public function listCitasFechaAction()
     {
         //die("1111");
+       
         $response = $this->response;
         $request = $this->request;
-     
-        // $codigo = "30000";
-        $codigo = $fecha;
-        
-        $Citas = Citas::find([//obtiene el array filtrado
-            'conditions' => 'fecha = :value:',
-            'bind' => [
-                'value' =>$fecha
-            ]
-        ]);
-        
-        foreach ($Citas as $item)
+        if($request->get('fecha')!="") 
         {
-            $Auxarray["id"] =$item->id;
-            $Auxarray["fecha"] =$item->fecha;
-            $Auxarray["hora"] =$item->BloqueHorario->hora;
-            $Auxarray["especialidad"] =$item->OperadorEspecialidad->Especialidad->nombre;
-            $Auxarray["operador"] =$item->OperadorEspecialidad->Operador->nombre." ".$item->OperadorEspecialidad->Operador->apellido;
-            $this->_list[] = $Auxarray;
+            $Citas = Citas::find([//obtiene el array filtrado
+                'conditions' => 'fecha = :value:',
+                'bind' => [
+                    'value' =>$request->get('fecha')
+                ]
+            ]);
+            
+            foreach ($Citas as $item)
+            {
+                $Auxarray["id"] =$item->id;
+                $Auxarray["fecha"] =$item->fecha;
+                $Auxarray["hora"] =$item->BloqueHorario->hora;
+                $Auxarray["especialidad"] =$item->OperadorEspecialidad->Especialidad->nombre;
+                $Auxarray["operador"] =$item->OperadorEspecialidad->Operador->nombre." ".$item->OperadorEspecialidad->Operador->apellido;
+                $this->_list[] = $Auxarray;
+            }
+            
+            
+            $status = 200;
+            $msnStatus = 'OK';
+            //$this->_data = $this->_list;
+            $this->_data = $this->_list;
+            $this->_mensajes = [
+                "msnConsult" => 'Consulta relizada con exito',
+            ];
         }
-        
-        
-        $status = 200;
-        $msnStatus = 'OK';
-        //$this->_data = $this->_list;
-        $this->_data = $this->_list;
-        $this->_mensajes = [
-            "msnConsult" => 'Consulta relizada con exito',
-        ];
-        
+        else
+        {
+            
+            $status = 400;
+            $msnStatus = 'OK';
+            //$this->_data = $this->_list;
+            $this->_data = $this->_list;
+            $this->_mensajes = [
+                "msnConsult" => 'Falta el parámetro fecha',
+            ];     
+        }
         $response->setJsonContent([
             "status" => $status,
             "mensajes" => $this->_mensajes,
