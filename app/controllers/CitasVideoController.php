@@ -137,7 +137,7 @@ class CitasVideoController extends \Phalcon\Mvc\Controller
             //$this->_data = $this->_list;
             $this->_data = $this->_list;
             $this->_mensajes = [
-                "msnConsult" => 'Falta el parámetro fecha',
+                "msnConsult" => 'Falta el parametro fecha',
             ];     
         }
         $response->setJsonContent([
