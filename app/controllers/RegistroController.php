@@ -351,10 +351,10 @@ class RegistroController extends \Phalcon\Mvc\Controller
                             $oCuentaPlan->costo=100;
                             $oCuentaPlan->id_plan=substr($request->get('codigo'), 0, 2);
                             //$oCuentaPlan->save();
-                            var_dump($oCuentaPlan->save());die();
+                            //var_dump($oCuentaPlan->save());die();
                             if($oCuentaPlan->save())
                             {
-                                if($request->get('plan')==8)
+                               /* if($request->get('plan')==8)
                                 {
                                     
                                     $oMascota=new Mascota();
@@ -375,7 +375,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
                                         $mensaje = '¡Ocurrio un error al generar la mascota!';
                                         var_dump($oMascota->getMessages());die();
                                     }
-                                }
+                                }*/
                             }
                             else
                             {
