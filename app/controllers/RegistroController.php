@@ -336,6 +336,8 @@ class RegistroController extends \Phalcon\Mvc\Controller
                         $oCuenta = new AcCuenta();
                         $oCuenta->codigo_cuenta=$request->get('codigo');
                         $oCuenta->fecha= date("Y-m-d");
+                        $oCuenta->created_at= date("Y-m-d");
+                        $oCuenta->updated_at= date("Y-m-d");
                         $oCuenta->estatus= 5;
                         $oCuenta->id_producto= $producto;
                         //$oCuenta->producto= 5;
@@ -346,33 +348,39 @@ class RegistroController extends \Phalcon\Mvc\Controller
                         {
                             $oCuentaPlan = new AcCuentaPlan();
                             $oCuentaPlan->id_cuenta=$oCuenta->id;
+                            $oCuentaPlan->costo=100;
                             $oCuentaPlan->id_plan=substr($request->get('codigo'), 0, 2);
                             //$oCuentaPlan->save();
-                            if(!$oCuentaPlan->save())
+                            if($oCuentaPlan->save())
                             {
-                                //$mensaje = '¡Ocurrio un error al generar la mascota!';
-                                var_dump($oCuentaPlan->getMessages());die();
-                            }
-                            
-                            if($request->get('plan')==8)
-                            {
-                                
-                                $oMascota=new Mascota();
-                                $oMascota->cuenta_id=$oCuenta->id;
-                                $oMascota->tamano_id=$request->get("tamano");
-                                $oMascota->nombre=$request->get("nombre");
-                                $oMascota->raza=$request->get("raza");
-                                $oMascota->color_pelage=$request->get("color");
-                                $oMascota->edad=$request->get("edad");
-                                $oMascota->fecha=$request->get("fmascota");
-                                $oMascota->tipo=$request->get("tipo");
-                                if(!$oMascota->save())
+                                if($request->get('plan')==8)
                                 {
-                                    $mensaje = '¡Ocurrio un error al generar la mascota!';
-                                    var_dump($oMascota->getMessages());die();
+                                    
+                                    $oMascota=new Mascota();
+                                    $oMascota->cuenta_id=$oCuenta->id;
+                                    $oMascota->tamano_id=$request->get("tamano");
+                                    $oMascota->nombre=$request->get("nombre");
+                                    $oMascota->raza=$request->get("raza");
+                                    $oMascota->color_pelage=$request->get("color");
+                                    $oMascota->edad=$request->get("edad");
+                                    $oMascota->fecha=$request->get("fmascota");
+                                    $oMascota->tipo=$request->get("tipo");
+                                    if($oMascota->save())
+                                    {
+                                       
+                                    }
+                                    else
+                                    {
+                                        $mensaje = '¡Ocurrio un error al generar la mascota!';
+                                        var_dump($oMascota->getMessages());die();
+                                    }
                                 }
                             }
-                            
+                            else
+                            {
+                                $mensaje = '¡Ocurrio un error al generar la mascota!';
+                                var_dump($oCuentaPlan->getMessages());die();
+                            }
                             $datos["idcuenta"]=$oCuenta->id;
                             $mensaje="operacion realizada con exito";
                         }
