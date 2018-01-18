@@ -120,6 +120,8 @@ class RegistroController extends \Phalcon\Mvc\Controller
                     }
                     else
                     {
+                        
+                    //    die("aqui");
                         $code = substr($request->get('codTarjeta'), 2, 3);
                         // tipo de plan dependiendo de codigo
                         $plan = substr($request->get('codTarjeta'), 0, 2);
@@ -302,7 +304,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
         
         $response = $this->response;
         $request = $this->request;
-        $datos="";
+        $datos=array();
         if ($request->get('codigo')!="")
         {
                 $tarjeta = hash('sha256',sha1(md5($request->get('codigo'))));
@@ -342,7 +344,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
                             $oCuentaPlan->id_plan=substr($request->get('codigo'), 0, 2);
                             $oCuentaPlan->save();
                             
-                            if($request->plan==8)
+                            if($request->get('codigo')==8)
                             {
                                 
                                 $oMascota=new Mascota();
