@@ -143,7 +143,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
                             ]
                         ]);
                         
-                        $mensaje="cuenta creada";
+                        $mensaje="Tarjeta valida";
                         $arrDatos["terminos"]=$terminos;
                         $arrDatos["plan"]=$tplan;
                         
@@ -339,7 +339,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
                         $oCuenta->estatus= 5;
                         $oCuenta->id_producto= $producto;
                         //$oCuenta->producto= 5;
-                        $oCuenta->acepto_terminos="0000-00-00";
+                        $oCuenta->acepto_terminos=date("Y-m-d");
                         
                         
                         if($oCuenta->save())
