@@ -319,6 +319,8 @@ class RegistroController extends \Phalcon\Mvc\Controller
                 
                 if($rsTarjeta!==false)
                 {
+                    
+                   die("test1");
                 // 4 sera el producto a-member y el 9 sera el producto a-card
                     $code = substr($request->get('codigo'), 0, 2);
                     // Selecciono producto dependiendo del codigo
