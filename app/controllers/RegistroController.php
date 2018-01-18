@@ -347,7 +347,12 @@ class RegistroController extends \Phalcon\Mvc\Controller
                             $oCuentaPlan = new AcCuentaPlan();
                             $oCuentaPlan->id_cuenta=$oCuenta->id;
                             $oCuentaPlan->id_plan=substr($request->get('codigo'), 0, 2);
-                            $oCuentaPlan->save();
+                            //$oCuentaPlan->save();
+                            if(!$oCuentaPlan->save())
+                            {
+                                //$mensaje = '¡Ocurrio un error al generar la mascota!';
+                                var_dump($oCuentaPlan->getMessages());die();
+                            }
                             
                             if($request->get('plan')==8)
                             {
@@ -361,7 +366,11 @@ class RegistroController extends \Phalcon\Mvc\Controller
                                 $oMascota->edad=$request->get("edad");
                                 $oMascota->fecha=$request->get("fmascota");
                                 $oMascota->tipo=$request->get("tipo");
-                                $oMascota->save();  
+                                if(!$oMascota->save())
+                                {
+                                    $mensaje = '¡Ocurrio un error al generar la mascota!';
+                                    var_dump($oMascota->getMessages());die();
+                                }
                             }
                             
                             $datos["idcuenta"]=$oCuenta->id;
