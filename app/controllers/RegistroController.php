@@ -350,8 +350,9 @@ class RegistroController extends \Phalcon\Mvc\Controller
                             $oCuentaPlan = new AcCuentaplan();
                            // var_dump($oCuentaPlan);die();
                             $oCuentaPlan->id_cuenta=$oCuenta->id;
-                            $oCuentaPlan->costo=100;
-                            $oCuentaPlan->id_plan=substr($request->get('codigo'), 0, 2);
+                            //$oCuentaPlan->costo=100;
+                            //$oCuentaPlan->id_plan=substr($request->get('codigo'), 0, 2);
+                            $oCuentaPlan->id_plan=25;
                             //$oCuentaPlan->save();
                             
                             if($oCuentaPlan->save())
