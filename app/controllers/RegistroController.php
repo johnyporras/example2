@@ -320,7 +320,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
                 if($rsTarjeta!==false)
                 {
                     
-                   die("test1");
+                  
                 // 4 sera el producto a-member y el 9 sera el producto a-card
                     $code = substr($request->get('codigo'), 0, 2);
                     // Selecciono producto dependiendo del codigo
@@ -339,6 +339,8 @@ class RegistroController extends \Phalcon\Mvc\Controller
                         $oCuenta->id_producto= $producto;
                         //$oCuenta->producto= 5;
                         $oCuenta->acepto_terminos=1;
+                        
+                        
                         if($oCuenta->save())
                         {
                             $oCuentaPlan = new AcCuentaPlan();
@@ -363,6 +365,10 @@ class RegistroController extends \Phalcon\Mvc\Controller
                             
                             $datos["idcuenta"]=$oCuenta->id;
                             $mensaje="operacion realizada con exito";
+                        }
+                        else
+                        {
+                            die("error insert cuenta");
                         }
                     }
                     catch(QueryException $e)
