@@ -334,9 +334,9 @@ class RegistroController extends \Phalcon\Mvc\Controller
                         $oCuenta = new AcCuenta();
                         $oCuenta->codigo_cuenta=$request->get('codigo');
                         $oCuenta->fecha= date("Y-m-d");
-                        $oCuenta->producto= $producto;
-                        $oCuenta->producto= 5;
-                        $oCuenta->acepto_terminos=date("Y-m-d");;
+                        $oCuenta->id_producto= $producto;
+                        //$oCuenta->producto= 5;
+                        $oCuenta->acepto_terminos=1;
                         if($oCuenta->save())
                         {
                             $oCuentaPlan = new AcCuentaPlan();
@@ -344,7 +344,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
                             $oCuentaPlan->id_plan=substr($request->get('codigo'), 0, 2);
                             $oCuentaPlan->save();
                             
-                            if($request->get('codigo')==8)
+                            if($request->get('plan')==8)
                             {
                                 
                                 $oMascota=new Mascota();
