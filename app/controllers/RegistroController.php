@@ -336,6 +336,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
                         $oCuenta = new AcCuenta();
                         $oCuenta->codigo_cuenta=$request->get('codigo');
                         $oCuenta->fecha= date("Y-m-d");
+                        $oCuenta->estatus= 1;
                         $oCuenta->id_producto= $producto;
                         //$oCuenta->producto= 5;
                         $oCuenta->acepto_terminos=1;
@@ -368,7 +369,8 @@ class RegistroController extends \Phalcon\Mvc\Controller
                         }
                         else
                         {
-                            var_dump($oCuenta->getMessages());die();
+                            $mensaje = '¡Ocurrio un error al generar cuenta!';
+                            //var_dump($oCuenta->getMessages());die();
                         }
                     }
                     catch(QueryException $e)
