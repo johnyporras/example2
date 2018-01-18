@@ -368,7 +368,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
                         }
                         else
                         {
-                            die("error insert cuenta");
+                            die($oCuenta->getMessages());
                         }
                     }
                     catch(QueryException $e)
