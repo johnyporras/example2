@@ -368,7 +368,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
                         }
                         else
                         {
-                            die($oCuenta->getMessages());
+                            var_dump($oCuenta->getMessages());die();
                         }
                     }
                     catch(QueryException $e)
