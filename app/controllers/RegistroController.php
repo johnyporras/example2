@@ -336,7 +336,7 @@ class RegistroController extends \Phalcon\Mvc\Controller
                         $oCuenta = new AcCuenta();
                         $oCuenta->codigo_cuenta=$request->get('codigo');
                         $oCuenta->fecha= date("Y-m-d");
-                        $oCuenta->estatus= 1;
+                        $oCuenta->estatus= 5;
                         $oCuenta->id_producto= $producto;
                         //$oCuenta->producto= 5;
                         $oCuenta->acepto_terminos=1;
