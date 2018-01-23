@@ -77,6 +77,31 @@ $apiUrl->addPost(
         "action" => "addMedicamento",
     ]
 )->setName('addPasatiempo');
+    
+
+$apiUrl->addPost(
+    "/del-contacto",
+    [
+        "action" => "delContact",
+    ]
+)->setName('delContact');
+    
+$apiUrl->addPost(
+    "/del-detalle-motivo",
+    [
+        "action" => "delMotivoDetalle",
+    ]
+)->setName('delMotivoDetalle');
+        
+$apiUrl->addPost(
+    "/del-medicamento",
+    [
+        "action" => "delMedicamento",
+    ]
+)->setName('delMedicamento');
+            
+            
+            
 
 $apiUrl->addPost(
     "/user-verificar",

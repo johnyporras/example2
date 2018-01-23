@@ -822,6 +822,140 @@ class ApiController extends \Phalcon\Mvc\Controller
 
     }
 
+    
+    
+    public function delContactAction(){
+        
+        
+        $response = $this->response;
+        $request = $this->request;
+        $token = $request->getPost('token');//obtiene el token de validacion via post y se asigna a una variable 'token'
+        
+        if( !isset($token) || empty($token) ){//se verifica si no existe y si esta vacio
+            
+            $status = 200;
+            $msnStatus = 'OK';
+            $this->_data = null;
+            $this->_mensajes = [
+                "msnConsult" => 'Consulta relizada con exito',
+                "msnToken" => false,//el token de autrización esta ausente
+                "msnInvalid" => null
+            ];
+            
+        }else{//en caso de existir y no estar vacio
+            
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);//desencripta el token y se asigna a una variable 'datos'
+            
+            //comprobamos si existe el usuario mediante los datos obtenidos por el token
+            $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
+            
+            //si no existe
+            if($auth->count() == 0)
+            {
+                //no es un token correcto
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = null;
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,
+                    "msnInvalid" => true//las credenciales del token de autorizacion son invalidas
+                ];
+            }else{
+                
+                
+                $contact = Contactos::findFirstById($request->getPost('idcontacto'));
+                
+                if($contacto->delete()){
+                    $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
+                    $estados = AcEstados::find();//retorna array con los estados
+                    $estado = $titular->AcEstados;//retorna datos del estado
+                    $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
+                    $documentos = $titular->AcDocumentos;//retorna array con los documentos
+                    $listMotivos = Motivos::find();//retorna array con los motivos
+                    $listPreferencias = Preferencias::find();//retorna array con los preferencias
+                    $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
+                    $contactos = $titular->Contactos;//retorna array con los contactos
+                    $habitos = $titular->getMotivoDetalles("id_motivo = '1'");//retorna array con los motivos detalles
+                    $actividad = $titular->getMotivoDetalles("id_motivo = '2'");//retorna array con los motivos detalles
+                    $pasatiempo = $titular->getMotivoDetalles("id_motivo = '3'");//retorna array con los motivos detalles
+                    $alimentacion = $titular->getMotivoDetalles("id_motivo = '4'");//retorna array con los motivos detalles
+                    $alergias = $titular->getMotivoDetalles("id_motivo = '5'");//retorna array con los motivos detalles
+                    $vacunas = $titular->getMotivoDetalles("id_motivo = '6'");//retorna array con los motivos detalles
+                    $discapacidad = $titular->getMotivoDetalles("id_motivo = '7'");//retorna array con los motivos detalles
+                    $hospitalizacion = $titular->getMotivoDetalles("id_motivo = '8'");//retorna array con los motivos detalles
+                    $operacion = $titular->getMotivoDetalles("id_motivo = '9'");//retorna array con los motivos detalles
+                    $enfermedad = $titular->getMotivoDetalles("id_motivo = '10'");//retorna array con los motivos detalles
+                    $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+                    $cuenta = $titular->AcCuenta;
+                    
+                    //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+                    
+                    $newToken = [//array que sera encriptado para ser enviado a la app
+                        'user' => $auth,
+                        'titular' => $titular,
+                        'estados' => $estados,
+                        'estado' => $estado,
+                        'tipoDocuments' => $tipoDocuments,
+                        'documentos' => $documentos,
+                        'contactos' => $contactos,
+                        'listMotivosDetalles' => $listMotivosDetalles,
+                        'listMotivos' => $listMotivos,
+                        'listPreferencias' => $listPreferencias,
+                        'list' => $listTipoMedicamentos,
+                        'listMedicamentos' => $listMedicamentos,
+                        'habitos' => $habitos,
+                        'actividad' => $actividad,
+                        'pasatiempos' => $pasatiempo,
+                        'alimentacion' => $alimentacion,
+                        'alergias' => $alergias,
+                        'vacunas' => $vacunas,
+                        'discapacidad' => $discapacidad,
+                        'hospitalizacion' => $hospitalizacion,
+                        'operacion' => $operacion,
+                        'enfermedad' => $enfermedad,
+                        'cuenta' => $cuenta
+                    ];
+                    
+                    $status = 200;
+                    $msnStatus = 'OK';
+                    $this->_data = ["consulta" => true, "token" => JWT::encode($newToken,"Atiempo-api-rest")];
+                    $this->_mensajes = [
+                        "msnConsult" => 'Consulta relizada con exito',
+                        "msnHeaders" => true,//el header de autrización esta ausente
+                        "msnInvalid" => false
+                    ];   
+                }
+                else
+                {
+                    $status = 200;
+                    $msnStatus = 'OK';
+                    $this->_data = [];
+                    $this->_mensajes = [
+                        "msnConsult" => 'no se realiz� el proceso',
+                        "msnHeaders" => true,//el header de autrización esta ausente
+                        "msnInvalid" => false
+                    ];
+                }
+                
+            }
+            
+        }
+        
+        $response->setJsonContent([
+            "status" => $status,
+            "mensajes" => $this->_mensajes,
+            "data" => $this->_data,
+        ]);
+        $response->setStatusCode($status, $msnStatus);
+        $response->send();
+        
+        $this->view->disable();
+        
+    }
+    
+    
+    
     public function addMotivoDetalleAction(){
 
         $response = $this->response;
@@ -1006,7 +1140,139 @@ class ApiController extends \Phalcon\Mvc\Controller
         $this->view->disable();
 
     }
-
+    
+    public function delMotivoDetalleAction(){
+        $response = $this->response;
+        $request = $this->request;
+        $token = $request->getPost('token');//obtiene el token de validacion via post y se asigna a una variable 'token'
+        
+        if( !isset($token) || empty($token) ){//se verifica si no existe y si esta vacio
+            
+            $status = 200;
+            $msnStatus = 'OK';
+            $this->_data = null;
+            $this->_mensajes = [
+                "msnConsult" => 'Consulta relizada con exito',
+                "msnToken" => false,//el token de autrización esta ausente
+                "msnInvalid" => null
+            ];
+            
+        }else{//en caso de existir y no estar vacio
+            
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);//desencripta el token y se asigna a una variable 'datos'
+            
+            //comprobamos si existe el usuario mediante los datos obtenidos por el token
+            $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
+            
+            //si no existe
+            if($auth->count() == 0)
+            {
+                //no es un token correcto
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = null;
+                $this->_mensajes = [
+                    "msnConsult" => 'datos invalidos del token',
+                    "msnHeaders" => true,
+                    "msnInvalid" => true//las credenciales del token de autorizacion son invalidas
+                ];
+                
+            }else{
+                
+                $motivo = Motivos::findFirstBySlug($request->getPost('slug'));
+                $detalle = MotivoDetalles::findFirst('id_afiliado = "'.$datos->titular->id.'" AND id_motivo = "'.$motivo->id.'"');
+                    if ($detalle->delete() === false) {
+                        $messages = $detalle->getMessages();
+                        
+                        $status = 200;
+                        $msnStatus = 'OK';
+                        $this->_data = null;
+                        $this->_mensajes = [
+                            "msnConsult" =>$messages,
+                            "msnHeaders" => true,
+                            "msnInvalid" => true//las credenciales del token de autorizacion son invalidas
+                        ];
+                        
+                    } else {
+                        
+                        $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
+                        $estados = AcEstados::find();//retorna array con los estados
+                        $estado = $titular->AcEstados;//retorna datos del estado
+                        $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
+                        $documentos = $titular->AcDocumentos;//retorna array con los documentos
+                        $listMotivos = Motivos::find();//retorna array con los motivos
+                        $listPreferencias = Preferencias::find();//retorna array con los preferencias
+                        $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
+                        $contactos = $titular->Contactos;//retorna array con los contactos
+                        $habitos = $titular->getMotivoDetalles("id_motivo = '1'");//retorna array con los motivos detalles
+                        $actividad = $titular->getMotivoDetalles("id_motivo = '2'");//retorna array con los motivos detalles
+                        $pasatiempo = $titular->getMotivoDetalles("id_motivo = '3'");//retorna array con los motivos detalles
+                        $alimentacion = $titular->getMotivoDetalles("id_motivo = '4'");//retorna array con los motivos detalles
+                        $alergias = $titular->getMotivoDetalles("id_motivo = '5'");//retorna array con los motivos detalles
+                        $vacunas = $titular->getMotivoDetalles("id_motivo = '6'");//retorna array con los motivos detalles
+                        $discapacidad = $titular->getMotivoDetalles("id_motivo = '7'");//retorna array con los motivos detalles
+                        $hospitalizacion = $titular->getMotivoDetalles("id_motivo = '8'");//retorna array con los motivos detalles
+                        $operacion = $titular->getMotivoDetalles("id_motivo = '9'");//retorna array con los motivos detalles
+                        $enfermedad = $titular->getMotivoDetalles("id_motivo = '10'");//retorna array con los motivos detalles
+                        $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+                        $cuenta = $titular->AcCuenta;
+                        
+                        //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+                        
+                        $newToken = [//array que sera encriptado para ser enviado a la app
+                            'user' => $auth,
+                            'titular' => $titular,
+                            'estados' => $estados,
+                            'estado' => $estado,
+                            'tipoDocuments' => $tipoDocuments,
+                            'documentos' => $documentos,
+                            'contactos' => $contactos,
+                            'listMotivosDetalles' => $listMotivosDetalles,
+                            'listMotivos' => $listMotivos,
+                            'listPreferencias' => $listPreferencias,
+                            'list' => $listTipoMedicamentos,
+                            'listMedicamentos' => $listMedicamentos,
+                            'habitos' => $habitos,
+                            'actividad' => $actividad,
+                            'pasatiempos' => $pasatiempo,
+                            'alimentacion' => $alimentacion,
+                            'alergias' => $alergias,
+                            'vacunas' => $vacunas,
+                            'discapacidad' => $discapacidad,
+                            'hospitalizacion' => $hospitalizacion,
+                            'operacion' => $operacion,
+                            'enfermedad' => $enfermedad,
+                            'cuenta' => $cuenta
+                        ];
+                        
+                        $status = 200;
+                        $msnStatus = 'OK';
+                        $this->_data = ["consulta" => true, "token" => JWT::encode($newToken,"Atiempo-api-rest")];
+                        $this->_mensajes = [
+                            "msnConsult" => 'Consulta relizada con exito',
+                            "msnHeaders" => true,//el header de autrización esta ausente
+                            "msnInvalid" => false
+                        ];
+                        
+                    } 
+            }
+        }
+        
+        $response->setJsonContent([
+            "status" => $status,
+            "mensajes" => $this->_mensajes,
+            "data" => $this->_data,
+        ]);
+        $response->setStatusCode($status, $msnStatus);
+        $response->send();
+        
+        $this->view->disable();
+    }
+        
+    
+    
+    
+    
     public function addMedicamentoAction(){
 
         $response = $this->response;
@@ -1154,5 +1420,123 @@ class ApiController extends \Phalcon\Mvc\Controller
         $this->view->disable();
 
     }
-
+    
+    
+    
+    public function delMedicamentoAction(){
+    
+        $response = $this->response;
+        $request = $this->request;
+        $token = $request->getPost('token');//obtiene el token de validacion via post y se asigna a una variable 'token'
+        
+        if( !isset($token) || empty($token) ){//se verifica si no existe y si esta vacio
+            
+            $status = 200;
+            $msnStatus = 'OK';
+            $this->_data = null;
+            $this->_mensajes = [
+                "msnConsult" => 'Consulta relizada con exito',
+                "msnToken" => false,//el token de autrización esta ausente
+                "msnInvalid" => null
+            ];
+            
+        }else{//en caso de existir y no estar vacio
+            
+            $datos = JWT::decode($token, "Atiempo-api-rest", ['HS256']);//desencripta el token y se asigna a una variable 'datos'
+            
+            //comprobamos si existe el usuario mediante los datos obtenidos por el token
+            $auth = Users::findFirst('user = "'.$datos->user->user.'" AND password = "'.$datos->user->password.'"');
+            
+            //si no existe
+            if($auth->count() == 0)
+            {
+                //no es un token correcto
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = null;
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,
+                    "msnInvalid" => true//las credenciales del token de autorizacion son invalidas
+                ];
+                
+            }else{
+                
+                $medicamento = Medicamentos::findFirstById($request->getPost('idmedicamento'));
+                if($medicamento->delete()){
+                    
+                    $titular = AcAfiliados::findFirstById($auth->detalles_usuario_id);//obtenemos los datos del titular de la cuenta
+                    $estados = AcEstados::find();//retorna array con los estados
+                    $estado = $titular->AcEstados;//retorna datos del estado
+                    $tipoDocuments = AcTipoDocumentos::find();//retorna array con los tipos de documentos
+                    $documentos = $titular->AcDocumentos;//retorna array con los documentos
+                    $listMotivos = Motivos::find();//retorna array con los motivos
+                    $listPreferencias = Preferencias::find();//retorna array con los preferencias
+                    $listTipoMedicamentos = TipoMedicamentos::find();//retorna array con los tipos medicamentos
+                    $contactos = $titular->Contactos;//retorna array con los contactos
+                    $habitos = $titular->getMotivoDetalles("id_motivo = '1'");//retorna array con los motivos detalles
+                    $actividad = $titular->getMotivoDetalles("id_motivo = '2'");//retorna array con los motivos detalles
+                    $pasatiempo = $titular->getMotivoDetalles("id_motivo = '3'");//retorna array con los motivos detalles
+                    $alimentacion = $titular->getMotivoDetalles("id_motivo = '4'");//retorna array con los motivos detalles
+                    $alergias = $titular->getMotivoDetalles("id_motivo = '5'");//retorna array con los motivos detalles
+                    $vacunas = $titular->getMotivoDetalles("id_motivo = '6'");//retorna array con los motivos detalles
+                    $discapacidad = $titular->getMotivoDetalles("id_motivo = '7'");//retorna array con los motivos detalles
+                    $hospitalizacion = $titular->getMotivoDetalles("id_motivo = '8'");//retorna array con los motivos detalles
+                    $operacion = $titular->getMotivoDetalles("id_motivo = '9'");//retorna array con los motivos detalles
+                    $enfermedad = $titular->getMotivoDetalles("id_motivo = '10'");//retorna array con los motivos detalles
+                    $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
+                    $cuenta = $titular->AcCuenta;
+                    
+                    //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
+                    
+                    $newToken = [//array que sera encriptado para ser enviado a la app
+                        'user' => $auth,
+                        'titular' => $titular,
+                        'estados' => $estados,
+                        'estado' => $estado,
+                        'tipoDocuments' => $tipoDocuments,
+                        'documentos' => $documentos,
+                        'contactos' => $contactos,
+                        'listMotivosDetalles' => $listMotivosDetalles,
+                        'listMotivos' => $listMotivos,
+                        'listPreferencias' => $listPreferencias,
+                        'list' => $listTipoMedicamentos,
+                        'listMedicamentos' => $listMedicamentos,
+                        'habitos' => $habitos,
+                        'actividad' => $actividad,
+                        'pasatiempos' => $pasatiempo,
+                        'alimentacion' => $alimentacion,
+                        'alergias' => $alergias,
+                        'vacunas' => $vacunas,
+                        'discapacidad' => $discapacidad,
+                        'hospitalizacion' => $hospitalizacion,
+                        'operacion' => $operacion,
+                        'enfermedad' => $enfermedad,
+                        'cuenta' => $cuenta
+                    ];
+                    
+                    $status = 200;
+                    $msnStatus = 'OK';
+                    $this->_data = ["consulta" => true, "token" => JWT::encode($newToken,"Atiempo-api-rest")];
+                    $this->_mensajes = [
+                        "msnConsult" => 'Consulta relizada con exito',
+                        "msnHeaders" => true,//el header de autrización esta ausente
+                        "msnInvalid" => false
+                    ];
+            }else{
+                
+                $status = 200;
+                $msnStatus = 'OK';
+                $this->_data = ["consulta" => false, "token" => null];
+                $this->_mensajes = [
+                    "msnConsult" => 'Consulta relizada con exito',
+                    "msnHeaders" => true,//el header de autrización esta ausente
+                    "msnInvalid" => false
+                ];
+                
+            }
+            
+            }
+        }
+    }
 }
