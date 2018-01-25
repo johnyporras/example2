@@ -19,23 +19,22 @@ class CitasVideoController extends \Phalcon\Mvc\Controller
         {
             $Auxarray["id"] =$item->id;
             $Auxarray["nombre"] =$item->Especialidad->nombre;
-            $Auxarray["horario"] =json_encode($item->Especialidad->horario);
+            $Auxarray["horario"] =json_encode(str_replace(,'',str_replace(array("\n", "\r", "\t"), '',$item->Especialidad->horario)),JSON_UNESCAPED_SLASHES);
             $this->_list[] = $Auxarray;            
         }
         
 
         $status = 200;
         $msnStatus = 'OK';
-        //$this->_data = $this->_list;
         $this->_data = $this->_list;
         $this->_mensajes = [
-            "msnConsult" => 'Consulta relizada con exito',
+            'msnConsult' => 'Consulta relizada con exito',
         ];
 
         $response->setJsonContent([
-            "status" => $status,
-            "mensajes" => $this->_mensajes,
-            "data" => $this->_data,
+            'status' => $status,
+            'mensajes' => $this->_mensajes,
+            'data' => $this->_data,
         ]);
         $response->setStatusCode($status, $msnStatus);
         $response->send();

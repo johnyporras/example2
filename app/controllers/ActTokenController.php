@@ -62,7 +62,7 @@ class ActTokenController extends \Phalcon\Mvc\Controller
                                 $operacion = $titular->getMotivoDetalles("id_motivo = '9'");//retorna array con los motivos detalles
                                 $enfermedad = $titular->getMotivoDetalles("id_motivo = '10'");//retorna array con los motivos detalles
                                 $listMedicamentos = $titular->Medicamentos;//retorna array con los medicamentos
-                                $cuenta = $titular->AcCuenta;
+                                $cuenta = [$titular->AcCuenta];
 
                                 //$aseguradora = AcAseguradora::findFirstByCodigoAseguradora($colectivo->codigo_aseguradora);
 
